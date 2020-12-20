@@ -1,0 +1,16 @@
+.dcard {
+  position: relative;
+  top: 1em;
+  background-color: rgb(9, 112, 196);
+  border-radius: 1.2em;
+  padding: 4%;
+  color: aliceblue;
+}
+
+.dcard-title > h3 {
+  font-size: 2.2em;
+}
+
+.dcard-desc > p {
+  font-size: 1.3em;
+}
