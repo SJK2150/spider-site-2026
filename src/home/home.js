@@ -3,7 +3,7 @@ import Desc from './desc/desc'
 import './home.css'
 function Home() {
 	return (
-		<div>
+		<div id="home-page">
 			
 			<Desc />
 		</div>

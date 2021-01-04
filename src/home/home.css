@@ -3,3 +3,8 @@
     zoom: 10 !important;
   }
 } */
+#home-page{
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
