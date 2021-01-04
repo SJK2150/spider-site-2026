@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+#projects-page{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #252525;
+    font-family: 'Montserrat', sans-serif;
+}
+.project_banner{
+    background: url("https://images.unsplash.com/photo-1572177812156-58036aae439c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+    height: 447px;
+    width: 100%;
+    background-size:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.domains{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #070707;
+    padding: 1%;
+}
+.logo{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #C4C4C4;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+}
+.web{
+    background-image: url("https://img.icons8.com/wired/64/000000/domain.png");
+}
+.app{
+    background-image: url("https://img.icons8.com/wired/64/000000/android.png");
+}
+.algo{
+    background-image: url("https://img.icons8.com/ios-filled/50/000000/graph-clique.png");
+}
+.tronix{
+    background-image: url("https://img.icons8.com/wired/64/000000/circuit.png");
+}
+.project-body{
+    margin: auto;
+}
+.project-card{
+    text-align: center;
+    position: relative;
+    height: 100%;
+    -webkit-box-shadow: -1px 0px 5px 6px rgba(64,64,64,1);
+    -moz-box-shadow: -1px 0px 5px 6px rgba(64,64,64,1);
+    box-shadow: -1px 0px 5px 6px rgba(64,64,64,1);
+    transition: all 0.5s ease-in-out;
+}
+.project-card:hover{
+    -webkit-box-shadow: -1px 0px 5px 6px rgba(0,0,0,1);
+    -moz-box-shadow: -1px 0px 5px 6px rgba(0,0,0,1);
+    box-shadow: -1px 0px 5px 6px rgba(0,0,0,1);
+    
+}
+.project-image{
+    height: 400px;
+    width: 95%;
+    margin: 20px auto;
+    /* padding-top: 30px; */
+    border-radius: 20px;
+}
+.project-title{
+    font-style: normal;
+    font-size: 2.5rem;
+    color: #ffffff;
+    z-index: 2;
+    text-align: center;
+    cursor: pointer;
+}
+
