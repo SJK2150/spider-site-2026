@@ -7,6 +7,7 @@ import {
   Route,
   Switch
 } from "react-router-dom";
+import Achievements from './Achievements/Achievements';
 function App() {
   return (
     <Router>
@@ -15,6 +16,9 @@ function App() {
       <Switch>
       <Route path="/projects">
         <Projects></Projects>
+      </Route>
+      <Route path="/achievements">
+        <Achievements></Achievements>
       </Route>
       <Route path="/">
         <Home></Home>

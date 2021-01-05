@@ -19,7 +19,7 @@ function NavBar() {
         <Nav className="mr-auto">
           <Nav.Link href="/projects">Projects</Nav.Link>
           <Nav.Link href="#events">Events</Nav.Link>
-          <Nav.Link href="#achievements">Achievements</Nav.Link>
+          <Nav.Link href="/achievements">Achievements</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link href="#blog">Blog</Nav.Link>
