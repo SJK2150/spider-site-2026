@@ -4,7 +4,13 @@ import './Modal.css';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 import { ModalBody, ModalFooter, ModalTitle, Button, Image, ModalDialog } from 'react-bootstrap';
 const backdrop = {
-  visible: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      from: 0,
+      duration: 1,
+    },
+  },
   hidden: { opacity: 0 },
 };
 const modal = {
