@@ -53,12 +53,7 @@ export default function Achievements() {
                         src="https://wallpaperaccess.com/full/2200497.jpg"
                       />
                       <Card.Body className="text-center achv-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="achv-title">Achievement 1</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -100,12 +95,7 @@ export default function Achievements() {
                         src="https://wallpaperaccess.com/full/2200497.jpg"
                       />
                       <Card.Body className="text-center achv-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="achv-title">Achievement 2</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -151,12 +141,7 @@ export default function Achievements() {
                         src="https://wallpaperaccess.com/full/2200497.jpg"
                       />
                       <Card.Body className="text-center achv-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="achv-title">Achievement 3</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -198,12 +183,7 @@ export default function Achievements() {
                         src="https://wallpaperaccess.com/full/2200497.jpg"
                       />
                       <Card.Body className="text-center achv-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="achv-title">Achievement 4</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>

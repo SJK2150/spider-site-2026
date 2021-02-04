@@ -2,7 +2,8 @@
 #projects-page {
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 3em;
+  padding-top: 0;
   box-sizing: border-box;
   background-color: #252525;
   font-family: 'Montserrat', sans-serif;
@@ -50,22 +51,16 @@
   text-align: center;
   position: relative;
   height: 100%;
-  -webkit-box-shadow: -1px 0px 5px 6px rgba(64, 64, 64, 1);
-  -moz-box-shadow: -1px 0px 5px 6px rgba(64, 64, 64, 1);
-  box-shadow: -1px 0px 5px 6px rgba(64, 64, 64, 1);
   transition: all 0.5s ease-in-out;
-}
-.project-card:hover {
-  -webkit-box-shadow: -1px 0px 5px 6px rgba(0, 0, 0, 1);
-  -moz-box-shadow: -1px 0px 5px 6px rgba(0, 0, 0, 1);
-  box-shadow: -1px 0px 5px 6px rgba(0, 0, 0, 1);
 }
 .project-image {
   height: 400px;
   width: 95%;
   margin: 20px auto;
   /* padding-top: 30px; */
-  border-radius: 20px;
+  border-radius: 0.25rem;
+  object-fit: cover;
+  filter: brightness(0.85);
 }
 .project-title {
   font-style: normal;

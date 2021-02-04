@@ -56,12 +56,7 @@ export default function Projects() {
                         src="https://spider.nitt.edu/images/Projects/Fake_real-1_gebpwg%20-%20Adithya%20Krishnakumar.png"
                       />
                       <Card.Body className="text-center project-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="project-title">Fake News Detector</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -103,12 +98,7 @@ export default function Projects() {
                         src="https://spider.nitt.edu/images/Projects/SpectralClustering%20-%20Anagha%20Sethuraman.jpg"
                       />
                       <Card.Body className="text-center project-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="project-title">
                             Image Segmentation using Spectral Clustering
                           </Card.Title>
@@ -156,12 +146,7 @@ export default function Projects() {
                         src="https://spider.nitt.edu/images/Projects/img%20-%20Ruphan%20S.jpeg"
                       />
                       <Card.Body className="text-center project-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="project-title">Project Braille</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -203,12 +188,7 @@ export default function Projects() {
                         src="https://spider.nitt.edu/images/Projects/armadillo%20-%20Mukesh%20Gandhi.png"
                       />
                       <Card.Body className="text-center project-body">
-                        <motion.div
-                          whileHover={{
-                            textShadow:
-                              '1px 1px rgb(58, 58, 58), 2px 2px rgb(32, 32, 32), 3px 3px rgb(114, 114, 114), 4px 4px rgb(7, 7, 7), 5px 5px rgba(59, 59, 59, 0.48), 6px 6px rgba(29,29,29,0.91)',
-                          }}
-                        >
+                        <motion.div>
                           <Card.Title className="project-title">Armadilo</Card.Title>
                         </motion.div>
                         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
