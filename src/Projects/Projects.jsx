@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Projects.css';
 import Modal from '../Modal/Modal';
+import axios from 'axios';
 export default function Projects() {
   const [modalShow, setModalShow] = React.useState(false);
   const [props, setProps] = React.useState({});
+  const [data, setData] = React.useState([]);
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
+  useEffect(() => {
+    axios.get('./data.json').then((res) => {
+      setData(res.data);
+    });
+  }, []);
   const modalDisplay = (title, members, info, image, layoutId, key) => {
     setProps({
       title: title,

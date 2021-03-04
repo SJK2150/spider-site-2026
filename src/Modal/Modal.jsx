@@ -2,7 +2,16 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Modal.css';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
-import { ModalBody, ModalFooter, ModalTitle, Button, Image, ModalDialog } from 'react-bootstrap';
+import {
+  ModalBody,
+  ModalFooter,
+  ModalTitle,
+  Button,
+  Image,
+  ModalDialog,
+  Accordion,
+  Card,
+} from 'react-bootstrap';
 const backdrop = {
   visible: {
     opacity: 1,
@@ -37,17 +46,40 @@ export default function Modal(props) {
       layoutId={layoutId}
     >
       <motion.div className="custom-modal" variants={modal}>
-        <ModalDialog scrollable centered size="lg">
+        <ModalDialog className="custom-modal" scrollable centered size="lg">
           <ModalHeader className="modal-title">
             <ModalTitle>{title}</ModalTitle>
           </ModalHeader>
           <Image className="modal-image" height="280px" width="80%" src={image}></Image>
           <ModalBody className="modal-details">
-            <div className="modal-members">
-              {members.map((member) => {
-                return <p>{member}</p>;
-              })}
-            </div>
+            <Accordion className="" defaultActiveKey="0">
+              <Card style={{ background: 'rgba(163,163,163,0.23)', color: 'white' }}>
+                <Accordion.Toggle
+                  as={Card.Header}
+                  style={{ padding: '0.5rem 1.25rem' }}
+                  eventKey="0"
+                >
+                  Members
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                  <div className="modal-members">
+                    {members.map((member) => {
+                      return (
+                        <div>
+                          <Image
+                            width={64}
+                            height={64}
+                            src="https://www.fg-a.com/wallpapers/white-marble-1-2018.jpg"
+                            roundedCircle
+                          />
+                          <p>{member}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
             <p className="modal-info">
               {info}
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non rerum quae harum est
