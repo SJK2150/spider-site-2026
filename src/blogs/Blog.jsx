@@ -8,7 +8,6 @@ import Container from "@material-ui/core/Container";
 import Data from "./blogInfo.json";
 import { motion } from "framer-motion";
 import Card from 'react-bootstrap/Card';
-import { CardColumns } from "react-bootstrap";
 import BlogNav from './BlogNav';
 
 const myStyles = makeStyles(theme => ({
