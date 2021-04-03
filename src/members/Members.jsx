@@ -1,7 +1,6 @@
 import { React , useState, useEffect} from 'react';
 import { motion , AnimateSharedLayout, AnimatePresence} from "framer-motion";
-import { Button } from 'react-bootstrap';
-import { Container } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -13,7 +12,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import LanguageIcon from "@material-ui/icons/Language";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import IconButton from "@material-ui/core/IconButton";
-import { Year, members } from "./All_members";
+import { members } from "./All_members";
 import './members.css';
 
 const container = {
@@ -29,7 +28,7 @@ const container = {
 }
   
 const item = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 5, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1
@@ -53,18 +52,30 @@ function Members () {
   const [clickalgos, setClickalgos] = useState(false);
 
   const handleClickTronix=()=>{
+    setClickappdev(false);
+    setClickwebdev(false);
+    setClickalgos(false);
     setClicktronix(!clicktronix);
     setProfileName("Tronix");
   }
   const handleClickAppdev=()=>{
-    setClickappdev(!clickappdev)
+    setClicktronix(false);
+    setClickwebdev(false);
+    setClickalgos(false);
+    setClickappdev(!clickappdev);
     setProfileName("App Dev");
   }
   const handleClickWebdev=()=>{
+    setClicktronix(false);
+    setClickappdev(false);
+    setClickalgos(false);
     setClickwebdev(!clickwebdev)
     setProfileName("Web Dev");
   }
   const handleClickAlogs=()=>{
+    setClicktronix(false);
+    setClickwebdev(false);
+    setClickappdev(false);
     setClickalgos(!clickalgos);
     setProfileName("Algos");
   }
@@ -76,24 +87,19 @@ function Members () {
   console.log(yearName, ProfileName)
 
   const subMenuAnimate = {
-    enter: {
-      opacity: 1,
-      rotateX: 0,
-      transition: {
-        duration: 0.5
-      },
-      display: "block"
-    },
+    enter: (i)=> ({
+        opacity: 1,
+        rotateX: 0,
+        transition: {
+          duration: i*0.08
+        },
+        display: "block"
+      }
+    ),
     exit: {
       opacity: 0,
-      rotateX: -15,
-      transition: {
-        duration: 0.5,
-        delay: 0.3
-      },
-      transitionEnd: {
-        display: "none"
-      }
+      rotateX: 1,
+      display: "none"
     }
   };
 
@@ -108,31 +114,33 @@ function Members () {
             className="menu-item"
         >
           <Button onClick={handleClickTronix} className="tronixIcon"> 
-            <MemoryIcon fontSize="large"/>
+            <MemoryIcon fontSize="large" />
             <br/>
             <p className="label">Tronix</p>
           </Button> 
-            <motion.div
-              className="sub-menu"
-              initial="exit"
-              animate={clicktronix ? "enter" : "exit"}
-              variants={subMenuAnimate}
+          <div className="sub-menu"
+              style={{marginTop:12}}
             >
             {clicktronix && 
                 <div>
                 {year.map((item, index)=>{
                   return(
-                    <div key={index}>
+                    <motion.div 
+                    initial="exit"
+                    animate={clicktronix ? "enter" : "exit"}
+                    variants={subMenuAnimate}
+                    custom={index}
+                    key={index}>
                       <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
                         {item[1]}
                       </div>
-                  </div>
+                  </motion.div>
                )
              })}
            </div>
             }
-            </motion.div>
-          </motion.div> 
+            </div>
+          </motion.div>
           <motion.div
             className="menu-item"
           >
@@ -141,26 +149,28 @@ function Members () {
             <br/>
             <p className="label">Web Dev</p>
           </Button> 
-            <motion.div
-              className="sub-menu"
-              initial="exit"
-              animate={clickwebdev ? "enter" : "exit"}
-              variants={subMenuAnimate}
+          <div className="sub-menu"
+              style={{marginTop:12}}
             >
             {clickwebdev && 
                 <div>
                 {year.map((item, index)=>{
                   return(
-                    <div key={index}>
+                    <motion.div 
+                    initial="exit"
+                    animate={clickwebdev ? "enter" : "exit"}
+                    variants={subMenuAnimate}
+                    custom={index}
+                    key={index}>
                       <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
                         {item[1]}
                       </div>
-                  </div>
+                  </motion.div>
                )
              })}
            </div>
             }
-            </motion.div>
+            </div>
           </motion.div> 
           <motion.div
             className="menu-item"
@@ -170,26 +180,28 @@ function Members () {
             <br/>
             <p className="label">App Dev</p>
           </Button> 
-            <motion.div
-              className="sub-menu"
-              initial="exit"
-              animate={clickappdev ? "enter" : "exit"}
-              variants={subMenuAnimate}
+          <div className="sub-menu"
+              style={{marginTop:12}}
             >
             {clickappdev && 
                 <div>
                 {year.map((item, index)=>{
                   return(
-                    <div key={index}>
+                    <motion.div 
+                    initial="exit"
+                    animate={clickappdev ? "enter" : "exit"}
+                    variants={subMenuAnimate}
+                    custom={index}
+                    key={index}>
                       <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
                         {item[1]}
                       </div>
-                  </div>
+                  </motion.div>
                )
              })}
            </div>
             }
-            </motion.div>
+            </div>
           </motion.div>
           <motion.div
             className="menu-item"
@@ -199,38 +211,42 @@ function Members () {
             <br/>
             <p className="label">Algos</p>
           </Button> 
-            <motion.div
-              className="sub-menu"
-              initial="exit"
-              animate={clickalgos ? "enter" : "exit"}
-              variants={subMenuAnimate}
+          <div className="sub-menu"
+              style={{marginTop:12}}
             >
             {clickalgos && 
                 <div>
                 {year.map((item, index)=>{
                   return(
-                    <div key={index}>
-                    <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
-                      {item[1]}
-                    </div>
-                </div>
+                    <motion.div 
+                    initial="exit"
+                    animate={clickalgos ? "enter" : "exit"}
+                    variants={subMenuAnimate}
+                    custom={index}
+                    key={index}>
+                      <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
+                        {item[1]}
+                      </div>
+                  </motion.div>
                )
              })}
            </div>
             }
-            </motion.div>
+            </div>
           </motion.div>
         </nav>
-      </>    
+      </>  
+    <AnimatePresence initial={true}>
     <motion.ul
     className="container"
     variants={container}
     initial="hidden"
     animate="visible"
     style={{display:"flex", justifyContent:"space-around", padding:30}}
-    >
-      <CardColumns>
-      {members
+    >  
+    <CardColumns>
+      <Container>
+        {members
         .filter(member => member.Profile === ProfileName)
         .filter(member => member.Year === yearName)
         .map(member => (
@@ -248,7 +264,7 @@ function Members () {
           </Card.ImgOverlay>
         <Card.Body>
           <Card.Text className="iconLinks">
-          {member.LinkedIn ? (
+                  {member.LinkedIn ? (
                     <a href={member.LinkedIn}>
                       <IconButton >
                         <LinkedInIcon fontSize="large" className="buttonlinkedInIcon"/>
@@ -281,17 +297,18 @@ function Members () {
                       <GitHubIcon className="buttongithubIcon" fontSize="large"/>
                     </IconButton>
                   )}
-          </Card.Text>
-        </Card.Body>
-        </Card>
-        </motion.div>
-      </motion.div>
-    ))}    
+              </Card.Text>
+            </Card.Body>
+            </Card>
+            </motion.div>
+          </motion.div>
+        ))}       
+      </Container>  
     </CardColumns>
-    </motion.ul>  
+    </motion.ul> 
+    </AnimatePresence>   
     </Router>
    </Container>    
-);
-}
+)};
 
-export default Members
+export default Members;

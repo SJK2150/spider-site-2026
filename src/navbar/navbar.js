@@ -22,8 +22,8 @@ function NavBar() {
           <Nav.Link href="#achievements">Achievements</Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link href="#blog">Blog</Nav.Link>
-          <Nav.Link href="#members">Members</Nav.Link>
+          <Nav.Link href="/blogs">Blog</Nav.Link>
+          <Nav.Link href="/members">Members</Nav.Link>
           <Nav.Link href="#admin">Admin</Nav.Link>
         </Nav>
       </Navbar.Collapse>

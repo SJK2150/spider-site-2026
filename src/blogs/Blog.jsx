@@ -1,16 +1,17 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
+import React, {useState} from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Data from "./blogInfo.json";
-import { motion } from "framer-motion";
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { motion, AnimatePresence, AnimateSharedLayout} from "framer-motion";
 import Card from 'react-bootstrap/Card';
-import BlogNav from './BlogNav';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 
-const myStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
  heroContent:{
    margin:20,
  },
@@ -20,59 +21,90 @@ const myStyles = makeStyles(theme => ({
   margin:35
  },
  desc:{
-  color:"blue",
-  fontFamily:"tahoma",
-  padding:30,
-  lineHeight:30
- }
+  color:"#585858",
+  fontFamily:"sans-serif",
+  fontSize:16,
+  marginTop:15
 
+ },
+ heading:{
+  paddingTop:20,
+  paddingLeft:20,
+  paddingRight:20,
+  display:"flex",
+  justifyContent:"space-around",
+  fontSize:20,
+  fontFamily:"tahoma",
+  fontWeight:150
+ },
+ cardMedia:{
+   borderRadius:8
+ },
+ card:{
+  borderRadius:8
+}
 }));
 
 let data = JSON.stringify(Data);
 let blogData = JSON.parse(data);
 
-const useStyles = makeStyles();
-
 function Album(props) {
   const classes = useStyles();
-
+  console.log(props.cardOpen)
   return (
     <div>
-      <Card >
-      <Card.Header >
-        <h5 style={{color:"black", fontFamily:"tahoma", fontSmooth: "auto"}}>{props.blogTitle}</h5>
-      </Card.Header>
+      <Card className={classes.card}>
+      <Card.Text >
+        <p className={classes.heading}>
+          {props.blogTitle}
+        </p>
+      </Card.Text>
       <Card.Body>
-      <Card.Img 
-      src={props.imgsrc} 
-      alt="Card image"
-      className={classes.cardMedia} />
-    
-        <p style={{color:"gray", margin:10,fontSize:14, fontFamily:"tahoma", fontSmooth: "auto"}}
-              className={classes.desc}
-              gutterBottom
-            >
-              {props.blogDescription}
-            </p>
-
-      <Button href={props.blogLink}
-        style={{color:"gray", fontSize:14, fontFamily:"calibri", fontSmooth: "auto"}}>View More</Button>
-      </Card.Body>
+        <Card.Img 
+          src={props.imgsrc} 
+          alt="Card image"
+          className={classes.cardMedia} 
+        />
+      {props.cardOpen && 
+        <AnimatePresence>
+        <motion.div
+        initial={{opacity:0}}
+        animate={{opacity:1, transition:0.3}}
+        >
+        <p className={classes.desc} gutterbottom>
+          {props.blogDescription}
+        </p>
+        <div href={props.blogLink}
+          style={{color:"gray", fontSize:17, fontFamily:"calibri", fontSmooth: "auto", cursor:"pointer", display:"flex", justifyContent:"center"}}>
+            <LocalLibraryIcon style={{marginRight:7}}/>Read blog
+        </div>
+        </motion.div>
+      </AnimatePresence> 
+    }
+     
+    {(props.cardOpen) ?
+      <div onClick={props.isOpen} style={{float:"right", cursor:"pointer"}}>
+        <ExpandLessIcon style={{fontSize:40, marginTop:10, color:"	#909090"}}/>
+    </div> : (
+      <div onClick={props.isOpen} style={{float:"right", cursor:"pointer"}}>
+        <ExpandMoreIcon style={{fontSize:40, marginTop:10, color:"	#909090"}}/>
+    </div>
+    )}
+    </Card.Body>
     </Card>
     </div>
   );
 }
 
 export default function ProjectItems() {
-  const classes = myStyles();
-
+  const classes = useStyles();
+  const [cardOpen, setCardOpen]= useState(false);
   return (
     <React.Fragment>
       <CssBaseline />
-      <BlogNav/>
       <main>
         <div className={classes.heroContent}>
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <Typography
               variant="h2"
               align="center"
@@ -85,35 +117,23 @@ export default function ProjectItems() {
           </Container>
         </div>
         <Container maxWidth="md">
-       
-        <Grid container spacing={4}>
-
-          {blogData.map(post => (
+        <Grid container spacing={6}>
+        {blogData.map(post => (
               <Grid item xs={12} sm={6} md={4}  key={post.id}>
-                <motion.div
-                  className="container"
-                  initial={{ scale: 0, }}
-                  animate={{  rotate: 360, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 35
-          }}
-        >
-          <Album
+                <div>
+              <Album
                   blogId={post.id}
                   blogTitle={post.title}
                   blogDescription={post.summary}
                   imgsrc={post.image_link}
                   blogLink={post.article_link}
+                  isOpen={()=>{setCardOpen(id => {if(post.id==id) return null; return post.id;})}}
+                  cardOpen={cardOpen===post.id}
                 />
-        </motion.div>
-              </Grid>
-              
-            ))}
-            
+          </div>
           </Grid>
-              
+          ))}    
+          </Grid>      
         </Container>
       </main>
     </React.Fragment>

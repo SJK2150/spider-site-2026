@@ -2,6 +2,10 @@
 .container{
     align-content: center;
 }
+.cardContainer{
+    display:flex;
+    justify-content: space-evenly;
+}
 .label{
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
@@ -45,7 +49,13 @@
 }
 .batchLinks{
     cursor: pointer;
-    color:rgb(129, 129, 129);    
+    color:rgb(151, 151, 151);    
+}
+.batchLinks:hover{
+    cursor: pointer;
+    color:rgb(223, 223, 223);  
+    transform: scale(1.15); 
+    transition: 0.25s;
 }
 .iconLinks{
     display:flex;
@@ -53,23 +63,50 @@
 }
 
 .buttonlinkedInIcon{
-    color: #DCDCDC;
+    color: #c5c5c5;
 }
 .buttonwebIcon{
-    color: #DCDCDC;
+    color: #c5c5c5;
 }
 .buttongithubIcon{
-    color: #DCDCDC;
+    color: #c5c5c5;
 }
 .buttonlinkedInIcon:hover{
     transition: 0.3s;  
     transform: scale(1.5);
+    color:#ffffff;
 }
 .buttongithubIcon:hover{
     transition: 0.3s;  
     transform: scale(1.5);
+    color:#ffffff;
 }
 .buttonwebIcon:hover{
     transition: 0.3s;  
     transform: scale(1.5);
+    color:#ffffff;
 }
+.tronixIcon:hover{
+   background-color: #4b4b4b;
+   border: 2px solid rgb(216, 216, 216) ;
+   transform: scale(1.15);
+   transition: 0.3s; 
+}
+.algosIcon:hover{
+    background-color: #4b4b4b;
+    border: 2px solid rgb(216, 216, 216) ;
+    transform: scale(1.15);
+    transition: 0.3s; 
+}
+.webdevIcon:hover{
+    background-color: #4b4b4b;
+    border: 2px solid rgb(216, 216, 216) ;
+    transform: scale(1.15);
+    transition: 0.3s; 
+}
+.appdevIcon:hover{
+    background-color: #4b4b4b;
+    border: 2px solid rgb(216, 216, 216) ;
+    transform: scale(1.15);
+    transition: 0.3s; 
+    }
