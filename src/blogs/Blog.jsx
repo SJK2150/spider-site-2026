@@ -2,114 +2,99 @@ import React, {useState} from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Data from "./blogInfo.json";
+import { motion, AnimatePresence} from "framer-motion";
+import Card from 'react-bootstrap/Card';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { motion, AnimatePresence, AnimateSharedLayout} from "framer-motion";
-import Card from 'react-bootstrap/Card';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
-
-const useStyles = makeStyles(theme => ({
- heroContent:{
-   margin:20,
- },
- root:{
-  color:"whitesmoke",
-  fontFamily:"tahoma",
-  margin:35
- },
- desc:{
-  color:"#585858",
-  fontFamily:"sans-serif",
-  fontSize:16,
-  marginTop:15
-
- },
- heading:{
-  paddingTop:20,
-  paddingLeft:20,
-  paddingRight:20,
-  display:"flex",
-  justifyContent:"space-around",
-  fontSize:20,
-  fontFamily:"tahoma",
-  fontWeight:150
- },
- cardMedia:{
-   borderRadius:8
- },
- card:{
-  borderRadius:8
-}
-}));
+import './blog.css';
+import {Link} from 'react-bootstrap'
 
 let data = JSON.stringify(Data);
 let blogData = JSON.parse(data);
 
 function Album(props) {
-  const classes = useStyles();
-  console.log(props.cardOpen)
+  const container = {
+    hidden: { rotate: 180, opacity:0 },
+    show: {
+      rotate: 0,
+      opacity:1,
+    }
+  };
+  // console.log(props.cardOpen)
   return (
     <div>
-      <Card className={classes.card}>
+      <motion.div 
+      className="cardblock"
+      variants={container}
+      initial="hidden"
+      animate="show"
+      whileHover={{
+        scale: 1.08,
+        transition: { duration: 0.25 },
+      }}
+      >
       <Card.Text >
-        <p className={classes.heading}>
+      <motion.div >
+        <p className="heading" style={{fontSize:20, paddingTop:20}}>
           {props.blogTitle}
         </p>
+        </motion.div>
       </Card.Text>
-      <Card.Body>
+      <Card.Body style={{paddingBottom:45}}>
+        <motion.div>
         <Card.Img 
           src={props.imgsrc} 
           alt="Card image"
-          className={classes.cardMedia} 
+          className="cardMedia" 
         />
+        </motion.div>
       {props.cardOpen && 
         <AnimatePresence>
         <motion.div
         initial={{opacity:0}}
-        animate={{opacity:1, transition:0.3}}
+        animate={{opacity:1, transition:2}}
         >
-        <p className={classes.desc} gutterbottom>
+        <p className="desc" gutterbottom>
           {props.blogDescription}
         </p>
-        <div href={props.blogLink}
-          style={{color:"gray", fontSize:17, fontFamily:"calibri", fontSmooth: "auto", cursor:"pointer", display:"flex", justifyContent:"center"}}>
+         <a href={props.blogLink}
+          style={{color:"gray", textDecoration:"none", fontSize:17, fontFamily:"calibri", fontSmooth: "auto", cursor:"pointer", display:"flex", justifyContent:"center"}}>
             <LocalLibraryIcon style={{marginRight:7}}/>Read blog
-        </div>
+        </a>
         </motion.div>
       </AnimatePresence> 
     }
-     
-    {(props.cardOpen) ?
+     {(props.cardOpen) ?
       <div onClick={props.isOpen} style={{float:"right", cursor:"pointer"}}>
-        <ExpandLessIcon style={{fontSize:40, marginTop:10, color:"	#909090"}}/>
+        <ExpandLessIcon style={{fontSize:40, color:"#909090"}}/>
     </div> : (
       <div onClick={props.isOpen} style={{float:"right", cursor:"pointer"}}>
-        <ExpandMoreIcon style={{fontSize:40, marginTop:10, color:"	#909090"}}/>
+        <ExpandMoreIcon style={{fontSize:40, color:"	#909090"}}/>
     </div>
     )}
     </Card.Body>
-    </Card>
+    </motion.div>
     </div>
   );
 }
 
 export default function ProjectItems() {
-  const classes = useStyles();
   const [cardOpen, setCardOpen]= useState(false);
   return (
     <React.Fragment>
       <CssBaseline />
       <main>
-        <div className={classes.heroContent}>
+        <div className="heroContent">
           <Container maxWidth="lg">
-            <Typography
+            <Typography 
               variant="h2"
               align="center"
-              color="textPrimary"
-              className={classes.root}
+              color="whitesmoke"
+              style={{marginBottom:20, fontSize:70, fontFamily:"calibri"}}
+              className="root"
               gutterBottom
             >
               Blogs
@@ -117,7 +102,7 @@ export default function ProjectItems() {
           </Container>
         </div>
         <Container maxWidth="md">
-        <Grid container spacing={6}>
+        <Grid container spacing={4}>
         {blogData.map(post => (
               <Grid item xs={12} sm={6} md={4}  key={post.id}>
                 <div>

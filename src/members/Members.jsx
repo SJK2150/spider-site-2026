@@ -1,6 +1,6 @@
-import { React , useState, useEffect} from 'react';
-import { motion , AnimateSharedLayout, AnimatePresence} from "framer-motion";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { React , useState} from 'react';
+import { motion , AnimatePresence} from "framer-motion";
+import { Container,Button } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -83,9 +83,7 @@ function Members () {
   const handleYearClick =(e, yr)=>{
     setYearName(yr); 
   }
-
-  console.log(yearName, ProfileName)
-
+// console.log(yearName, ProfileName)
   const subMenuAnimate = {
     enter: (i)=> ({
         opacity: 1,
@@ -109,7 +107,7 @@ function Members () {
       <h1 style={{color:"white", textAlign:"center", padding:15, fontSize:55, fontWeight:600}}>Members</h1>
     <br/>
     <>
-        <nav className='navbar'>
+    <nav className='navbar'>
         <motion.div
             className="menu-item"
         >
@@ -238,7 +236,6 @@ function Members () {
       </>  
     <AnimatePresence initial={true}>
     <motion.ul
-    className="container"
     variants={container}
     initial="hidden"
     animate="visible"
@@ -250,13 +247,11 @@ function Members () {
         .filter(member => member.Profile === ProfileName)
         .filter(member => member.Year === yearName)
         .map(member => (
-        <motion.div className="item" variants={item} >
-        <motion.div
-         whileHover={{
+        <motion.div className="item" variants={item}
+        whileHover={{
           scale: 1.1,
           transition: { duration: 0.3 },
-        }}
-      >
+        }}>
         <Card className="bg-dark text-white" style={{margin:20}}> 
         <Card.Img src={member.Photo} alt={member.Name} />
           <Card.ImgOverlay>
@@ -301,7 +296,6 @@ function Members () {
             </Card.Body>
             </Card>
             </motion.div>
-          </motion.div>
         ))}       
       </Container>  
     </CardColumns>
