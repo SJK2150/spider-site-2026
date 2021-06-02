@@ -5,11 +5,42 @@ import {
   Member,
   ProjectAttributes
 } from '../database/database';
+import multer from 'multer';
+import { existsSync, mkdirSync, rm, unlinkSync } from 'fs';
+import path from 'path';
 import pino from 'pino';
+
+
+const imageHandler = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      // console.log("name:", req.body.name)
+      let pathname = path.resolve("./", 'public/projects/' + req.body.name)
+      if (!existsSync(pathname)) {
+        mkdirSync(pathname)
+      }
+      cb(null, pathname)
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    }
+  }),
+  fileFilter: (req, file, cb) => {
+    let allowedExt: RegExp = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!file.originalname.match(allowedExt)) {
+      return cb(new Error("File type is not jpg/jpeg/png") as any, false);
+    }
+    return cb(null, true);
+  }
+}).array("project")
+
+
 const logger = pino({
   level: 'info',
   prettyPrint: process.env.ENV === 'DEV'
 });
+
+//TODO: Multer addition
 
 let router = Router();
 
@@ -42,101 +73,209 @@ router.get('/details/:id', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-  let members_ids = req.body['members']
-    ? req.body['members']
-    : res.send('Member field missing');
-  delete req.body['members'];
-  const project_details: ProjectAttributes = req.body;
-  let members: Array<Member> = [];
-
-  for (let id of members_ids) {
-    try {
-      let member = await Member.findByPk(id);
-
-      if (member !== null) {
-        members.push(member);
-      } else {
-        res.send(`Member ${id} does not exist!`);
-      }
-    } catch (err) {
-      console.log(`Error(Member finding): ${err}`);
-      res.status(500).send('Internal Server/Database Error!');
+  let proj_check = await Project.findOne({
+    where: {
+      name: req.body.name
     }
+  })
+  if (proj_check) {
+    res.status(403).send("Project Already exists")
   }
-
-  try {
-    const result = await sequelize.transaction(async (t) => {
-      let new_project = await Project.create(project_details, {
-        transaction: t
-      });
-      if (members !== null) {
-        new_project.addMembers(members, { transaction: t });
+  else
+    imageHandler(req, res, async (err) => {
+      if (err) {
+        logger.error(err);
+        res.status(400).send("File type not in jpg/jpeg/png");
       }
-      logger.info(`Project ${new_project.name} created, id: ${new_project.id}`);
-      res.status(201).send('Project Added');
-    });
-  } catch (err) {
-    logger.error(`Error(Project Creation): ${err}`);
-    res.status(500).send('Internal Server/Database Error!');
-  }
+      else if (!req.files) {
+        logger.error("0 Files sent");
+        res.status(400).send("At least 1 file needs to be sent");
+      } else {
+        let members_ids = req.body['members']
+          ? req.body['members']
+          : res.send('Member field missing');
+        delete req.body['members'];
+        const project_details: ProjectAttributes = req.body;
+        let members: Array<Member> = [];
+
+        for (let id of members_ids) {
+          try {
+            let member = await Member.findByPk(id);
+
+            if (member !== null) {
+              members.push(member);
+            } else {
+              res.send(`Member ${id} does not exist!`);
+            }
+          } catch (err) {
+            console.log(`Error(Member finding): ${err}`);
+            res.status(500).send('Internal Server/Database Error!');
+          }
+        }
+
+        try {
+          let image_files: any = req.files
+          project_details['dp_url'] = image_files[0].path
+          image_files.shift();
+          project_details['project_photo_url'] = image_files.map(
+            (file: { path: any; }) => file.path
+          )
+          return await sequelize.transaction(async (t) => {
+            let new_project = await Project.create(project_details, {
+              transaction: t
+            });
+            if (members !== null) {
+              await new_project.addMembers(members, { transaction: t });
+            }
+            logger.info(`Project ${new_project.name} created, id: ${new_project.id}`);
+            res.status(201).send('Project Added');
+          });
+        } catch (err) {
+          let projectPath = path.resolve(__dirname, '../../public/projects/' + req.body.name)
+          await rm(
+            projectPath, { recursive: true, force: true }, err => {
+              err ? logger.error(err) : null;
+            }
+          )
+          logger.error(`Error(Project Creation): ${err}`);
+          res.status(500).send('Internal Server/Database Error!');
+        }
+      }
+    })
+
 });
 
 interface ProjectUpdation {
   name?: string;
   desc?: string;
   domain?: string;
-  dp_url?: string;
+  dp_url_change?: boolean;
   project_url?: string;
+  project_photo_url_removal?: string;
   project_video_url?: string;
 }
 
+//TODO: Handle file update reversal when err in sql occurs
 router.put('/update/:id', async (req, res) => {
   let project_id: number = parseInt(req.params.id);
-  let members_added = req.body['members_added'];
-  let members_removed = req.body['members_removed'];
-  delete req.body.members_added;
-  delete req.body.members_removed;
-  let update_data: ProjectUpdation = req.body;
 
-  try {
-    const result = await sequelize.transaction(async (t) => {
-      await Project.update(update_data, {
-        where: {
-          id: project_id
-        },
-        transaction: t
-      });
-
-      let project = await Project.findByPk(project_id, { transaction: t });
-
-      if (members_added !== null && project !== null) {
-        project.addMembers(members_added, { transaction: t });
-      }
-      if (members_removed !== null && project !== null) {
-        project.removeMembers(members_removed, { transaction: t });
-      }
-    });
-    logger.info('Project Updation Done');
-    res.status(201).send('Project Updation Done');
-  } catch (err) {
-    logger.error(`${err}`);
-    res.status(500).send('Internal Server/Database Error!');
+  // Check if member exists
+  const project_detail = await Project.findByPk(project_id);
+  if (!project_detail) {
+    return res.status(403).send("No such project exists");
   }
+
+  imageHandler(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      logger.error(err);
+      return res.status(400).send(err);
+    } else if (err) {
+      logger.error(err);
+      return res.status(400).send("File type is not jpg/jpeg/png");
+    }
+    else {
+      let members_added = req.body['members_added'];
+      let members_removed = req.body['members_removed'];
+      delete req.body['members_added'];
+      delete req.body['members_removed'];
+      console.log("MemberS", members_added, members_removed)
+      let update_data = req.body;
+
+      /**
+       * Handles project photo media removal
+       * if project_photo_url_removal is not null, then provided file paths will be removed from project_photo_url, 
+       * and the updated with the update_data 
+       */
+      if (update_data['project_photo_url_removal'] && project_detail && project_detail['project_photo_url']) {
+        let urls: Array<String> = []
+        update_data['project_photo_url_removal'].forEach(async (val: any) => {
+          if (val) {
+            let ind = project_detail['project_photo_url'].indexOf(val);
+            if (ind > -1) {
+              await unlinkSync(project_detail['project_photo_url'][ind]);
+              project_detail['project_photo_url'].splice(ind, 1);
+              urls = project_detail['project_photo_url']
+            }
+          }
+        });
+        update_data['project_photo_url'] = urls
+        delete update_data['project_photo_url_removal'];
+      }
+
+      /**
+       * if files have been sent:
+       * A) the first file will be considered as dp file if dp_url_change is true
+       * B) If more than one file is sent the rest of the files will be considered to be new project photos
+       */
+
+
+      if (req.files) {
+        let images: any = req.files
+        if (Boolean(update_data.dp_url_change)) {
+          await unlinkSync(project_detail.dp_url);
+          update_data['dp_url'] = images[0].path;
+          images.shift();
+          delete update_data.dp_url_change;
+        }
+        if (req.files.length > 1) {
+          let urls = images.map(
+            (file: { path: any; }) => file.path
+          )
+          update_data['project_photo_url'] = update_data['project_photo_url'].concat(urls);
+        }
+      }
+
+      try {
+        const result = await sequelize.transaction(async (t) => {
+          await Project.update(update_data, {
+            where: {
+              id: project_id
+            },
+            transaction: t
+          });
+
+          if (members_added && project_detail) {
+            project_detail.addMembers(members_added, { transaction: t });
+          }
+          if (members_removed && project_detail) {
+            project_detail.removeMembers(members_removed, { transaction: t });
+          }
+        });
+        logger.info('Project Updation Done');
+        res.status(201).send('Project Updation Done');
+      } catch (err) {
+        logger.error(`${err}`);
+        res.status(500).send('Internal Server/Database Error!');
+      }
+    }
+  })
 });
 
 router.delete('/delete/:id', async (req, res) => {
   let project_id: number = parseInt(req.params.id);
-  try {
-    await Project.destroy({
-      where: {
-        id: project_id
-      }
-    });
-    logger.info('Project Deleted');
-    res.status(200).send('Project Deleted');
-  } catch (err) {
-    logger.error(`${err}`);
-    res.status(500).send('Internal Server/Database Error!');
+  let project = await Project.findByPk(project_id);
+  if (!project) {
+    res.status(403).send("Project Doesn't exist")
+  }
+  else {
+    try {
+      await Project.destroy({
+        where: {
+          id: project_id
+        }
+      });
+      await rm(
+        path.resolve("./") + "/public/projects/" + project.name, { recursive: true, force: true }, err => {
+          err ? logger.error(err) : null;
+        }
+      )
+      logger.info('Project Deleted');
+      res.status(200).send('Project Deleted');
+
+    } catch (err) {
+      logger.error(`${err}`);
+      res.status(500).send('Internal Server/Database Error!');
+    }
   }
 });
 
