@@ -32,7 +32,9 @@ const sequelize = new Sequelize(
     }
   }
 );
-// MEMBER STRUCTURE
+/**
+ * Member Structure
+ */
 interface MemberAttributes {
   id: number;
   name: string;
@@ -45,12 +47,11 @@ interface MemberAttributes {
   website_url: string | null;
 }
 
-interface MemberCreationAttributes extends Optional<MemberAttributes, 'id'> {}
+interface MemberCreationAttributes extends Optional<MemberAttributes, 'id'> { }
 
 class Member
   extends Model<MemberAttributes, MemberCreationAttributes>
-  implements MemberAttributes
-{
+  implements MemberAttributes {
   public id!: number;
   public name!: string;
   public photo_url!: string;
@@ -116,7 +117,9 @@ Member.init(
   }
 );
 
-// PROJECT STRUCTURE
+/**
+ * Project Structure
+ */
 interface ProjectAttributes {
   id: number;
   name: string;
@@ -124,21 +127,22 @@ interface ProjectAttributes {
   domain: string;
   dp_url: string;
   project_url: any;
+  project_photo_url: any;
   project_video_url: any;
 }
-interface ProjectCreationAttributes extends Optional<ProjectAttributes, 'id'> {}
+interface ProjectCreationAttributes extends Optional<ProjectAttributes, 'id'> { }
 
 class Project
   extends Model<ProjectAttributes, ProjectCreationAttributes>
-  implements ProjectAttributes
-{
+  implements ProjectAttributes {
   public id!: number;
   public name!: string;
   public desc!: string;
   public domain!: string;
   public dp_url!: string;
   public project_url!: string | null;
-  public project_video_url!: string | null;
+  public project_photo_url!: any;
+  public project_video_url!: any;
 
   public getMember!: BelongsToManyGetAssociationsMixin<Member>;
   public addMember!: BelongsToManyAddAssociationMixin<Member, number>;
@@ -176,15 +180,19 @@ Project.init(
       allowNull: true
     },
     project_url: {
+      type: DataTypes.STRING(256),
+      allowNull: false
+    },
+    project_photo_url: {
       type: DataTypes.STRING(1024),
       allowNull: true,
       get(this: any): Array<String> | null {
-        return this.getDataValue('project_url')
-          ? this.getDataValue('project_url').split(';')
+        return this.getDataValue('project_photo_url')
+          ? this.getDataValue('project_photo_url').split(';')
           : null;
       },
       set(url: Array<String>) {
-        this.setDataValue('project_url', url.join(';'));
+        this.setDataValue('project_photo_url', url.join(';'));
       }
     },
     project_video_url: {
@@ -205,11 +213,91 @@ Project.init(
   }
 );
 
+/**
+ * Event Structure
+ */
+interface EventAttributes {
+  id: number;
+  name: string;
+  desc: string;
+  eventDate: Date;
+  dp_url?: string;
+  event_url?: string;
+  event_photo_url?: string;
+}
+
+interface EventCreationAttributes extends Optional<EventAttributes, 'id'> { }
+
+class Event
+  extends Model<EventAttributes, EventCreationAttributes>
+  implements EventAttributes {
+  public id!: number;
+  public name!: string;
+  public desc!: string;
+  public eventDate!: Date;
+  public dp_url?: string;
+  public event_url?: string;
+  public event_photo_url?: string;
+}
+
+Event.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      primaryKey: true
+    },
+    name: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    desc: {
+      type: DataTypes.STRING(1024),
+      allowNull: false
+    },
+    eventDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    dp_url: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    event_url: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    event_photo_url: {
+      type: DataTypes.STRING(1024),
+      allowNull: true,
+      get(this: any): Array<String> | null {
+        return this.getDataValue('event_photo_url')
+          ? this.getDataValue('event_photo_url').split(';')
+          : null;
+      },
+      set(url: Array<String>) {
+        this.setDataValue('event_photo_url', url.join(';'));
+      }
+    }
+  },
+  {
+    sequelize
+  }
+);
+/**
+ * Member-Project join table
+ */
+
 const Member_Projects = sequelize.define(
   'Member_Projects',
   {},
   { timestamps: false }
 );
+
+/**
+ * Associations
+ */
+
 Member.belongsToMany(Project, {
   through: 'Member_Projects',
   uniqueKey: 'memberproject'
@@ -221,17 +309,12 @@ Project.belongsToMany(Member, {
 
 async function table_sync() {
   await Member.sync({ alter: true });
-  await Project.sync({ alter: true });
+  await Project.sync({ force: true });
+  await Event.sync({ alter: true });
   await Member_Projects.sync({ alter: true });
   console.log('All tables have been synchronised ');
 }
-// try {
-//     console.log(process.env.DB_NAME);
-//     const testconn = async() => await sequelize.authenticate();
-//     console.log("Connection established", testconn);
-// } catch(err) {
-//     console.log('err: ', err)
-// }
+
 
 export {
   sequelize,
@@ -240,5 +323,7 @@ export {
   Project,
   ProjectAttributes,
   Member_Projects,
+  Event,
+  EventAttributes,
   table_sync
 };
