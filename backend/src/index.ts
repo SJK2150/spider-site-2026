@@ -9,12 +9,13 @@ import { table_sync } from './database/database';
 import { router as memberRouter } from './routes/members';
 import { router as projectRouter } from './routes/projects';
 import { router as eventRouter } from './routes/event';
+import { router as achievementRouter } from './routes/achievements';
 
 const app = express();
 const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(helmet());
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const logger = pino({
@@ -25,12 +26,13 @@ const logger = pino({
 app.use('/api/member', memberRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/event', eventRouter);
+app.use('/api/achievement', achievementRouter);
 
 app.get('/', (req: any, res: any) => {
   res.send('Hi');
 });
 
 app.listen(port, () => {
-  // table_sync();
+  //table_sync();
   logger.info(`Connected successfully at port ${port}`);
 });

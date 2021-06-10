@@ -47,11 +47,12 @@ interface MemberAttributes {
   website_url: string | null;
 }
 
-interface MemberCreationAttributes extends Optional<MemberAttributes, 'id'> { }
+interface MemberCreationAttributes extends Optional<MemberAttributes, 'id'> {}
 
 class Member
   extends Model<MemberAttributes, MemberCreationAttributes>
-  implements MemberAttributes {
+  implements MemberAttributes
+{
   public id!: number;
   public name!: string;
   public photo_url!: string;
@@ -130,11 +131,12 @@ interface ProjectAttributes {
   project_photo_url: any;
   project_video_url: any;
 }
-interface ProjectCreationAttributes extends Optional<ProjectAttributes, 'id'> { }
+interface ProjectCreationAttributes extends Optional<ProjectAttributes, 'id'> {}
 
 class Project
   extends Model<ProjectAttributes, ProjectCreationAttributes>
-  implements ProjectAttributes {
+  implements ProjectAttributes
+{
   public id!: number;
   public name!: string;
   public desc!: string;
@@ -226,11 +228,12 @@ interface EventAttributes {
   event_photo_url?: string;
 }
 
-interface EventCreationAttributes extends Optional<EventAttributes, 'id'> { }
+interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
 
 class Event
   extends Model<EventAttributes, EventCreationAttributes>
-  implements EventAttributes {
+  implements EventAttributes
+{
   public id!: number;
   public name!: string;
   public desc!: string;
@@ -293,6 +296,84 @@ const Member_Projects = sequelize.define(
   {},
   { timestamps: false }
 );
+/**
+ * Achievement Structure
+ */
+interface AchievementAttributes {
+  id: number;
+  name_of_event: string;
+  desc: string;
+  position: string;
+  domain: string;
+  achievement_photo_url: string;
+}
+
+interface AchievementCreationAttributes
+  extends Optional<AchievementAttributes, 'id'> {}
+
+class Achievement
+  extends Model<AchievementAttributes, AchievementCreationAttributes>
+  implements AchievementAttributes
+{
+  public id!: number;
+  public name_of_event!: string;
+  public desc!: string;
+  public domain!: string;
+  public position!: string;
+  public achievement_photo_url!: string;
+
+  public getMember!: BelongsToManyGetAssociationsMixin<Member>;
+  public addMember!: BelongsToManyAddAssociationMixin<Member, number>;
+  public addMembers!: BelongsToManyAddAssociationsMixin<Member, number>;
+  public hasMember!: BelongsToManyHasAssociationMixin<Member, number>;
+  public removeMembers!: BelongsToManyRemoveAssociationsMixin<Member, number>;
+  public countMember!: BelongsToManyCountAssociationsMixin;
+  public createMember!: BelongsToManyCreateAssociationMixin<Member>;
+  public static associations: {
+    achievements: Association<Achievement, Member>;
+  };
+}
+Achievement.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    name_of_event: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    desc: {
+      type: DataTypes.STRING(1024),
+      allowNull: false
+    },
+    domain: {
+      type: DataTypes.ENUM('ALGOS', 'APPDEV', 'WEBDEV', 'TRONIX'),
+      allowNull: false
+    },
+    position: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    achievement_photo_url: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    }
+  },
+  {
+    sequelize
+  }
+);
+/**
+ * Member-Achievement join table
+ */
+
+const Member_Achievement = sequelize.define(
+  'Member_Achievement',
+  {},
+  { timestamps: false }
+);
 
 /**
  * Associations
@@ -306,15 +387,24 @@ Project.belongsToMany(Member, {
   through: 'Member_Projects',
   uniqueKey: 'memberproject'
 });
+Member.belongsToMany(Achievement, {
+  through: 'Member_Achievement',
+  uniqueKey: 'memberachievement'
+});
+Achievement.belongsToMany(Member, {
+  through: 'Member_Achievement',
+  uniqueKey: 'memberachievement'
+});
 
 async function table_sync() {
   await Member.sync({ alter: true });
-  await Project.sync({ force: true });
+  await Project.sync({ alter: true });
   await Event.sync({ alter: true });
   await Member_Projects.sync({ alter: true });
+  await Achievement.sync({ alter: true });
+  await Member_Achievement.sync({ alter: true });
   console.log('All tables have been synchronised ');
 }
-
 
 export {
   sequelize,
@@ -325,5 +415,8 @@ export {
   Member_Projects,
   Event,
   EventAttributes,
+  Achievement,
+  Member_Achievement,
+  AchievementAttributes,
   table_sync
 };
