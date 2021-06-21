@@ -376,6 +376,48 @@ const Member_Achievement = sequelize.define(
 );
 
 /**
+ * Userlogin table
+ * - for storing credentials of admins
+ */
+interface UserloginAttributes {
+  id: number;
+  username: string;
+  password: string;
+}
+
+interface UserloginCreationAttributes extends Optional<UserloginAttributes, 'id'> {}
+
+class Userlogin
+    extends Model<UserloginAttributes,UserloginCreationAttributes>
+    implements UserloginAttributes
+{
+  public id!: number;
+  public username!: string;
+  public password!: string;
+}
+
+Userlogin.init(
+  {
+    id:{
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    username: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING(1024),
+      allowNull: false
+    }
+  },
+  {
+    sequelize
+  }
+);
+
+/**
  * Associations
  */
 
@@ -403,6 +445,7 @@ async function table_sync() {
   await Member_Projects.sync({ alter: true });
   await Achievement.sync({ alter: true });
   await Member_Achievement.sync({ alter: true });
+  await Userlogin.sync({ alter: true });
   console.log('All tables have been synchronised ');
 }
 
@@ -418,5 +461,7 @@ export {
   Achievement,
   Member_Achievement,
   AchievementAttributes,
+  UserloginAttributes,
+  Userlogin,
   table_sync
 };

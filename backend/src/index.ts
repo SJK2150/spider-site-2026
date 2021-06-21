@@ -10,6 +10,8 @@ import { router as memberRouter } from './routes/members';
 import { router as projectRouter } from './routes/projects';
 import { router as eventRouter } from './routes/event';
 import { router as achievementRouter } from './routes/achievements';
+import { router as loginRouter } from './routes/login';
+import { jwt_verify } from './utils/middleware';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -23,16 +25,19 @@ const logger = pino({
   prettyPrint: process.env.ENV === 'DEV'
 });
 
+app.use('/login', loginRouter);
+app.use('/', jwt_verify);
 app.use('/api/member', memberRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/achievement', achievementRouter);
+
 
 app.get('/', (req: any, res: any) => {
   res.send('Hi');
 });
 
 app.listen(port, () => {
-  //table_sync();
+  table_sync();
   logger.info(`Connected successfully at port ${port}`);
 });
