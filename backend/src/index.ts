@@ -32,7 +32,6 @@ app.use('/api/project', projectRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/achievement', achievementRouter);
 
-
 app.get('/', (req: any, res: any) => {
   res.send('Hi');
 });

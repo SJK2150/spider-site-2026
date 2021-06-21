@@ -385,11 +385,12 @@ interface UserloginAttributes {
   password: string;
 }
 
-interface UserloginCreationAttributes extends Optional<UserloginAttributes, 'id'> {}
+interface UserloginCreationAttributes
+  extends Optional<UserloginAttributes, 'id'> {}
 
 class Userlogin
-    extends Model<UserloginAttributes,UserloginCreationAttributes>
-    implements UserloginAttributes
+  extends Model<UserloginAttributes, UserloginCreationAttributes>
+  implements UserloginAttributes
 {
   public id!: number;
   public username!: string;
@@ -398,7 +399,7 @@ class Userlogin
 
 Userlogin.init(
   {
-    id:{
+    id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
