@@ -2,12 +2,14 @@ import './App.css';
 import Home from './home/home';
 import NavBar from './navbar/navbar';
 import Projects from './Projects/Projects';
+import Members from './members/Members.jsx';
+import ProjectItems from './blogs/Blog.jsx';
+import Achievements from './Achievements/Achievements';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from "react-router-dom";
-import Achievements from './Achievements/Achievements';
 function App() {
   return (
     <Router>
@@ -20,13 +22,18 @@ function App() {
       <Route path="/achievements">
         <Achievements></Achievements>
       </Route>
+      <Route exact path="/blogs">
+        <ProjectItems />
+      </Route>
+      <Route exact path="/members">
+        <Members />
+      </Route>
       <Route path="/">
         <Home></Home>
       </Route>
-      </Switch>
-      </div>
+    </Switch>
+    </div>
     </Router>
-  );
+  )
 }
-
 export default App;
