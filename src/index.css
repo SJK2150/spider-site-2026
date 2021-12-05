@@ -9,3 +9,14 @@
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 } */
+@font-face {
+    font-family: 'ProductSans';
+    src: local('ProductSans') url(./fonts/Product\ Sans\ Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: 'ProductSansBold';
+    src: local('ProductSansBold') url(./fonts/Product\ Sans\ Bold.ttf) format("truetype");
+}
+*{
+  font-family: 'Product Sans';
+}

@@ -5,8 +5,11 @@
   padding: 3em;
   padding-top: 0;
   box-sizing: border-box;
-  background-color: #252525;
+  /* background-color: #1C1D26; */
   font-family: 'Montserrat', sans-serif;
+}
+.proj-col{
+  margin-bottom: 15px;
 }
 .project_banner {
   height: 447px;

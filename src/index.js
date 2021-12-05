@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import './fonts/Product\ Sans\ Regular.ttf'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

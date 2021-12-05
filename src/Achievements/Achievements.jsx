@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
 import Modal from '../Modal/Modal';
+import data from './data.json';
 export default function Achievements() {
   const [modalShow, setModalShow] = React.useState(false);
   const [props, setProps] = React.useState({});
@@ -27,188 +28,109 @@ export default function Achievements() {
   return (
     <div id="achv-page">
       <div className="achv-intro-section">
-        <Image
+        {/* <Image
           className="achv_banner"
           src="https://images.unsplash.com/photo-1488229297570-58520851e868?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80"
           fluid
-        ></Image>
+        ></Image> */}
         <div className="display-3 achv_banner_title">Achievements</div>
       </div>
       <Container fluid="md">
         <Container fluid>
           <Row>
-            <Col className="my-3" md={5}>
-              <AnimateSharedLayout>
-                {modalShow && modalCondn[0] ? (
-                  createModal()
-                ) : (
-                  <motion.div className="motion-card" layoutId="expandable-card-1">
-                    <Card
-                      style={{ background: 'rgba(163,163,163,0.23)' }}
-                      className="text-white achv-card"
-                    >
-                      <Card.Img
-                        className="achv-image"
-                        variant="top"
-                        src="https://wallpaperaccess.com/full/2200497.jpg"
-                      />
-                      <Card.Body className="text-center achv-body">
-                        <motion.div>
-                          <Card.Title className="achv-title">Achievement 1</Card.Title>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                          <Button
-                            variant="outline-light"
-                            onClick={() => {
-                              modalDisplay(
-                                'Achievement 1',
-                                ['Mem1', 'Mem2'],
-                                'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?',
-                                'https://wallpaperaccess.com/full/2200497.jpg',
-                                'expandable-card-1',
-                                '1',
-                              );
-                            }}
+            {data.map((ele,id)=>{
+              if(id%2 == 0){
+                return(
+                  <Col className="my-3" md={5}>
+                    <AnimateSharedLayout>
+                      {modalShow && modalCondn[id] ? (
+                        createModal()
+                      ) : (
+                          <motion.div className="motion-card" layoutId={`expandable-card-${id+1}`}>
+                          <Card
+                              style={{ background: '#141C3A' }}
+                            className="text-white achv-card"
                           >
-                            Learn More
-                          </Button>
+                            <Card.Img
+                              className="achv-image"
+                              variant="top"
+                              src={ele.image}
+                            />
+                            <Card.Body className="text-center achv-body">
+                              <motion.div>
+                                <Card.Title className="achv-title">{ele.title}</Card.Title>
+                              </motion.div>
+                              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                <Button
+                                  variant="outline-light"
+                                  onClick={() => {
+                                    modalDisplay(
+                                      ele.title,
+                                      ele.members,
+                                      ele.desc,
+                                      ele.image,
+                                      `expandable-card-${id+1}`,
+                                      `${id+1}`,
+                                    );
+                                  }}
+                                >
+                                  Learn More
+                                </Button>
+                              </motion.div>
+                            </Card.Body>
+                          </Card>
                         </motion.div>
-                      </Card.Body>
-                    </Card>
-                  </motion.div>
-                )}
-              </AnimateSharedLayout>
-            </Col>
-            <Col className="my-3" md={7}>
-              <AnimateSharedLayout>
-                {modalShow && modalCondn[1] ? (
-                  createModal()
-                ) : (
-                  <motion.div className="motion-card" layoutId="expandable-card-2">
-                    <Card
-                      style={{ background: 'rgba(163,163,163,0.23)' }}
-                      className="text-white achv-card"
-                    >
-                      <Card.Img
-                        className="achv-image"
-                        variant="top"
-                        src="https://wallpaperaccess.com/full/2200497.jpg"
-                      />
-                      <Card.Body className="text-center achv-body">
-                        <motion.div>
-                          <Card.Title className="achv-title">Achievement 2</Card.Title>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                          <Button
-                            variant="outline-light"
-                            onClick={() => {
-                              modalDisplay(
-                                'Achievement 2',
-                                ['Mem1', 'Mem2'],
-                                'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?',
-                                'https://wallpaperaccess.com/full/2200497.jpg',
-                                'expandable-card-2',
-                                '2',
-                              );
-                            }}
+                      )}
+                    </AnimateSharedLayout>
+                  </Col>
+                )
+              }else{
+                return(
+                  <Col className="my-3" md={7}>
+                    <AnimateSharedLayout>
+                      {modalShow && modalCondn[id] ? (
+                        createModal()
+                      ) : (
+                        <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
+                          <Card
+                            style={{ background: '#141C3A' }}
+                            className="text-white achv-card"
                           >
-                            Learn More
-                          </Button>
+                            <Card.Img
+                              className="achv-image"
+                              variant="top"
+                              src={ele.image}
+                            />
+                            <Card.Body className="text-center achv-body">
+                              <motion.div>
+                                <Card.Title className="achv-title">{ele.title}</Card.Title>
+                              </motion.div>
+                              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                <Button
+                                  variant="outline-light"
+                                  onClick={() => {
+                                    modalDisplay(
+                                      ele.title,
+                                      ele.members,
+                                      ele.desc,
+                                      ele.image,
+                                      `expandable-card-${id + 1}`,
+                                      `${id + 1}`,
+                                    );
+                                  }}
+                                >
+                                  Learn More
+                                </Button>
+                              </motion.div>
+                            </Card.Body>
+                          </Card>
                         </motion.div>
-                      </Card.Body>
-                    </Card>
-                  </motion.div>
-                )}
-              </AnimateSharedLayout>
-            </Col>
-          </Row>
-        </Container>
-        <Container fluid>
-          <Row>
-            <Col className="my-3" md={7}>
-              <AnimateSharedLayout>
-                {modalShow && modalCondn[2] ? (
-                  createModal()
-                ) : (
-                  <motion.div className="motion-card" layoutId="expandable-card-3">
-                    <Card
-                      style={{ background: 'rgba(163,163,163,0.23)' }}
-                      className="text-white achv-card"
-                    >
-                      <Card.Img
-                        className="achv-image"
-                        variant="top"
-                        src="https://wallpaperaccess.com/full/2200497.jpg"
-                      />
-                      <Card.Body className="text-center achv-body">
-                        <motion.div>
-                          <Card.Title className="achv-title">Achievement 3</Card.Title>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                          <Button
-                            variant="outline-light"
-                            onClick={() => {
-                              modalDisplay(
-                                'Achievement 3',
-                                ['Mem1', 'Mem2'],
-                                'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?',
-                                'https://wallpaperaccess.com/full/2200497.jpg',
-                                'expandable-card-3',
-                                '3',
-                              );
-                            }}
-                          >
-                            Learn More
-                          </Button>
-                        </motion.div>
-                      </Card.Body>
-                    </Card>
-                  </motion.div>
-                )}
-              </AnimateSharedLayout>
-            </Col>
-            <Col className="my-3" md={5}>
-              <AnimateSharedLayout>
-                {modalShow && modalCondn[3] ? (
-                  createModal()
-                ) : (
-                  <motion.div className="motion-card" layoutId="expandable-card-4">
-                    <Card
-                      style={{ background: 'rgba(163,163,163,0.23)' }}
-                      className="text-white achv-card"
-                    >
-                      <Card.Img
-                        className="achv-image"
-                        variant="top"
-                        src="https://wallpaperaccess.com/full/2200497.jpg"
-                      />
-                      <Card.Body className="text-center achv-body">
-                        <motion.div>
-                          <Card.Title className="achv-title">Achievement 4</Card.Title>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                          <Button
-                            variant="outline-light"
-                            onClick={() => {
-                              modalDisplay(
-                                'Achievement 4',
-                                ['Mem1', 'Mem2'],
-                                '  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?',
-                                'https://wallpaperaccess.com/full/2200497.jpg',
-                                'expandable-card-4',
-                                '4',
-                              );
-                            }}
-                          >
-                            Learn More
-                          </Button>
-                        </motion.div>
-                      </Card.Body>
-                    </Card>
-                  </motion.div>
-                )}
-              </AnimateSharedLayout>
-            </Col>
+                      )}
+                    </AnimateSharedLayout>
+                  </Col>
+                )
+              }
+            })}
           </Row>
         </Container>
       </Container>

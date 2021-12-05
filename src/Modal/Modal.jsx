@@ -53,7 +53,7 @@ export default function Modal(props) {
           <Image className="modal-image" height="280px" width="80%" src={image}></Image>
           <ModalBody className="modal-details">
             <Accordion className="" defaultActiveKey="0">
-              <Card style={{ background: 'rgba(163,163,163,0.23)', color: 'white' }}>
+              <Card style={{ background: '#6D4DFF', color: 'white', border:"none" }}>
                 <Accordion.Toggle
                   as={Card.Header}
                   style={{ padding: '0.5rem 1.25rem' }}
