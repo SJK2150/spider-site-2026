@@ -1,13 +1,135 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
 import Modal from '../Modal/Modal';
 import data from './data.json';
+import Toolbar from '../DomainToolbar/Toolbar';
 export default function Achievements() {
   const [modalShow, setModalShow] = React.useState(false);
   const [props, setProps] = React.useState({});
+  const [domain, setDomain] = React.useState([].fill(false, 0, 4));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
+  const [displayAll, setDisplayAll] = React.useState(true);
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < 4; i++) {
+      arr.push(false);
+    }
+    setDomain([...arr]);
+  }, []);
+  useEffect(() => {
+    console.log(domain);
+    let val = domain[0];
+    for (let i = 1; i < domain.length; i++) {
+      val = val || domain[i];
+    }
+    if (val) {
+      setDisplayAll(false);
+    } else {
+      setDisplayAll(true);
+    }
+  }, [domain])
+
+  const displayContent = (ele,id)=>{
+    if (id % 2 == 0) {
+      return (
+        <Col className="my-3" md={5}>
+          <AnimateSharedLayout>
+            {modalShow && modalCondn[id] ? (
+              createModal()
+            ) : (
+              <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
+                <Card
+                  style={{ background: '#141C3A' }}
+                  className="text-white achv-card"
+                >
+                  <div className="achv-image-bg">
+                    <Card.Img
+                    className="achv-image"
+                    variant="top"
+                    src={ele.image}
+                  />
+                  </div>
+                  
+                  <Card.Body className="text-center achv-body">
+                    <motion.div>
+                      <Card.Title className="achv-title">{ele.title}</Card.Title>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                      <Button
+                        variant="outline-light"
+                        onClick={() => {
+                          modalDisplay(
+                            ele.title,
+                            ele.members,
+                            ele.desc,
+                            ele.image,
+                            `expandable-card-${id + 1}`,
+                            `${id + 1}`,
+                          );
+                        }}
+                      >
+                        Learn More
+                      </Button>
+                    </motion.div>
+                  </Card.Body>
+                </Card>
+              </motion.div>
+            )}
+          </AnimateSharedLayout>
+        </Col>
+      )
+    } else {
+      return (
+        <Col className="my-3" md={7}>
+          <AnimateSharedLayout>
+            {modalShow && modalCondn[id] ? (
+              createModal()
+            ) : (
+              <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
+                <Card
+                  style={{ background: '#141C3A' }}
+                  className="text-white achv-card"
+                >
+                  <div className="achv-image-bg">
+                    <Card.Img
+                    className="achv-image"
+                    variant="top"
+                    src={ele.image}
+                  />
+                  </div>
+                  <Card.Body className="text-center achv-body">
+                    <motion.div>
+                      <Card.Title className="achv-title">{ele.title}</Card.Title>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                      <Button
+                        variant="outline-light"
+                        onClick={() => {
+                          modalDisplay(
+                            ele.title,
+                            ele.members,
+                            ele.desc,
+                            ele.image,
+                            `expandable-card-${id + 1}`,
+                            `${id + 1}`,
+                          );
+                        }}
+                      >
+                        Learn More
+                      </Button>
+                    </motion.div>
+                  </Card.Body>
+                </Card>
+              </motion.div>
+            )}
+          </AnimateSharedLayout>
+        </Col>
+      )
+    }
+  }
+
   const modalDisplay = (title, members, info, image, layoutId, key) => {
     setProps({
       title: title,
@@ -35,101 +157,19 @@ export default function Achievements() {
         ></Image> */}
         <div className="display-3 achv_banner_title">Achievements</div>
       </div>
+      <div className="domains">
+      <Toolbar setDomain={setDomain}></Toolbar>
+      </div>
       <Container fluid="md">
         <Container fluid>
           <Row>
-            {data.map((ele,id)=>{
-              if(id%2 == 0){
-                return(
-                  <Col className="my-3" md={5}>
-                    <AnimateSharedLayout>
-                      {modalShow && modalCondn[id] ? (
-                        createModal()
-                      ) : (
-                          <motion.div className="motion-card" layoutId={`expandable-card-${id+1}`}>
-                          <Card
-                              style={{ background: '#141C3A' }}
-                            className="text-white achv-card"
-                          >
-                            <Card.Img
-                              className="achv-image"
-                              variant="top"
-                              src={ele.image}
-                            />
-                            <Card.Body className="text-center achv-body">
-                              <motion.div>
-                                <Card.Title className="achv-title">{ele.title}</Card.Title>
-                              </motion.div>
-                              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                                <Button
-                                  variant="outline-light"
-                                  onClick={() => {
-                                    modalDisplay(
-                                      ele.title,
-                                      ele.members,
-                                      ele.desc,
-                                      ele.image,
-                                      `expandable-card-${id+1}`,
-                                      `${id+1}`,
-                                    );
-                                  }}
-                                >
-                                  Learn More
-                                </Button>
-                              </motion.div>
-                            </Card.Body>
-                          </Card>
-                        </motion.div>
-                      )}
-                    </AnimateSharedLayout>
-                  </Col>
-                )
-              }else{
-                return(
-                  <Col className="my-3" md={7}>
-                    <AnimateSharedLayout>
-                      {modalShow && modalCondn[id] ? (
-                        createModal()
-                      ) : (
-                        <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                          <Card
-                            style={{ background: '#141C3A' }}
-                            className="text-white achv-card"
-                          >
-                            <Card.Img
-                              className="achv-image"
-                              variant="top"
-                              src={ele.image}
-                            />
-                            <Card.Body className="text-center achv-body">
-                              <motion.div>
-                                <Card.Title className="achv-title">{ele.title}</Card.Title>
-                              </motion.div>
-                              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                                <Button
-                                  variant="outline-light"
-                                  onClick={() => {
-                                    modalDisplay(
-                                      ele.title,
-                                      ele.members,
-                                      ele.desc,
-                                      ele.image,
-                                      `expandable-card-${id + 1}`,
-                                      `${id + 1}`,
-                                    );
-                                  }}
-                                >
-                                  Learn More
-                                </Button>
-                              </motion.div>
-                            </Card.Body>
-                          </Card>
-                        </motion.div>
-                      )}
-                    </AnimateSharedLayout>
-                  </Col>
-                )
-              }
+            {displayAll?data.map((ele,id)=>{
+              return displayContent(ele,id);
+            }) : data.filter((ele) => {
+              return domain[ele.domain];
+            }).map((ele,idx)=>{
+              console.log("Clicked");
+              return displayContent(ele,idx);
             })}
           </Row>
         </Container>

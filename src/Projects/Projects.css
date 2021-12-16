@@ -8,6 +8,11 @@
   /* background-color: #1C1D26; */
   font-family: 'Montserrat', sans-serif;
 }
+.project-header{
+  color: white;
+  font-family: 'Product Sans' !important;
+  margin-bottom: 15px !important;
+}
 .proj-col{
   margin-bottom: 15px;
 }
@@ -23,7 +28,7 @@
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-  background-color: #070707;
+  /* background-color: #070707; */
   padding: 1%;
 }
 .logo {
@@ -62,8 +67,11 @@
   margin: 20px auto;
   /* padding-top: 30px; */
   border-radius: 0.25rem;
-  object-fit: cover;
-  filter: brightness(0.85);
+  object-fit: contain;
+  /* filter: brightness(0.85); */
+}
+.proj-image-bg{
+  background-color: #002d65;
 }
 .project-title {
   font-style: normal;

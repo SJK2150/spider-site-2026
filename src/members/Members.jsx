@@ -1,6 +1,6 @@
 import { React , useState} from 'react';
 import { motion , AnimatePresence} from "framer-motion";
-import { Container,Button } from "react-bootstrap";
+import { Container,Button, Nav, Col, Row } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -14,6 +14,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import IconButton from "@material-ui/core/IconButton";
 import { members } from "./All_members";
 import './members.css';
+import { BottomNavigationAction, BottomNavigation } from '@material-ui/core';
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -28,10 +29,15 @@ const container = {
 }
   
 const item = {
-  hidden: { y: 5, opacity: 0 },
+  hidden: { 
+    scale:0, 
+    opacity: 0,
+    transition: { type: 'tween', duration:0.8 }
+  },
   visible: {
-    y: 0,
-    opacity: 1
+    scale: 1,
+    opacity: 1,
+    transition: { type: 'tween', duration:0.8 }
   }
 }
 
@@ -50,12 +56,13 @@ function Members () {
   const [clickappdev, setClickappdev] = useState(false);
   const [clickwebdev, setClickwebdev] = useState(false);
   const [clickalgos, setClickalgos] = useState(false);
-
+  const [domain, setDomain] = useState([true,false,false,false])
   const handleClickTronix=()=>{
     setClickappdev(false);
     setClickwebdev(false);
     setClickalgos(false);
     setClicktronix(!clicktronix);
+    setDomain([true,false,false,false]);
     setProfileName("Tronix");
   }
   const handleClickAppdev=()=>{
@@ -63,6 +70,7 @@ function Members () {
     setClickwebdev(false);
     setClickalgos(false);
     setClickappdev(!clickappdev);
+    setDomain([false,false,true,false])
     setProfileName("App Dev");
   }
   const handleClickWebdev=()=>{
@@ -70,6 +78,7 @@ function Members () {
     setClickappdev(false);
     setClickalgos(false);
     setClickwebdev(!clickwebdev)
+    setDomain([false,true,false,false])
     setProfileName("Web Dev");
   }
   const handleClickAlogs=()=>{
@@ -77,29 +86,64 @@ function Members () {
     setClickwebdev(false);
     setClickappdev(false);
     setClickalgos(!clickalgos);
+    setDomain([false,false,false,true])
     setProfileName("Algos");
+  }
+
+  const subMenuAnimate = {
+    enter: (i) => ({
+      opacity: 1,
+      transition: {
+        duration: i * 0.8
+      },
+      display: "block"
+    }
+    ),
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 2
+      },
+      // display: "none"
+    }
+  };
+
+  const displayYearNav = (index)=>{
+    const domainCond = [clicktronix,clickwebdev,clickappdev,clickalgos];
+    if(domainCond[index]){
+      return (
+        <Nav variant="tabs" defaultActiveKey="All" style={{justifyContent:"space-between"}}>
+          {year.map((item, idx) => {
+
+            if(index === 0 && idx === 4){
+              return (<></>)
+            }
+            return (
+              <motion.div
+                initial="exit"
+                animate={domainCond[index] ? "enter" : "exit"}
+                variants={subMenuAnimate}
+                custom={idx}
+                key={idx}>
+                <Nav.Item className="batch_item">
+                  <Nav.Link onClick={((e) => handleYearClick(e, item[0]))} eventKey={item[1]}>{item[1]}</Nav.Link>
+                </Nav.Item>
+              </motion.div>
+            )
+          })}
+        </Nav>
+      )
+    }else{
+      return(
+        <></>
+      )
+    }
   }
 
   const handleYearClick =(e, yr)=>{
     setYearName(yr); 
   }
 // console.log(yearName, ProfileName)
-  const subMenuAnimate = {
-    enter: (i)=> ({
-        opacity: 1,
-        rotateX: 0,
-        transition: {
-          duration: i*0.08
-        },
-        display: "block"
-      }
-    ),
-    exit: {
-      opacity: 0,
-      rotateX: 1,
-      display: "none"
-    }
-  };
 
   return(
     <Container className="container">
@@ -116,28 +160,6 @@ function Members () {
             <br/>
             <p className="label">Tronix</p>
           </Button> 
-          <div className="sub-menu"
-              style={{marginTop:12}}
-            >
-            {clicktronix && 
-                <div>
-                {year.map((item, index)=>{
-                  return(
-                    <motion.div 
-                    initial="exit"
-                    animate={clicktronix ? "enter" : "exit"}
-                    variants={subMenuAnimate}
-                    custom={index}
-                    key={index}>
-                      <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
-                        {item[1]}
-                      </div>
-                  </motion.div>
-               )
-             })}
-           </div>
-            }
-            </div>
           </motion.div>
           <motion.div
             className="menu-item"
@@ -147,28 +169,6 @@ function Members () {
             <br/>
             <p className="label">Web Dev</p>
           </Button> 
-          <div className="sub-menu"
-              style={{marginTop:12}}
-            >
-            {clickwebdev && 
-                <div>
-                {year.map((item, index)=>{
-                  return(
-                    <motion.div 
-                    initial="exit"
-                    animate={clickwebdev ? "enter" : "exit"}
-                    variants={subMenuAnimate}
-                    custom={index}
-                    key={index}>
-                      <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
-                        {item[1]}
-                      </div>
-                  </motion.div>
-               )
-             })}
-           </div>
-            }
-            </div>
           </motion.div> 
           <motion.div
             className="menu-item"
@@ -178,28 +178,6 @@ function Members () {
             <br/>
             <p className="label">App Dev</p>
           </Button> 
-          <div className="sub-menu"
-              style={{marginTop:12}}
-            >
-            {clickappdev && 
-                <div>
-                {year.map((item, index)=>{
-                  return(
-                    <motion.div 
-                    initial="exit"
-                    animate={clickappdev ? "enter" : "exit"}
-                    variants={subMenuAnimate}
-                    custom={index}
-                    key={index}>
-                      <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
-                        {item[1]}
-                      </div>
-                  </motion.div>
-               )
-             })}
-           </div>
-            }
-            </div>
           </motion.div>
           <motion.div
             className="menu-item"
@@ -209,56 +187,32 @@ function Members () {
             <br/>
             <p className="label">Algos</p>
           </Button> 
-          <div className="sub-menu"
-              style={{marginTop:12}}
-            >
-            {clickalgos && 
-                <div>
-                {year.map((item, index)=>{
-                  return(
-                    <motion.div 
-                    initial="exit"
-                    animate={clickalgos ? "enter" : "exit"}
-                    variants={subMenuAnimate}
-                    custom={index}
-                    key={index}>
-                      <div className="batchLinks" onClick={((e) => handleYearClick(e, item[0]))}>
-                        {item[1]}
-                      </div>
-                  </motion.div>
-               )
-             })}
-           </div>
-            }
-            </div>
           </motion.div>
         </nav>
+        {displayYearNav(domain.findIndex(e=> e===true))}
       </>  
     <AnimatePresence initial={true}>
-    <motion.ul
+    <motion.div
     variants={container}
     initial="hidden"
     animate="visible"
     style={{display:"flex", justifyContent:"space-around", padding:30}}
     >  
     <CardColumns>
-      <Container>
+      <Container fluid="lg">
         {members
         .filter(member => member.Profile === ProfileName)
         .filter(member => member.Year === yearName)
-        .map(member => (
-        <motion.div className="item" variants={item}
-        whileHover={{
-          scale: 1.1,
-          transition: { duration: 0.3 },
-        }}>
-        <Card className="bg-dark text-white" style={{margin:20}}> 
+        .map((member,id) => (
+        <motion.div className="item"
+          variants={item}
+          key={`member_${id}`}
+        >
+            <Card className="bg-dark text-white member_card" style={{ margin: 20, background: '#141C3A'}}>
         <Card.Img src={member.Photo} alt={member.Name} />
-          <Card.ImgOverlay>
-            <Card.Title>{member.Name}</Card.Title>
-          </Card.ImgOverlay>
-        <Card.Body>
-          <Card.Text className="iconLinks">
+          <Card.Title className="member_name" style={{ background: '#141C3A', textAlign:"center"}}>{member.Name}</Card.Title>
+          <Card.Body style={{ background: '#141C3A'}}>
+          <Card.Text style={{ background: '#141C3A'}} className="iconLinks">
                   {member.LinkedIn ? (
                     <a href={member.LinkedIn}>
                       <IconButton >
@@ -295,11 +249,12 @@ function Members () {
               </Card.Text>
             </Card.Body>
             </Card>
+            <br></br>
             </motion.div>
         ))}       
       </Container>  
     </CardColumns>
-    </motion.ul> 
+    </motion.div> 
     </AnimatePresence>   
     </Router>
    </Container>    

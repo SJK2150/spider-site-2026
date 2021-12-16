@@ -39,3 +39,11 @@
         max-width: 1300px;
     }
 }
+@media screen and (max-width:705px){
+  .dcard-title > h3{
+    font-size: 1.8rem;
+  }
+  .dcard-desc > p{
+    font-size: 1rem;
+  }
+}

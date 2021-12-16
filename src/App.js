@@ -4,6 +4,7 @@ import NavBar from './navbar/navbar';
 import Projects from './Projects/Projects';
 import Members from './members/Members.jsx';
 import ProjectItems from './blogs/Blog.jsx';
+import Blog from './blogs/blogs';
 import Achievements from './Achievements/Achievements';
 import {
   BrowserRouter as Router,
@@ -23,7 +24,7 @@ function App() {
         <Achievements></Achievements>
       </Route>
       <Route exact path="/blogs">
-        <ProjectItems />
+        <Blog />
       </Route>
       <Route exact path="/members">
         <Members />

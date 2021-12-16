@@ -1,7 +1,13 @@
 .heroContent{
     margin:0;
 }
-
+.blogs_header{
+  color: #fff;
+  opacity: 1;
+  text-align: center;
+  padding: 20px;
+  /* font-weight: 700; */
+}
 .root{
    color:rgb(219, 219, 219);
 }
@@ -26,6 +32,13 @@
 }
 .cardMedia{
     border-radius:8px;
+}
+.blog_card_img{
+   height: 400px;
+   width: 95%;
+   margin: 20px auto;
+   border-radius: 0.25rem;
+   object-fit: contain;
 }
 .cardblock{
    border-radius: 10px;
