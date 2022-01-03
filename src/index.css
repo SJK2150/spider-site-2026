@@ -11,11 +11,11 @@ code {
 } */
  @font-face {
     font-family: 'Product Sans';
-    src: local('Product Sans') url(./fonts/Product\ Sans\ Regular.ttf) format("truetype");
+    src: url(./fonts/Product\ Sans\ Regular.ttf);
 }
 @font-face {
     font-family: 'ProductSansBold';
-    src: local('Product Sans Bold') url(./fonts/Product\ Sans\ Bold.ttf) format("truetype");
+    src: url(./fonts/Product\ Sans\ Bold.ttf) format("truetype");
 }
 *{
   font-family: 'Product Sans';
