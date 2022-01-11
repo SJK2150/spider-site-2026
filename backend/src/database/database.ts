@@ -376,6 +376,60 @@ const Member_Achievement = sequelize.define(
 );
 
 /**
+ * Blog Structure
+ */
+ interface BlogAttributes {
+  id: number;
+  title: string;
+  summary: string;
+  article_link: string;
+  image_link: string;
+}
+
+interface BlogCreationAttributes extends Optional<BlogAttributes, 'id'> {}
+
+class Blog
+  extends Model<BlogAttributes, BlogCreationAttributes>
+  implements BlogAttributes
+{
+  public id!: number;
+  public title!: string;
+  public summary!: string;
+  public article_link!: string;
+  public image_link!: string;
+}
+
+Blog.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    title: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    summary: {
+      type: DataTypes.STRING(1024),
+      allowNull: false
+    },
+    image_link: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    article_link: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+
+  },
+  {
+    sequelize
+  }
+);
+
+/**
  * Userlogin table
  * - for storing credentials of admins
  */
@@ -447,6 +501,7 @@ async function table_sync() {
   await Achievement.sync({ alter: true });
   await Member_Achievement.sync({ alter: true });
   await Userlogin.sync({ alter: true });
+  await Blog.sync({ alter: true });
   console.log('All tables have been synchronised ');
 }
 
@@ -462,6 +517,8 @@ export {
   Achievement,
   Member_Achievement,
   AchievementAttributes,
+  Blog,
+  BlogAttributes,
   UserloginAttributes,
   Userlogin,
   table_sync
