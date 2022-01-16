@@ -26,13 +26,13 @@ const logger = pino({
   prettyPrint: process.env.ENV === 'DEV'
 });
 
-app.use('/api/blog', blogRouter);  
+app.use('/api/blog', blogRouter);
+app.use('/api/member', memberRouter);
+app.use('/api/achievement', achievementRouter);
+app.use('/api/project', projectRouter);
 app.use('/login', loginRouter);
 app.use('/', jwt_verify);
-app.use('/api/member', memberRouter);
-app.use('/api/project', projectRouter);
 app.use('/api/event', eventRouter);
-app.use('/api/achievement', achievementRouter);
 app.use('/api/blog', blogRouter);  
 
 app.get('/', (req: any, res: any) => {
@@ -40,6 +40,6 @@ app.get('/', (req: any, res: any) => {
 });
 
 app.listen(port, () => {
-  table_sync();
+  table_sync();   //comment this line when tables are created
   logger.info(`Connected successfully at port ${port}`);
 });

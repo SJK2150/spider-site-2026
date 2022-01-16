@@ -89,13 +89,10 @@ router.post('/add', async (req, res) => {
             let new_blog = await Blog.create(blog_details, {
               transaction: t
             });
-            let actualPath = pathname + `/${new_blog.id}/`;
-            if (!existsSync(actualPath)) {
-              mkdirSync(actualPath, { recursive: true });
-            }
+            
             renameSync(
               temporaryPathname + '/' + req.file.originalname,
-              actualPath + req.file.originalname
+              pathname + '/' + req.file.originalname
             );
             rmdirSync(temporaryPathname);
             logger.info(

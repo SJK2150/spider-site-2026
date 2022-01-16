@@ -23,7 +23,6 @@ import console from 'console';
 const imageHandler = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      console.log('name:', req.body.name);
       let pathname = path.resolve('./', 'temp/projects/' + req.body.name);
       if (!existsSync(pathname)) {
         mkdirSync(pathname, { recursive: true });
@@ -103,6 +102,9 @@ router.post('/add', async (req, res) => {
         './',
         `temp/projects/${req.body.name}/`
       );
+      if (!existsSync(pathname)) {
+        mkdirSync(pathname, { recursive: true });
+      }
       let members_ids = req.body['members']
         ? req.body['members']
         : res.send('Member field missing');
@@ -133,6 +135,7 @@ router.post('/add', async (req, res) => {
         project_details['project_photo_url'] = image_files.map(
           (file: { originalname: any }) => pathname + '/' + file.originalname
         );
+        console.log(project_details);
         return await sequelize.transaction(async (t) => {
           let new_project = await Project.create(project_details, {
             transaction: t
@@ -140,21 +143,21 @@ router.post('/add', async (req, res) => {
           if (members !== null) {
             await new_project.addMembers(members, { transaction: t });
           }
-          await fse.move(temporaryPathname, pathname); //move from temp to public
+          renameSync(
+            temporaryPathname + '/' + req.file.originalname,
+            pathname + '/' + req.file.originalname
+          );
+          rmdirSync(temporaryPathname); //move from temp to public
           logger.info(
             `Project ${new_project.name} created, id: ${new_project.id}`
           );
           res.status(201).send('Project Added');
         });
       } catch (err) {
-        let projectPath = path.resolve(
-          __dirname,
-          '../../public/projects/' + req.body.name
-        );
-        await rm(projectPath, { recursive: true, force: true }, (err) => {
+        logger.error(`Error(Project Creation): ${err}`);
+        await rm(temporaryPathname, { recursive: true, force: true }, (err) => {
           err ? logger.error(err) : null;
         });
-        logger.error(`Error(Project Creation): ${err}`);
         res.status(500).send('Internal Server/Database Error!');
       }
     }
