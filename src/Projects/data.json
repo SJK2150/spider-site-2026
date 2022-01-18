@@ -1,0 +1,34 @@
+[
+  {
+    "projImg": "https://spider.nitt.edu/images/Projects/Fake_real-1_gebpwg%20-%20Adithya%20Krishnakumar.png",
+    "projTitle": "Fake News Detector",
+    "projMembers": ["Mem1", "Mem2"],
+    "domain": 0,
+    "projInfo": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?",
+    "layoutId": "expandable-card-1"
+  },
+  {
+    "projImg": "https://spider.nitt.edu/images/Projects/SpectralClustering%20-%20Anagha%20Sethuraman.jpg",
+    "projTitle": "Image Segmentation using Spectral Clustering",
+    "projMembers": ["Mem1", "Mem2"],
+    "domain":2,
+    "projInfo": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?",
+    "layoutId": "expandable-card-2"
+  },
+  {
+    "projImg": "https://spider.nitt.edu/images/Projects/img%20-%20Ruphan%20S.jpeg",
+    "projTitle": "Project Braille",
+    "projMembers": ["Mem1", "Mem2"],
+    "domain":3,
+    "projInfo": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?",
+    "layoutId": "expandable-card-3"
+  },
+  {
+    "projImg": "https://spider.nitt.edu/images/Projects/armadillo%20-%20Mukesh%20Gandhi.png",
+    "projTitle": "Armadilo",
+    "projMembers": ["Mem1", "Mem2"],
+    "domain":1,
+    "projInfo": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis laborum quasi assumenda delectus molestias aperiam esse magni accusantium sequi quos?",
+    "layoutId": "expandable-card-4"
+  }
+]

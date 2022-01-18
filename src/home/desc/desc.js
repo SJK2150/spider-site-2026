@@ -5,7 +5,7 @@ import './desc.css'
 function Desc() {
 	return (
 		<div>
-			<Container>
+			<Container id="desc-container">
 				<div className="dcard">
 					<div className="dcard-title">
 						<h3><strong>Who are we?</strong></h3>

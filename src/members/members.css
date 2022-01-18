@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+.container{
+    align-content: center;
+}
+.cardContainer{
+    display:flex;
+    justify-content: space-evenly;
+}
+.label{
+    font-family: 'Product Sans';
+    font-size: 14px;
+}
+
+.algosIcon{
+    background-color: #6D4DFF;
+    border: 2px solid #6D4DFF ;
+    border-radius: 2px;
+    padding-top:10px;
+    padding-left:16.3px;
+    padding-right:16.3px;
+    padding-bottom:0
+}
+.appdevIcon{
+    background-color: #6D4DFF;
+    border: 2px solid #6D4DFF ;
+    border-radius: 2px;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:0
+}
+.webdevIcon{
+    background-color: #6D4DFF;
+    border: 2px solid #6D4DFF ;
+    border-radius: 2px;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:0
+}
+.tronixIcon{
+    background-color: #6D4DFF;
+    border: 2px solid #6D4DFF ;
+    border-radius: 2px;
+    padding-top:10px;
+    padding-left:13px;
+    padding-right:13px;
+    padding-bottom:0
+}
+.batchLinks{
+    cursor: pointer;
+    color:rgb(151, 151, 151);
+    background-color: #6D4DFF;    
+}
+.batch_item{
+    border: 1px solid #6D4DFF; 
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #091626;
+}
+.nav-tabs .nav-link{
+    color: #ffffff;
+}
+.nav-tabs .nav-link:hover{
+    cursor: pointer;
+    border: 1px solid #1b0386; 
+    transition: 0.25s;
+}
+.batchLinks:hover{
+    cursor: pointer;
+    color:rgb(223, 223, 223);  
+    transform: scale(1.15); 
+    transition: 0.25s;
+}
+.iconLinks{
+    display:flex;
+    justify-content:space-evenly
+}
+
+.buttonlinkedInIcon{
+    color: #c5c5c5;
+}
+.buttonwebIcon{
+    color: #c5c5c5;
+}
+.buttongithubIcon{
+    color: #c5c5c5;
+}
+.buttonlinkedInIcon:hover{
+    transition: 0.3s;  
+    transform: scale(1.5);
+    color:#ffffff;
+}
+.buttongithubIcon:hover{
+    transition: 0.3s;  
+    transform: scale(1.5);
+    color:#ffffff;
+}
+.buttonwebIcon:hover{
+    transition: 0.3s;  
+    transform: scale(1.5);
+    color:#ffffff;
+}
+.tronixIcon:hover{
+   background-color: #4520e6;
+   border: 2px solid #6D4DFF ;
+   transform: scale(1.15);
+   transition: 0.3s; 
+}
+.algosIcon:hover{
+    background-color: #4520e6;
+    border: 2px solid #6D4DFF ;
+    transform: scale(1.15);
+    transition: 0.3s; 
+}
+.webdevIcon:hover{
+    background-color: #4520e6;
+    border: 2px solid #6D4DFF ;
+    transform: scale(1.15);
+    transition: 0.3s; 
+}
+.appdevIcon:hover{
+    background-color: #4520e6;
+    border: 2px solid #6D4DFF ;
+    transform: scale(1.15);
+    transition: 0.3s; 
+    }
+div.member_card{
+    transition: all 0.3s ease-in-out;
+}
+div.member_card:hover{
+    scale: 1.1;
+}
+div.member_name{
+    margin: 0;
+    padding: 0.5rem;
+    vertical-align: middle;
+    border-bottom: 1px solid white;
+}
+@media screen and (max-width:900px) {
+    div.card-columns{
+        column-count: 1;
+    }
+}
