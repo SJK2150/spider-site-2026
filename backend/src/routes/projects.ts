@@ -19,6 +19,7 @@ import path from 'path';
 import pino from 'pino';
 import fse from 'fs-extra';
 import console from 'console';
+import { jwt_verify } from '../utils/middleware';
 
 const imageHandler = multer({
   storage: multer.diskStorage({
@@ -78,6 +79,8 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server/Database Error!');
   }
 });
+
+router.use('/', jwt_verify);
 
 router.post('/add', async (req, res) => {
   /*let proj_check = await Project.findOne({

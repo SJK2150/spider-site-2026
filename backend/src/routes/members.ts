@@ -1,14 +1,20 @@
 import { Router } from 'express';
 import { Member } from '../database/database';
-import { unlinkSync } from 'fs';
+import { existsSync, mkdirSync, unlinkSync } from 'fs';
 import pino from 'pino';
 import multer from 'multer';
 import path from 'path';
+import { jwt_verify } from '../utils/middleware';
 
 const imageHandler = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.resolve(__dirname, '../../public/members'));
+      // cb(null, path.resolve(__dirname, '../../public/members'));
+      let pathname = path.resolve(__dirname, '../../public/members');
+        if (!existsSync(pathname)) {
+          mkdirSync(pathname, { recursive: true });
+        }
+        cb(null, pathname);
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);
@@ -54,6 +60,8 @@ router.get('/details/:id', async (req, res) => {
   }
 });
 
+router.use('/', jwt_verify);
+
 router.post('/add', async (req, res) => {
   imageHandler(req, res, async (err) => {
     if (err) {
@@ -67,7 +75,7 @@ router.post('/add', async (req, res) => {
         const member_details = req.body;
         member_details.photo_url = req.file.path;
         let new_member = await Member.create(member_details);
-        logger.info(`Member ${new_member.name} created, id: ${new_member.id}`);
+        logger.info(`Member ${new_member.name} created, id: ${new_member.id}, photo_url: ${new_member.photo_url}`);
         res.status(201).send('Member added');
       } catch (err) {
         await unlinkSync(req.file.path);
@@ -155,7 +163,7 @@ router.delete('/delete/:id', async (req, res) => {
           id: member_id
         }
       });
-      await unlinkSync(path.resolve('./') + '/public/projects/' + member.name);
+      await unlinkSync(member.photo_url);
       logger.info(`Member ${member_id} got deleted`);
       res.status(200).send('deleted');
     } catch (err) {

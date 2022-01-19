@@ -7,25 +7,27 @@ import ProjectItems from './blogs/Blog.jsx';
 import Blog from './blogs/blogs';
 import Achievements from './Achievements/Achievements';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { blogs } from './api/requests';
+// import { blogs } from './api/requests';
 import { useEffect } from 'react';
+import { test } from './api/test';
 
 function App() {
-  const getBlogs = async () => {
-    try {
-      const data = await blogs();
-      if (data.status >= 400) {
-        console.log('error:', data.statusText);
-        // console.log(data.data.message)
-        return;
-      }
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getBlogs = async () => {
+  //   try {
+  //     const data = await blogs();
+  //     if (data.status >= 400) {
+  //       console.log('error:', data.statusText);
+  //       // console.log(data.data.message)
+  //       return;
+  //     }
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   useEffect(() => {
-    getBlogs();
+    // getBlogs();
+    test();
   }, []);
   return (
     <Router>

@@ -31,7 +31,7 @@ app.use('/api/member', memberRouter);
 app.use('/api/achievement', achievementRouter);
 app.use('/api/project', projectRouter);
 app.use('/login', loginRouter);
-app.use('/', jwt_verify);
+// app.use('/', jwt_verify);
 app.use('/api/event', eventRouter);
 app.use('/api/blog', blogRouter);  
 
@@ -40,6 +40,6 @@ app.get('/', (req: any, res: any) => {
 });
 
 app.listen(port, () => {
-  table_sync();   //comment this line when tables are created
+  // table_sync();   //comment this line when tables are created
   logger.info(`Connected successfully at port ${port}`);
 });

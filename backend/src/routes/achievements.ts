@@ -19,6 +19,7 @@ import {
 import path from 'path';
 import fse from 'fs-extra';
 import console from 'console';
+import { jwt_verify } from '../utils/middleware';
 
 const imageHandler = multer({
   storage: multer.diskStorage({
@@ -73,6 +74,8 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server error');
   }
 });
+
+router.use('/', jwt_verify);
 
 router.post('/add', async (req, res) => {
   imageHandler(req, res, async (err) => {

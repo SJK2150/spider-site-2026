@@ -1,57 +1,111 @@
 import Client from './Index';
 
+const helperFunc = async (routeLoc, reqmethod, data) => {
+  try {
+    let result;
+    if (reqmethod === 'get') {
+      result = await Client.get(routeLoc, {
+        validateStatus: function (status) {
+          return status < 500;
+        },
+      });
+      console.log(result);
+    }
+    if (reqmethod === 'post') {
+      result = await Client.post(routeLoc, data, {
+        validateStatus: function (status) {
+          return status < 500;
+        },
+      });
+      console.log(result);
+    }
+    if (reqmethod === 'put') {
+      result = await Client.put(routeLoc, data, {
+        validateStatus: function (status) {
+          return status < 500;
+        },
+      });
+      console.log(result);
+    }
+    if (reqmethod === 'delete') {
+      result = await Client.delete(routeLoc, {
+        validateStatus: function (status) {
+          return status < 500;
+        },
+      });
+      console.log(result);
+    }
+    if (result.statusText !== 'OK') {
+      console.log(result.status, result.statusText);
+    }
+    return result.data;
+  } catch (error) {
+    console.log('server error');
+  }
+};
+
 // user
 const LOGIN = '/login';
-export const login = (username, password) =>
-  Client.post(LOGIN, {
-    username: username,
-    password: password,
-  });
+export const login = async (data) => {
+  try {
+    const result = await helperFunc(LOGIN, 'post', data);
+    console.log(result);
+    await localStorage.setItem('token', `Bearer ${result.token}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export const register = (username, password) =>
-  Client.post(`${LOGIN}/register`, {
-    username: username,
-    password: password,
-  });
+export const register = (data) => helperFunc(`${LOGIN}/register`, 'post', data);
+
+const BLOG = '/api/blog';
+
+export const getAllBlogsDetails = async () => helperFunc(`${BLOG}/details`, 'get');
+
+export const getBlogDetailsById = (id) => helperFunc(`${BLOG}/details/${id}`, 'get');
+
+export const addBlog = (data) => helperFunc(`${BLOG}/add`, 'post', data);
 
 const MEMBER = '/api/member';
 
-export const getAllMembersDetails = () => Client.get(`${MEMBER}/details`);
+export const getAllMembersDetails = () => helperFunc(`${MEMBER}/details`, 'get');
 
-export const getMemberDetailsById = (id) => Client.get(`${MEMBER}/details/${id}`);
+export const getMemberDetailsById = (id) => helperFunc(`${MEMBER}/details/${id}`, 'get');
 
-// TODO: add
+export const addMember = (data) => helperFunc(`${MEMBER}/add`, 'post', data);
 
-export const deleteMember = (id) => Client.delete(`${MEMBER}/delete/${id}`);
+export const deleteMember = (id) => helperFunc(`${MEMBER}/delete/${id}`, 'delete');
 
 const PROJECT = '/api/project';
 
-export const getAllProjectsDetails = () => Client.get(`${PROJECT}/details`);
+export const getAllProjectsDetails = () => helperFunc(`${PROJECT}/details`, 'get');
 
-export const getProjectDetailsById = (id) => Client.get(`${PROJECT}/details/${id}`);
+export const getProjectDetailsById = (id) => helperFunc(`${PROJECT}/details/${id}`, 'get');
 
-// TODO: update, add
+// TODO: update
+export const addProject = (data) => helperFunc(`${PROJECT}/add`, 'post', data);
 
-export const deleteProject = (id) => Client.delete(`${PROJECT}/delete/${id}`);
+export const deleteProject = (id) => helperFunc(`${PROJECT}/delete/${id}`, 'delete');
 
 const EVENT = '/api/event';
 
-export const getAllEventsDetails = () => Client.get(`${EVENT}/details`);
+export const getAllEventsDetails = () => helperFunc(`${EVENT}/details`, 'get');
 
-export const getEventsById = (id) => Client.get(`${EVENT}/details/${id}`);
+export const getEventsById = (id) => helperFunc(`${EVENT}/details/${id}`, 'get');
 
-export const addEvent = (data) => Client.post(`${EVENT}/add`, data);
+export const addEvent = (data) => helperFunc(`${EVENT}/add`, 'post', data);
 
-export const updateEvent = (data, id) => Client.put(`${EVENT}/update/${id}`, data);
+export const updateEvent = (data, id) => helperFunc(`${EVENT}/update/${id}`, 'put', data);
 
-export const deleteEvent = (id) => Client.delete(`${EVENT}/delete/${id}`);
+export const deleteEvent = (id) => helperFunc(`${EVENT}/delete/${id}`, 'delete');
 
 const ACHIEVEMENT = '/api/achievement';
 
-export const getAllAchievementDetails = () => Client.get(`${ACHIEVEMENT}/details`);
+export const getAllAchievementDetails = () => helperFunc(`${ACHIEVEMENT}/details`, 'get');
 
-export const getAchievementById = (id) => Client.get(`${ACHIEVEMENT}/details/${id}`);
+export const getAchievementById = (id) => helperFunc(`${ACHIEVEMENT}/details/${id}`, 'get');
 
-// TODO: update, add
+// TODO: update
+export const addAchievement = (data) => helperFunc(`${ACHIEVEMENT}/add`, 'post', data);
 
-export const deleteAchievement = (id) => Client.delete(`${ACHIEVEMENT}/delete/${id}`);
+export const deleteAchievement = (id) => helperFunc(`${ACHIEVEMENT}/delete/${id}`, 'delete');

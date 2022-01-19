@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Event, EventAttributes, table_sync } from '../database/database';
 import pino from 'pino';
+import { jwt_verify } from '../utils/middleware';
 
 const logger = pino({
   level: 'info',
@@ -32,6 +33,8 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server/Database Error!');
   }
 });
+
+router.use('/', jwt_verify);
 
 router.post('/add', async (req, res) => {
   const event_details: EventAttributes = req.body;
