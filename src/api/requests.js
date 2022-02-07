@@ -82,8 +82,9 @@ export const getAllProjectsDetails = () => helperFunc(`${PROJECT}/details`, 'get
 
 export const getProjectDetailsById = (id) => helperFunc(`${PROJECT}/details/${id}`, 'get');
 
-// TODO: update
 export const addProject = (data) => helperFunc(`${PROJECT}/add`, 'post', data);
+
+export const updateProject = (data, id) => helperFunc(`${PROJECT}/update/${id}`, 'post', data);
 
 export const deleteProject = (id) => helperFunc(`${PROJECT}/delete/${id}`, 'delete');
 
@@ -105,7 +106,9 @@ export const getAllAchievementDetails = () => helperFunc(`${ACHIEVEMENT}/details
 
 export const getAchievementById = (id) => helperFunc(`${ACHIEVEMENT}/details/${id}`, 'get');
 
-// TODO: update
 export const addAchievement = (data) => helperFunc(`${ACHIEVEMENT}/add`, 'post', data);
+
+export const updateAchievement = (data, id) =>
+  helperFunc(`${ACHIEVEMENT}/update/${id}`, 'post', data);
 
 export const deleteAchievement = (id) => helperFunc(`${ACHIEVEMENT}/delete/${id}`, 'delete');
