@@ -7,7 +7,7 @@ const Client = axios.create({
 Client.interceptors.request.use(
   function (config) {
     if (config.method === 'POST' || config.method === 'PUT') {
-      config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+      config.headers.post['Content-Type'] = 'multipart/form-data';
     }
     config.headers['Authorization'] = localStorage.getItem('token');
     return config;
