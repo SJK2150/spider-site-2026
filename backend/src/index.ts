@@ -40,6 +40,6 @@ app.get('/', (req: any, res: any) => {
 });
 
 app.listen(port, () => {
-  // table_sync();   //comment this line when tables are created
+  //table_sync();   //comment this line when tables are created
   logger.info(`Connected successfully at port ${port}`);
 });

@@ -134,11 +134,13 @@ router.post('/add', async (req, res) => {
         let image_files: any = req.files;
         project_details['dp_url'] =
           pathname + '/' + image_files[0].originalname;
-        image_files.shift();
+        /*image_files.shift();
         project_details['project_photo_url'] = image_files.map(
           (file: { originalname: any }) => pathname + '/' + file.originalname
-        );
+        );*/
+        project_details['project_photo_url'] = pathname + '/' + image_files[1].originalname
         console.log(project_details);
+
         return await sequelize.transaction(async (t) => {
           let new_project = await Project.create(project_details, {
             transaction: t
@@ -147,8 +149,8 @@ router.post('/add', async (req, res) => {
             await new_project.addMembers(members, { transaction: t });
           }
           renameSync(
-            temporaryPathname + '/' + req.file.originalname,
-            pathname + '/' + req.file.originalname
+            temporaryPathname ,
+            pathname
           );
           rmdirSync(temporaryPathname); //move from temp to public
           logger.info(
@@ -156,6 +158,7 @@ router.post('/add', async (req, res) => {
           );
           res.status(201).send('Project Added');
         });
+
       } catch (err) {
         logger.error(`Error(Project Creation): ${err}`);
         await rm(temporaryPathname, { recursive: true, force: true }, (err) => {

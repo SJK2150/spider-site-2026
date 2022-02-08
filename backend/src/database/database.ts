@@ -188,6 +188,7 @@ Project.init(
     project_photo_url: {
       type: DataTypes.STRING(1024),
       allowNull: true,
+      /*
       get(this: any): Array<String> | null {
         return this.getDataValue('project_photo_url')
           ? this.getDataValue('project_photo_url').split(';')
@@ -195,11 +196,12 @@ Project.init(
       },
       set(url: Array<String>) {
         this.setDataValue('project_photo_url', url.join(';'));
-      }
+      }*/
     },
     project_video_url: {
       type: DataTypes.STRING(1024),
       allowNull: true,
+      /*
       get(this: any): Array<String> | null {
         return this.getDataValue('project_video_url')
           ? this.getDataValue('project_video_url').split(';')
@@ -207,7 +209,7 @@ Project.init(
       },
       set(url: Array<String>) {
         this.setDataValue('project_video_url', url.join(';'));
-      }
+      }*/
     }
   },
   {
