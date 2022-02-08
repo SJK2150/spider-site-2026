@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { blogs } from './api/requests';
 import { useEffect } from 'react';
 import { test } from './api/test';
+import Admin from './Admin/Admin';
 
 function App() {
   // const getBlogs = async () => {
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/members">
             <Members />
+          </Route>
+          <Route exact path="/admin">
+            <Admin></Admin>
           </Route>
           <Route path="/">
             <Home></Home>
