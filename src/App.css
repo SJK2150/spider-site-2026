@@ -9,6 +9,7 @@
   background-color: #091626;
   /* width: 100vw;
   height: 100vh; */
+  min-height: 100vh;
   height: max-content;
   scroll-behavior: smooth;
   overflow-x: hidden;

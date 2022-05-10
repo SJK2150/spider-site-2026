@@ -5,6 +5,7 @@ import Projects from './Projects/Projects';
 import Members from './members/Members.jsx';
 import ProjectItems from './blogs/Blog.jsx';
 import Blog from './blogs/blogs';
+import FooterBar from './Footer/footer-bottom';
 import Achievements from './Achievements/Achievements';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { blogs } from './api/requests';
@@ -47,13 +48,14 @@ function App() {
           <Route exact path="/members">
             <Members />
           </Route>
-          <Route exact path="/admin">
+          {/* <Route exact path="/admin">
             <Admin></Admin>
-          </Route>
+          </Route> */}
           <Route path="/">
             <Home></Home>
           </Route>
         </Switch>
+        {window.location.pathname !== '/'?(<FooterBar></FooterBar>):(<></>)}
       </div>
     </Router>
   );

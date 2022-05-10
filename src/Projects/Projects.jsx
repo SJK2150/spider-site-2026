@@ -6,15 +6,23 @@ import './Projects.css';
 import Modal from '../Modal/Modal';
 import Toolbar from '../DomainToolbar/Toolbar';
 import axios from 'axios';
-import data from './data.json'
+// import data from './data.json'
+import { getAllProjectsDetails } from '../api/requests';
 export default function Projects() {
   const [modalShow, setModalShow] = React.useState(false);
   const [props, setProps] = React.useState({});
-  // const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState([]);
   const [domain,setDomain] = React.useState([].fill(false,0,4));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, data.length));
   const [displayAll,setDisplayAll] = React.useState(true);
+  const [domainMap,setDomainMap] = React.useState({
+    "TRONIX":0,
+    "WEBDEV":1,
+    "ALGOS":2,
+    "APPDEV":3
+  });
   useEffect(() => {
+    fetchData();
     let arr = [];
     for(let i=0;i<4;i++){
       arr.push(false);
@@ -33,6 +41,12 @@ export default function Projects() {
     }
   },[domain])
 
+  const fetchData = async()=>{
+    const res = await getAllProjectsDetails();
+    console.log(res);
+    setData(res);
+  }
+
   const displayContent = (ele,id)=>{
     if (id % 2 == 0) {
       return (
@@ -50,22 +64,22 @@ export default function Projects() {
                       <Card.Img
                         className="project-image"
                         variant="top"
-                        src={ele.projImg}
+                        src={ele.project_photo_url}
                       />
                   </div>
                   <Card.Body className="text-center project-body">
                     <motion.div>
-                      <Card.Title className="project-title">{ele.projTitle}</Card.Title>
+                      <Card.Title className="project-title">{ele.name}</Card.Title>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                       <Button
                         variant="outline-light"
                         onClick={() => {
                           modalDisplay(
-                            ele.projTitle,
-                            ele.projMembers,
-                            ele.projInfo,
-                            ele.projImage,
+                            ele.name,
+                            ele.Members,
+                            ele.desc,
+                            ele.project_photo_url,
                             `expandable-card-${id + 1}`,
                             `${id + 1}`,
                           );
@@ -97,22 +111,22 @@ export default function Projects() {
                     <Card.Img
                       className="project-image"
                       variant="top"
-                      src={ele.projImg}
+                      src={ele.project_photo_url}
                     />
                   </div>
                   <Card.Body className="text-center project-body">
                     <motion.div>
-                      <Card.Title className="project-title">{ele.projTitle}</Card.Title>
+                      <Card.Title className="project-title">{ele.name}</Card.Title>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.1 }}>
                       <Button
                         variant="outline-light"
                         onClick={() => {
                           modalDisplay(
-                            ele.projTitle,
-                            ele.projMembers,
-                            ele.projInfo,
-                            ele.projImage,
+                            ele.name,
+                            ele.Members,
+                            ele.desc,
+                            ele.project_photo_url,
                             `expandable-card-${id + 1}`,
                             `${id + 1}`,
                           );
@@ -132,16 +146,21 @@ export default function Projects() {
   }
 
   const modalDisplay = (title, members, info, image, layoutId, key) => {
+    let mem = members;
+    let newMemberList = [];
+    for(let i=0;i<mem.length;i++){
+      newMemberList.push([ mem[i].name, mem[i].photo_url ]);
+    }
     setProps({
       title: title,
-      members: members,
+      members: newMemberList,
       info: info,
       image: image,
       layoutId: layoutId,
     });
     setModalShow(true);
     let newArr = [...modalCondn];
-    console.log(key);
+    // console.log(key);
     newArr.fill(false, 0, 4);
     newArr[Number(key) - 1] = true;
     setModalCondn(newArr);
@@ -161,7 +180,7 @@ export default function Projects() {
             {displayAll ? data.map((ele, id) => {
               return displayContent(ele,id);
             }):data.filter(e=>{
-              return domain[e.domain];
+              return domain[domainMap[e.domain]];
             }).map((ele,id)=>{
               return displayContent(ele,id);
             })}

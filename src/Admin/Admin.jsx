@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Row, Col, Container, ListGroup, Tab} from 'react-bootstrap';
+import AdminProj from './AdminProj';
 function Admin() {
     return ( 
     <div style={{height:"100vh",color:"white"}}>
@@ -26,7 +27,7 @@ function Admin() {
                         <Col sm={9}>
                             <Tab.Content>
                                 <Tab.Pane eventKey="#link1">
-                                    <div>Hello World</div>
+                                    <AdminProj></AdminProj>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="#link2">
                                     <div>Hello World</div>

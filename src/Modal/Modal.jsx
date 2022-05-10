@@ -69,10 +69,10 @@ export default function Modal(props) {
                           <Image
                             width={64}
                             height={64}
-                            src="https://www.fg-a.com/wallpapers/white-marble-1-2018.jpg"
+                            src={member[1]}
                             roundedCircle
                           />
-                          <p>{member}</p>
+                          <p>{member[0]}</p>
                         </div>
                       );
                     })}

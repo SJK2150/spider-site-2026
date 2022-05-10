@@ -5,7 +5,7 @@ export default function Team() {
     return (
         <Container className="text-center" id="team-container">
             <h1 className="home-team-title">Our Team</h1>
-            <Image src="images/team.jpg" fluid></Image>
+            <Image style={{borderRadius: 3}} src="images/team.jpg" fluid></Image>
             <hr />
             <button id="view-team-btn" onClick={() => {
                 window.location.href = "/members";

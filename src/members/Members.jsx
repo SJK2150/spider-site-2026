@@ -208,8 +208,8 @@ function Members () {
           variants={item}
           key={`member_${id}`}
         >
-            <Card className="bg-dark text-white member_card" style={{ margin: 20, background: '#141C3A'}}>
-        <Card.Img src={member.Photo} alt={member.Name} />
+          <Card className="bg-dark text-white member_card" style={{ margin: 20, background: '#141C3A'}}>
+          <Card.Img src={member.Photo} alt={member.Name} />
           <Card.Title className="member_name" style={{ background: '#141C3A', textAlign:"center"}}>{member.Name}</Card.Title>
           <Card.Body style={{ background: '#141C3A'}}>
           <Card.Text style={{ background: '#141C3A'}} className="iconLinks">

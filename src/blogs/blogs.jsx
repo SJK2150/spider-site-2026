@@ -2,9 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import Typography from "@material-ui/core/Typography";
 import './blog.css';
-import data from './blogInfo.json'
+// import data from './blogInfo.json'
+
 import { Link } from 'react-router-dom';
+import { getAllBlogsDetails } from '../api/requests';
 export default function Blog() {
+    const [data,setData] = useState([]);
+    const fetchData = async ()=>{
+        const res = await getAllBlogsDetails();
+        console.log(res);
+        setData(res);
+    }
+    useEffect(() => {
+      fetchData()
+    }, [])
+    
     return (
         <div id="blogs-page">
             <Container>
@@ -45,7 +57,7 @@ export default function Blog() {
                                                 <Card.Text as="h6">
                                                     {ele.summary}
                                                 </Card.Text>
-                                                <Button variant="primary" href={ele.article_link}>
+                                                <Button variant="primary" href={ele.article_link} target="_blank">
                                                     Learn More
                                                 </Button>
                                             </Card.Body>

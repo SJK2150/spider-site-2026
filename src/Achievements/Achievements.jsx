@@ -3,23 +3,33 @@ import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
 import Modal from '../Modal/Modal';
-import data from './data.json';
+// import data from './data.json';
+
 import Toolbar from '../DomainToolbar/Toolbar';
+import { getAllAchievementDetails } from '../api/requests';
 export default function Achievements() {
   const [modalShow, setModalShow] = React.useState(false);
   const [props, setProps] = React.useState({});
+  const [data,setData] = React.useState([]);
   const [domain, setDomain] = React.useState([].fill(false, 0, 4));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
   const [displayAll, setDisplayAll] = React.useState(true);
+  const [domainMap, setDomainMap] = React.useState({
+    "TRONIX": 0,
+    "WEBDEV": 1,
+    "ALGOS": 2,
+    "APPDEV": 3
+  });
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < 4; i++) {
       arr.push(false);
     }
     setDomain([...arr]);
+    fetchData();
   }, []);
   useEffect(() => {
-    console.log(domain);
+    // console.log(domain);
     let val = domain[0];
     for (let i = 1; i < domain.length; i++) {
       val = val || domain[i];
@@ -30,6 +40,12 @@ export default function Achievements() {
       setDisplayAll(true);
     }
   }, [domain])
+
+  const fetchData = async ()=>{
+    const res = await getAllAchievementDetails();
+    console.log(res);
+    setData(res);
+  }
 
   const displayContent = (ele,id)=>{
     if (id % 2 == 0) {
@@ -48,23 +64,23 @@ export default function Achievements() {
                     <Card.Img
                     className="achv-image"
                     variant="top"
-                    src={ele.image}
+                    src={ele.achievement_photo_url}
                   />
                   </div>
                   
                   <Card.Body className="text-center achv-body">
                     <motion.div>
-                      <Card.Title className="achv-title">{ele.title}</Card.Title>
+                      <Card.Title className="achv-title">{ele.name_of_event}</Card.Title>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                       <Button
                         variant="outline-light"
                         onClick={() => {
                           modalDisplay(
-                            ele.title,
-                            ele.members,
+                            ele.name_of_event,
+                            ele.Members,
                             ele.desc,
-                            ele.image,
+                            ele.achievement_photo_url,
                             `expandable-card-${id + 1}`,
                             `${id + 1}`,
                           );
@@ -96,22 +112,22 @@ export default function Achievements() {
                     <Card.Img
                     className="achv-image"
                     variant="top"
-                    src={ele.image}
+                    src={ele.achievement_photo_url}
                   />
                   </div>
                   <Card.Body className="text-center achv-body">
                     <motion.div>
-                      <Card.Title className="achv-title">{ele.title}</Card.Title>
+                      <Card.Title className="achv-title">{ele.name_of_event}</Card.Title>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                       <Button
                         variant="outline-light"
                         onClick={() => {
                           modalDisplay(
-                            ele.title,
-                            ele.members,
+                            ele.name_of_event,
+                            ele.Members,
                             ele.desc,
-                            ele.image,
+                            ele.achievement_photo_url,
                             `expandable-card-${id + 1}`,
                             `${id + 1}`,
                           );
@@ -131,9 +147,14 @@ export default function Achievements() {
   }
 
   const modalDisplay = (title, members, info, image, layoutId, key) => {
+    let mem = members;
+    let newMemberList = [];
+    for (let i = 0; i < mem.length; i++) {
+      newMemberList.push([mem[i].name, mem[i].photo_url]);
+    }
     setProps({
       title: title,
-      members: members,
+      members: newMemberList,
       info: info,
       image: image,
       layoutId: layoutId,
@@ -166,7 +187,7 @@ export default function Achievements() {
             {displayAll?data.map((ele,id)=>{
               return displayContent(ele,id);
             }) : data.filter((ele) => {
-              return domain[ele.domain];
+              return domain[domainMap[ele.domain]];
             }).map((ele,idx)=>{
               console.log("Clicked");
               return displayContent(ele,idx);
