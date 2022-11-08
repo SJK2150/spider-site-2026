@@ -15,14 +15,14 @@ function Footer() {
         </center>
       </div>
       <Grid className="footer-contact-info" container spacing={0}>
-        <Grid item xs={12} sm={6} className="map-grid">
-          <MapComponent />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <br />
           <br />
+          <br/>
+          <br/>
+          <br/>
           <Typography align="center" variant="h6" gutterBottom>
-            <b>PRIMARY OFFICE</b>
+            <b>Primary Office</b>
             <br />
           </Typography>
           <Typography align="center" variant="body1" gutterBottom>
@@ -32,19 +32,8 @@ function Footer() {
             <br />
             <br />
           </Typography>
-          <Typography align="center" variant="h6" gutterBottom>
-            <b>Secondary Office</b>
-            <br />
-          </Typography>
-          <Typography align="center" variant="body1" gutterBottom>
-            Spider R&D Lab,
-            <br /> Second floor, CSE Department,
-            <br />
-            NIT Tiruchirappalli.
-            <br />
-            <br />
-          </Typography>
-          <Typography align="center" variant="h6" gutterBottom>
+          
+          {/* <Typography align="center" variant="h6" gutterBottom>
             <b>Points of Contact</b>
             <br />
           </Typography>
@@ -59,11 +48,93 @@ function Footer() {
             <br /> Treasurer, Spider
             <br />
             Mobile : 9600897202
-          </Typography>
+          </Typography> */}
+        </Grid>
+        <Grid item xs={12} sm={6} className="map-grid">
+          <MapComponent />
         </Grid>
       </Grid>
       <br />
       <br />
+      <br />
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+        <Typography align="center" variant="h6" gutterBottom>
+            <b>Points of Contact</b>
+            <br />
+          </Typography>
+        </Grid>
+        
+      
+
+         <Grid item md={3}>
+          <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+        </Grid>
+        <Grid item md={3}>
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+          </Grid>
+        <Grid item md={3}>
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+          </Grid>
+        <Grid item md={3}>
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+
+        </Grid>
+        {/* <Grid item md={3} >
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+        </Grid>
+        <Grid item md={3}>
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+          </Grid>
+        <Grid item md={3}>
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+          </Grid>
+        <Grid item md={3}>
+        <Typography align="center" variant="body1" gutterBottom>
+            Kumar Gaurav Singh
+            <br /> President, Spider
+            <br />
+            Ph: <span>6546468464</span>
+          </Typography>
+          </Grid> */}
+      </Grid>
+            <br/>
+            <hr/>
       <BottomFooter />
     </div>
   );

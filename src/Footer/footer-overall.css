@@ -3,7 +3,7 @@
   width: 100%;
 }
 #Footer-Contacts{
-  background-color: #141E31;
+  background-color: #010218;
 }
 /* div.footer-main,div.footer-contact-info{
   background-color: #262626;
@@ -55,4 +55,10 @@ h1.footer-header::after{
   text-align: center;
   margin: auto;
   justify-content: center;
+  height: 30rem;
 }
+
+span{
+  color: #6AC5DD;
+}
+
