@@ -17,6 +17,14 @@ code {
     font-family: 'ProductSansBold';
     src: url(./fonts/Product\ Sans\ Bold.ttf) format("truetype");
 }
+@font-face {
+  font-family: 'Montserrat';
+  src: url(./fonts/Montserrat-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: 'MontserratBold';
+  src: url(./fonts/Montserrat-Bold.ttf) format("truetype");
+}
 *{
-  font-family: 'Product Sans';
+  font-family: 'Montserrat';
 }
