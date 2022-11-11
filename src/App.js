@@ -55,7 +55,7 @@ function App() {
             <Home></Home>
           </Route>
         </Switch>
-        {window.location.pathname !== '/'?(<FooterBar></FooterBar>):(<></>)}
+        {window.location.pathname !== '/' ? <FooterBar></FooterBar> : <></>}
       </div>
     </Router>
   );
