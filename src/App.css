@@ -6,10 +6,7 @@
 /* Alternate Dark Blue Shade: #091626 */
 .App {
   /* text-align: center;/ */
-  background-image: url("./assets/background.svg");
   background-color:#010213;
-  background-repeat: no-repeat;
-  background-size: contain;
   /* width: 100vw;
   height: 100vh; */
   min-height: 100vh;
