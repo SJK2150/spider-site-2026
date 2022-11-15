@@ -8,9 +8,18 @@
   height: 100%;
   overflow-x: hidden;
   text-align: center;
+  background-image: url("./../assets/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 .home-spiderLogo-img {
-  margin-top: 150px;
+  margin-top: 10%;
   width: 25%;
 }
 
+@media screen and (max-width:1080px) {
+  #home-page {
+    background-size: contain;
+  }
+}

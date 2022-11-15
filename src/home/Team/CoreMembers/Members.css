@@ -92,3 +92,19 @@ div.member_card{
         height: 50vw;
     }
 }
+
+.members-buttons {
+    background:none;
+    border: 1px solid rgba(207, 207, 207, 0.3);
+    color: white;
+    font-size: small;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.members-buttons:hover {
+    scale:105%;
+    border: 1px solid rgba(106, 66, 193, 0.95) ;
+    transition: 1s;
+}

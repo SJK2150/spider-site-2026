@@ -6,6 +6,7 @@ import './blog.css';
 
 import { Link } from 'react-router-dom';
 import { getAllBlogsDetails } from '../api/requests';
+import FooterBar from '../Footer/footer-bottom';
 export default function Blog() {
     const [data,setData] = useState([]);
     const fetchData = async ()=>{
@@ -23,7 +24,7 @@ export default function Blog() {
                 {/* <Typography variant="h1" style={{fontFamily:"Product Sans"}} className="text-center text-white" component="div" gutterBottom>
                     Blogs
                 </Typography> */}
-                <div className="display-3 blogs_header" style={{ fontFamily: "Product Sans" }}>Blogs</div>
+                <div className="display-3 blogs_header" style={{ fontFamily: "Product Sans" }}>BLOGS</div>
             </Container>
             <Container fluid="md">
                 <Container style={{maxWidth:"1300px"}}>
@@ -70,6 +71,7 @@ export default function Blog() {
                     </Row>
                 </Container>
             </Container>
+            <FooterBar />
         </div>
     )
 }

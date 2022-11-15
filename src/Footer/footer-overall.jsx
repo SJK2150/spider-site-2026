@@ -146,7 +146,7 @@ function Footer() {
           </Typography>
           </Grid> */}
       {/* </Grid> */}
-      <h4 className="footer-header">
+      {/* <h4 className="footer-header">
         <strong>Points of Contact</strong>
       </h4>
       <div className="footer-points-of-contact">
@@ -174,7 +174,7 @@ function Footer() {
           <br />
           Ph: <span>6546468464</span>
         </div>
-      </div>
+      </div> */}
       <br />
       <hr />
       <BottomFooter />

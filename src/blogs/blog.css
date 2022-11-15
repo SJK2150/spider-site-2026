@@ -2,12 +2,21 @@
     margin:0;
 }
 .blogs_header{
+  font-family: 'MontserratBold' !important;
+  margin-bottom: 15px !important;
+  letter-spacing: 0.2em !important;
   color: #fff;
   opacity: 1;
   text-align: center;
   padding: 20px;
   /* font-weight: 700; */
 }
+@media screen and (max-width: 680px) {
+   .blogs_header {
+     letter-spacing: 0 !important;
+     font-family: 'Montserrat' !important;
+   }
+ }
 .root{
    color:rgb(219, 219, 219);
 }
@@ -56,4 +65,14 @@
     top: -15px;
     left:-15px;
     z-index:99;
+}
+
+#blogs-page {
+   width: 100%;
+   margin: 0;
+   padding: 3em;
+   padding-top: 4em;
+   background-image: url("./../assets/achievementsBG.svg");
+   background-repeat: no-repeat;
+   background-size: cover;
 }
