@@ -3,6 +3,8 @@ import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
 import Modal from '../Modal/Modal';
+import FooterBar from '../Footer/footer-bottom';
+
 // import data from './data.json';
 
 import Toolbar from '../DomainToolbar/Toolbar';
@@ -176,10 +178,10 @@ export default function Achievements() {
           src="https://images.unsplash.com/photo-1488229297570-58520851e868?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80"
           fluid
         ></Image> */}
-        <div className="display-3 achv_banner_title">Achievements</div>
+        <div className="display-3 achv_banner_title">ACHIEVEMENTS</div>
       </div>
       <div className="domains">
-      <Toolbar setDomain={setDomain}></Toolbar>
+      <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
       </div>
       <Container fluid="md">
         <Container fluid>
@@ -195,6 +197,7 @@ export default function Achievements() {
           </Row>
         </Container>
       </Container>
+      <FooterBar />
     </div>
   );
 }
