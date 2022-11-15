@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
 .container{
     align-content: center;
 }
@@ -6,47 +6,27 @@
     display:flex;
     justify-content: space-evenly;
 }
-.label{
-    font-family: 'Product Sans';
-    font-size: 14px;
+.label, .label{
+    /* font-family: 'Product Sans'; */
+    font-size: 11px;
+    margin-bottom: 4px;
+    margin-top: 10px;
+    color:white;
 }
 
-.algosIcon{
-    background-color: #6D4DFF;
-    border: 2px solid #6D4DFF ;
-    border-radius: 2px;
+.members-btnIcon{
+    width: 100px;
+    height: 100px;
+    background: none ;
+    border: 1px solid rgba(207, 207, 207, 0.3) ;
+    border-radius: 5px ;
     padding-top:10px;
     padding-left:16.3px;
     padding-right:16.3px;
-    padding-bottom:0
+    padding-bottom:0;
+    margin-bottom:30px;
 }
-.appdevIcon{
-    background-color: #6D4DFF;
-    border: 2px solid #6D4DFF ;
-    border-radius: 2px;
-    padding-top:10px;
-    padding-left:10px;
-    padding-right:10px;
-    padding-bottom:0
-}
-.webdevIcon{
-    background-color: #6D4DFF;
-    border: 2px solid #6D4DFF ;
-    border-radius: 2px;
-    padding-top:10px;
-    padding-left:10px;
-    padding-right:10px;
-    padding-bottom:0
-}
-.tronixIcon{
-    background-color: #6D4DFF;
-    border: 2px solid #6D4DFF ;
-    border-radius: 2px;
-    padding-top:10px;
-    padding-left:13px;
-    padding-right:13px;
-    padding-bottom:0
-}
+
 .batchLinks{
     cursor: pointer;
     color:rgb(151, 151, 151);
@@ -66,6 +46,7 @@
     border: 1px solid #1b0386; 
     transition: 0.25s;
 }
+
 .batchLinks:hover{
     cursor: pointer;
     color:rgb(223, 223, 223);  
@@ -77,54 +58,24 @@
     justify-content:space-evenly
 }
 
-.buttonlinkedInIcon{
+.buttonlinkedInIcon, .buttonwebIcon, .buttongithubIcon{
     color: #c5c5c5;
 }
-.buttonwebIcon{
-    color: #c5c5c5;
-}
-.buttongithubIcon{
-    color: #c5c5c5;
-}
-.buttonlinkedInIcon:hover{
+
+.buttonlinkedInIcon:hover, .buttongithubIcon:hover, .buttonwebIcon:hover{
     transition: 0.3s;  
     transform: scale(1.5);
     color:#ffffff;
 }
-.buttongithubIcon:hover{
-    transition: 0.3s;  
-    transform: scale(1.5);
-    color:#ffffff;
-}
-.buttonwebIcon:hover{
-    transition: 0.3s;  
-    transform: scale(1.5);
-    color:#ffffff;
-}
-.tronixIcon:hover{
-   background-color: #4520e6;
-   border: 2px solid #6D4DFF ;
-   transform: scale(1.15);
-   transition: 0.3s; 
-}
-.algosIcon:hover{
-    background-color: #4520e6;
-    border: 2px solid #6D4DFF ;
+
+.members-btnIcon:hover{
+    background: none ;
+    border: 1px solid rgba(106, 66, 193, 0.95) ;
     transform: scale(1.15);
-    transition: 0.3s; 
+    transition: 1.5s; 
 }
-.webdevIcon:hover{
-    background-color: #4520e6;
-    border: 2px solid #6D4DFF ;
-    transform: scale(1.15);
-    transition: 0.3s; 
-}
-.appdevIcon:hover{
-    background-color: #4520e6;
-    border: 2px solid #6D4DFF ;
-    transform: scale(1.15);
-    transition: 0.3s; 
-    }
+
+
 div.member_card{
     transition: all 0.3s ease-in-out;
 }
@@ -142,3 +93,41 @@ div.member_name{
         column-count: 1;
     }
 }
+
+#members-page {
+    padding-top: 4em;
+    background-image: url("./../assets/membersBG.svg") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.members-page-title{
+    font-family: 'MontserratBold' !important;
+    margin-bottom: 15px !important;
+    letter-spacing: 0.2em !important;
+    color: #fff;
+    opacity: 1;
+    text-align: center;
+    padding: 20px;
+    font-size: 80px;
+    /* font-weight: 700; */
+  }
+
+
+   nav.members-navbar {
+       display: flex;
+       justify-content: space-evenly;
+       padding: 0 20%;
+   }
+
+   @media screen and (max-width: 680px) {
+    .members-page-title {
+      letter-spacing: 0 !important;
+      font-family: 'Montserrat' !important;
+    }
+    nav.members-navbar {
+       display: flex;
+       justify-content: space-evenly;
+       padding: 0 5%;
+   }
+  }

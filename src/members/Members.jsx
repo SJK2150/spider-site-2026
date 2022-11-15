@@ -1,4 +1,4 @@
-import { React , useState} from 'react';
+import { React , useEffect, useState} from 'react';
 import { motion , AnimatePresence} from "framer-motion";
 import { Container,Button, Nav, Col, Row } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
@@ -7,6 +7,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import MemoryIcon from '@material-ui/icons/Memory';
 import PublicIcon from '@material-ui/icons/Public';
 import AndroidIcon from '@material-ui/icons/Android';
+import HardwareIcon from "../assets/members-icon1.svg"
+import SoftwareIcon from "../assets/members-icon2.svg"
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import LanguageIcon from "@material-ui/icons/Language";
@@ -14,6 +16,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import IconButton from "@material-ui/core/IconButton";
 import { members } from "./All_members";
 import './members.css';
+import FooterBar from '../Footer/footer-bottom';
 import { BottomNavigationAction, BottomNavigation } from '@material-ui/core';
 
 const container = {
@@ -51,43 +54,71 @@ const year = [
 
 function Members () {
   const [yearName,setYearName]= useState("All");
-  const [ProfileName,setProfileName]= useState("Tronix");
+  const [ProfileName,setProfileName]= useState("All");
   const [clicktronix, setClicktronix] = useState(false);
   const [clickappdev, setClickappdev] = useState(false);
   const [clickwebdev, setClickwebdev] = useState(false);
   const [clickalgos, setClickalgos] = useState(false);
   const [domain, setDomain] = useState([true,false,false,false])
-  const handleClickTronix=()=>{
+  // const handleClickTronix=()=>{
+  //   setClickappdev(false);
+  //   setClickwebdev(false);
+  //   setClickalgos(false);
+  //   setClicktronix(!clicktronix);
+  //   setDomain([true,false,false,false]);
+  //   setProfileName("Tronix");
+  // }
+  // const handleClickAppdev=()=>{
+  //   setClicktronix(false);
+  //   setClickwebdev(false);
+  //   setClickalgos(false);
+  //   setClickappdev(!clickappdev);
+  //   setDomain([false,false,true,false])
+  //   setProfileName("App Dev");
+  // }
+  // const handleClickWebdev=()=>{
+  //   setClicktronix(false);
+  //   setClickappdev(false);
+  //   setClickalgos(false);
+  //   setClickwebdev(!clickwebdev)
+  //   setDomain([false,true,false,false])
+  //   setProfileName("Web Dev");
+  // }
+  // const handleClickAlogs=()=>{
+  //   setClicktronix(false);
+  //   setClickwebdev(false);
+  //   setClickappdev(false);
+  //   setClickalgos(!clickalgos);
+  //   setDomain([false,false,false,true])
+  //   setProfileName("Algos");
+  // }
+
+  const handleClickSoftware = () => {
+    setClicktronix(false);
+    setClickwebdev(!clickwebdev);
+    setClickappdev(!clickappdev);
+    setClickalgos(!clickalgos);
+    setDomain([false,true,true,true])
+    if(ProfileName=='Software'){
+      setProfileName('All')
+    }
+    else{
+      setProfileName("Software");
+    }
+  }
+
+  const handleClickHardware = () => {
     setClickappdev(false);
     setClickwebdev(false);
     setClickalgos(false);
     setClicktronix(!clicktronix);
     setDomain([true,false,false,false]);
-    setProfileName("Tronix");
-  }
-  const handleClickAppdev=()=>{
-    setClicktronix(false);
-    setClickwebdev(false);
-    setClickalgos(false);
-    setClickappdev(!clickappdev);
-    setDomain([false,false,true,false])
-    setProfileName("App Dev");
-  }
-  const handleClickWebdev=()=>{
-    setClicktronix(false);
-    setClickappdev(false);
-    setClickalgos(false);
-    setClickwebdev(!clickwebdev)
-    setDomain([false,true,false,false])
-    setProfileName("Web Dev");
-  }
-  const handleClickAlogs=()=>{
-    setClicktronix(false);
-    setClickwebdev(false);
-    setClickappdev(false);
-    setClickalgos(!clickalgos);
-    setDomain([false,false,false,true])
-    setProfileName("Algos");
+    if(ProfileName=='Hardware'){
+      setProfileName('All')
+    }
+    else{
+      setProfileName("Hardware");
+    }
   }
 
   const subMenuAnimate = {
@@ -145,14 +176,19 @@ function Members () {
   }
 // console.log(yearName, ProfileName)
 
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
   return(
+    <div  id="members-page">
     <Container className="container">
       <Router>
-      <h1 style={{color:"white", textAlign:"center", padding:15, fontSize:55, fontWeight:600}}>Members</h1>
+      <h1 className='members-page-title'>MEMBERS</h1>
     <br/>
     <>
-    <nav className='navbar'>
-        <motion.div
+    <nav className='members-navbar'>
+        {/*<motion.div
             className="menu-item"
         >
           <Button onClick={handleClickTronix} className="tronixIcon"> 
@@ -164,7 +200,7 @@ function Members () {
           <motion.div
             className="menu-item"
           >
-          <Button onClick={handleClickWebdev} className="webdevIcon"> 
+          <Button onClick={handleClickWebdev} className="members-btnIcon"> 
             <PublicIcon fontSize="large"/>
             <br/>
             <p className="label">Web Dev</p>
@@ -173,7 +209,7 @@ function Members () {
           <motion.div
             className="menu-item"
           >
-          <Button  onClick={handleClickAppdev} className="appdevIcon"> 
+          <Button  onClick={handleClickAppdev} className="members-btnIcon"> 
             <AndroidIcon fontSize="large" />
             <br/>
             <p className="label">App Dev</p>
@@ -182,11 +218,29 @@ function Members () {
           <motion.div
             className="menu-item"
           >
-          <Button onClick={handleClickAlogs} className="algosIcon"> 
+          <Button onClick={handleClickAlogs} className="members-btnIcon"> 
             <AccountTreeIcon fontSize="large" />
             <br/>
             <p className="label">Algos</p>
           </Button> 
+          </motion.div> */}
+          <motion.div
+            className="menu-item"
+        >
+          <button onClick={handleClickHardware} className="members-btnIcon" style={ProfileName == "Hardware" ? {backgroundColor:'rgba(106,66,193,1)'}:{}}> 
+            <img src={HardwareIcon} />
+            <br/>
+            <p className="label">HARDWARE</p>
+          </button> 
+          </motion.div>
+          <motion.div
+            className="menu-item"
+        >
+          <button onClick={handleClickSoftware} className="members-btnIcon" style={ProfileName == "Software" ? {backgroundColor:'rgba(106,66,193,1)'}:{}}> 
+          <img src={SoftwareIcon} />
+            <br/>
+            <p className="label">SOFTWARE</p>
+          </button> 
           </motion.div>
         </nav>
         {displayYearNav(domain.findIndex(e=> e===true))}
@@ -201,7 +255,7 @@ function Members () {
     <CardColumns>
       <Container fluid="lg">
         {members
-        .filter(member => member.Profile === ProfileName)
+        .filter(member => (ProfileName == 'All'? member : (ProfileName == 'Software' ? (member.Profile === 'Algos'||'App Dev'||'Web Dev') : (member.Profile ==='Tronix'))))
         .filter(member => member.Year === yearName)
         .map((member,id) => (
         <motion.div className="item"
@@ -258,6 +312,8 @@ function Members () {
     </AnimatePresence>   
     </Router>
    </Container>    
+   <FooterBar />
+   </div>
 )};
 
 export default Members;
