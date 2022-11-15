@@ -6,6 +6,7 @@ import './Projects.css';
 import Modal from '../Modal/Modal';
 import Toolbar from '../DomainToolbar/Toolbar';
 import axios from 'axios';
+import FooterBar from '../Footer/footer-bottom';
 // import data from './data.json'
 import { getAllProjectsDetails } from '../api/requests';
 export default function Projects() {
@@ -170,9 +171,9 @@ export default function Projects() {
   };
   return (
     <div id="projects-page">
-      <Typography className='project-header' variant='h1' align='center'>Projects Page</Typography>
+      <Typography className='project-header' variant='h2' align='center'>PROJECTS</Typography>
       <div className="domains">
-        <Toolbar setDomain={setDomain}></Toolbar>
+        <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
       </div>
       <Container fluid="md">
         <Container fluid>
@@ -187,6 +188,7 @@ export default function Projects() {
           </Row>
         </Container>
       </Container>
+      <FooterBar />
     </div>
   );
 }
