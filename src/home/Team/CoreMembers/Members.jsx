@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import MemData from './coreMembersData.json';
 import './Members.css';
+import {Link} from 'react-router-dom'
 export default function Members() {
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -75,6 +76,9 @@ export default function Members() {
           })}
         </Row>
       </Container>
+      <Link to='/members'>
+      <button className='members-buttons' onClick={()=>{}}>View All members</button>
+      </Link>
     </div>
   );
 }

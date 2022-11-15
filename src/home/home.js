@@ -13,7 +13,7 @@ function Home() {
       {/* <Animation /> */}
       <Desc />
       <hr></hr>
-      <Team></Team>
+      {/* <Team></Team> */}
       <Members></Members>
       <Footer></Footer>
     </div>
