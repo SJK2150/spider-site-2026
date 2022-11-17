@@ -1,133 +1,124 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap'); */
-.container{
-    align-content: center;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+.container {
+  /* align-content: center; */
+   background-image: url("../assets/background.svg");
+   background-color:#010213;
+   background-repeat: no-repeat;
+   background-size: contain;
+   min-height: 100vh;
+   height: max-content;
+   scroll-behavior: smooth;
+   overflow-x: hidden;
 }
-.cardContainer{
-    display:flex;
-    justify-content: space-evenly;
+.cardContainer {
+  display: flex;
+  justify-content: space-evenly;
 }
-.label, .label{
-    /* font-family: 'Product Sans'; */
-    font-size: 11px;
-    margin-bottom: 4px;
-    margin-top: 10px;
-    color:white;
-}
-
-.members-btnIcon{
-    width: 100px;
-    height: 100px;
-    background: none ;
-    border: 1px solid rgba(207, 207, 207, 0.3) ;
-    border-radius: 5px ;
-    padding-top:10px;
-    padding-left:16.3px;
-    padding-right:16.3px;
-    padding-bottom:0;
-    margin-bottom:30px;
+.label {
+  font-family: 'Product Sans';
+  font-size: 14px;
 }
 
-.batchLinks{
-    cursor: pointer;
-    color:rgb(151, 151, 151);
-    background-color: #6D4DFF;    
-}
-.batch_item{
-    border: 1px solid #6D4DFF; 
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
-    color: #091626;
-}
-.nav-tabs .nav-link{
-    color: #ffffff;
-}
-.nav-tabs .nav-link:hover{
-    cursor: pointer;
-    border: 1px solid #1b0386; 
-    transition: 0.25s;
+.SoftwareIcon {
+  border-radius: 2px;
+  border-style: none;
 }
 
-.batchLinks:hover{
-    cursor: pointer;
-    color:rgb(223, 223, 223);  
-    transform: scale(1.15); 
-    transition: 0.25s;
-}
-.iconLinks{
-    display:flex;
-    justify-content:space-evenly
+.HardwareIcon {
+  border-radius: 2px;
+  border-style: none;
 }
 
-.buttonlinkedInIcon, .buttonwebIcon, .buttongithubIcon{
-    color: #c5c5c5;
+.btn {
+  padding: 0 0 0 0;
+
 }
 
-.buttonlinkedInIcon:hover, .buttongithubIcon:hover, .buttonwebIcon:hover{
-    transition: 0.3s;  
-    transform: scale(1.5);
-    color:#ffffff;
+.batchLinks {
+  cursor: pointer;
+  color: rgb(151, 151, 151);
+  background-color: #6d4dff;
+}
+.batch_item {
+  border-top-left-radius: 0.25rem;
+  border: 1px solid #6d4dff;
+  border-top-right-radius: 0.25rem;
+  color: #091626;
+}
+.nav-tabs .nav-link {
+  color: #ffffff;
+}
+.nav-tabs .nav-link:hover {
+  cursor: pointer;
+  transition: 0.25s;
+}
+.batchLinks:hover {
+  cursor: pointer;
+  color: rgb(223, 223, 223);
+  transform: scale(1.15);
+  transition: 0.25s;
+}
+.iconLinks {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.members-btnIcon:hover{
-    background: none ;
-    border: 1px solid rgba(106, 66, 193, 0.95) ;
-    transform: scale(1.15);
-    transition: 1.5s; 
+.buttonlinkedInIcon {
+  color: #c5c5c5;
+}
+.buttonwebIcon {
+  color: #c5c5c5;
+}
+.buttongithubIcon {
+  color: #c5c5c5;
+}
+.buttonlinkedInIcon:hover {
+  transition: 0.3s;
+  transform: scale(1.5);
+  color: #ffffff;
+}
+.buttongithubIcon:hover {
+  transition: 0.3s;
+  transform: scale(1.5);
+  color: #ffffff;
+}
+.buttonwebIcon:hover {
+  transition: 0.3s;
+  transform: scale(1.5);
+  color: #ffffff;
+}
+.HardwareIcon:hover {
+  background-color: #4520e6;
+  transform: scale(1.15);
+  transition: 0.5s;
+}
+.SoftwareIcon:hover {
+  background-color: #4520e6;
+  transform: scale(1.15);
+  transition: 0.5s;
 }
 
-
-div.member_card{
-    transition: all 0.3s ease-in-out;
+div.member_card {
+  transition: all 0.3s ease-in-out;
 }
-div.member_card:hover{
-    scale: 1.1;
+div.member_card:hover {
+  scale: 1.1;
 }
-div.member_name{
-    margin: 0;
-    padding: 0.5rem;
-    vertical-align: middle;
-    border-bottom: 1px solid white;
+div.member_name {
+  margin: 0;
+  padding: 0.5rem;
+  vertical-align: middle;
+  border-bottom: 1px solid white;
 }
-@media screen and (max-width:900px) {
-    div.card-columns{
-        column-count: 1;
-    }
-}
-
-#members-page {
-    padding-top: 4em;
-    background-image: url("./../assets/membersBG.svg") !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.members-page-title{
-    font-family: 'MontserratBold' !important;
-    margin-bottom: 15px !important;
-    letter-spacing: 0.2em !important;
-    color: #fff;
-    opacity: 1;
-    text-align: center;
-    padding: 20px;
-    font-size: 80px;
-    /* font-weight: 700; */
+@media screen and (max-width: 900px) {
+  div.card-columns {
+    column-count: 1;
   }
+}
 
-
-   nav.members-navbar {
-       display: flex;
-       justify-content: space-evenly;
-       padding: 0 20%;
-   }
-
-   @media screen and (max-width: 680px) {
-    .members-page-title {
-      letter-spacing: 0 !important;
-      font-family: 'Montserrat' !important;
-    }
-    nav.members-navbar {
-       display: flex;
-       justify-content: space-evenly;
-       padding: 0 5%;
-   }
-  }
+.navbar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}

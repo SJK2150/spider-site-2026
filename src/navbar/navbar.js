@@ -25,7 +25,7 @@ function NavBar() {
         <Nav>
           <Nav.Link href="/blogs"><strong>Blog</strong></Nav.Link>
           <Nav.Link href="/members"><strong>Members</strong></Nav.Link>
-          <Nav.Link href="https://github.com/SpiderNitt"><GitHubIcon></GitHubIcon></Nav.Link>
+          <Nav.Link target='_blank' href="https://github.com/SpiderNitt"><GitHubIcon></GitHubIcon></Nav.Link>
           {/* <Nav.Link href="#admin">Admin</Nav.Link> */}
         </Nav>
       </Navbar.Collapse>

@@ -9,8 +9,8 @@ import SpiderLogo from '../assets/SpiderLogo.svg';
 function Home() {
   return (
     <div id="home-page" style={{ overflowX: 'hidden' }}>
-      <img src={SpiderLogo} className="home-spiderLogo-img" />
-      {/* <Animation /> */}
+      {/* <img src={SpiderLogo} className="home-spiderLogo-img" /> */}
+      <Animation />
       <Desc />
       <hr></hr>
       {/* <Team></Team> */}
