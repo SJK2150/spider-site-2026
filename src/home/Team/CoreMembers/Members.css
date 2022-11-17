@@ -2,6 +2,7 @@ div#home-core-container{
     /* max-width: 1300px; */
     margin: auto;
     margin-top: 25px;
+    background: none;
 }
 h1.home-core-team-title{
     color: white;
