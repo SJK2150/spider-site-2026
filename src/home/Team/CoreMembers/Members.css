@@ -108,3 +108,7 @@ div.member_card{
     border: 1px solid rgba(106, 66, 193, 0.95) ;
     transition: 1s;
 }
+.link_btn{
+    margin-left: auto;
+    justify-content: center;
+}

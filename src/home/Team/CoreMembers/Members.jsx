@@ -12,9 +12,10 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import MemData from './coreMembersData.json';
 import './Members.css';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 export default function Members() {
   const [data, setData] = useState([]);
+
   useEffect(() => {
     setData(MemData);
   }, []);
@@ -45,7 +46,7 @@ export default function Members() {
                       </Typography>
                     </CardContent>
 
-                    {/* <CardActions style={{ marginLeft: '20%' }}>
+                    <CardActions style={{ justifyContent: 'center' }}>
                       <IconButton
                         className="link_btn"
                         aria-label="personalSite"
@@ -67,17 +68,20 @@ export default function Members() {
                       >
                         <GitHub></GitHub>
                       </IconButton>
-                    </CardActions> */}
+                    </CardActions>
                   </CardActionArea>
                 </Card>
+
                 <br />
               </Col>
             );
           })}
         </Row>
       </Container>
-      <Link to='/members'>
-      <button className='members-buttons' onClick={()=>{}}>View All members</button>
+      <Link to="/members">
+        <button className="members-buttons" onClick={() => {}}>
+          View All members
+        </button>
       </Link>
     </div>
   );
