@@ -1,7 +1,8 @@
 #desc-container {
   /* max-width: 1300px; */
   margin: auto;
-  margin-top: 125px;
+  margin-top: 50px;
+  background: none;
 }
 .dcard {
   position: relative;

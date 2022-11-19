@@ -12,7 +12,6 @@ function Home() {
       {/* <img src={SpiderLogo} className="home-spiderLogo-img" /> */}
       <Animation />
       <Desc />
-      <hr></hr>
       {/* <Team></Team> */}
       <Members></Members>
       <Footer></Footer>

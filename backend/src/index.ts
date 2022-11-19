@@ -33,7 +33,7 @@ app.use('/api/project', projectRouter);
 app.use('/login', loginRouter);
 // app.use('/', jwt_verify);
 app.use('/api/event', eventRouter);
-app.use('/api/blog', blogRouter);  
+// app.use('/api/blog', blogRouter);  
 
 app.get('/', (req: any, res: any) => {
   res.send('Hi');

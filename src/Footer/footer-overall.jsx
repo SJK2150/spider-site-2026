@@ -23,10 +23,8 @@ function Footer() {
           <p>Ground floor, Old SAC,</p>
           <p>(Opposite to CCD), NIT Tiruchirappalli.</p>
 
-          <h6>Secondary Office</h6>
-          <p>Spider R&D Lab, </p>
-          <p>Second floor, CSE Department,</p>
-          <p>NIT Tiruchirappalli.</p>
+          <h6>Email</h6>
+          <p><span>xyz@gmail.com</span> </p>
         </div>
         <div className="map-component">
           <MapComponent />
