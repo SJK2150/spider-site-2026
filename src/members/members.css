@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
-.container {
+.members-container {
   /* align-content: center; */
    background-image: url("../assets/background.svg");
    background-color:#010213;
@@ -102,13 +102,14 @@ div.member_card {
   transition: all 0.3s ease-in-out;
 }
 div.member_card:hover {
-  scale: 1.1;
+  scale: 1;
 }
 div.member_name {
   margin: 0;
-  padding: 0.5rem;
+  padding: 1.5rem;
   vertical-align: middle;
-  border-bottom: 1px solid white;
+  background: none !important;
+  /* border-bottom: 1px solid white; */
 }
 @media screen and (max-width: 900px) {
   div.card-columns {
@@ -121,4 +122,36 @@ div.member_name {
   align-items: center;
   justify-content: center;
   flex-direction: row;
+}
+
+
+.member-card-links {
+  width:40px !important;
+  height: 40px !important;
+  fill:white !important;
+}
+
+.member-card-links:hover {
+  scale:115%;
+  transition: 1s;
+  fill: rgba(149, 117, 216, 0.95) !important;
+  
+}
+
+
+.members-card-hoverBorder {
+  border: 1px solid rgba(207, 207, 207, 0.5);
+  border-radius: 5px;
+}
+
+.members-btnIcon{
+  width: 100px;
+  height: 100px;
+  background: none ;
+  border:none !important;
+  outline: 1px solid rgba(207, 207, 207, 0.3) ;
+  border-radius: 5px ;
+  padding-top:10px;
+  padding-left:16.3px;
+  padding-right:16.3px;
 }
