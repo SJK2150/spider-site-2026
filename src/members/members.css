@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
-.container {
+.members-container {
   /* align-content: center; */
    background-image: url("../assets/background.svg");
    background-color:#010213;

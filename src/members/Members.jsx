@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container, Nav } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
@@ -119,8 +119,12 @@ function Members() {
   };
   // console.log(yearName, ProfileName)
 
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
   return (
-    <Container className="container">
+    <Container className="members-container">
       <Router>
         <h1
           style={{

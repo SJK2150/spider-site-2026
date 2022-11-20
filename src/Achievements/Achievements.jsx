@@ -59,7 +59,6 @@ export default function Achievements() {
             ) : (
               <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
                 <Card
-                  style={{ background: '#141C3A' }}
                   className="text-white achv-card"
                 >
                   <div className="achv-image-bg">
@@ -74,9 +73,9 @@ export default function Achievements() {
                     <motion.div>
                       <Card.Title className="achv-title">{ele.name_of_event}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                      <Button
-                        variant="outline-light"
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                      <button
+                        className='achv-card-button'
                         onClick={() => {
                           modalDisplay(
                             ele.name_of_event,
@@ -89,7 +88,7 @@ export default function Achievements() {
                         }}
                       >
                         Learn More
-                      </Button>
+                      </button>
                     </motion.div>
                   </Card.Body>
                 </Card>
@@ -100,7 +99,7 @@ export default function Achievements() {
       )
     } else {
       return (
-        <Col className="my-3" md={7}>
+        <Col className="my-3" md={5}>
           <AnimateSharedLayout>
             {modalShow && modalCondn[id] ? (
               createModal()
@@ -121,9 +120,9 @@ export default function Achievements() {
                     <motion.div>
                       <Card.Title className="achv-title">{ele.name_of_event}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                      <Button
-                        variant="outline-light"
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                      <button
+                        className='achv-card-button'
                         onClick={() => {
                           modalDisplay(
                             ele.name_of_event,
@@ -136,7 +135,7 @@ export default function Achievements() {
                         }}
                       >
                         Learn More
-                      </Button>
+                      </button>
                     </motion.div>
                   </Card.Body>
                 </Card>
@@ -185,15 +184,23 @@ export default function Achievements() {
       </div>
       <Container fluid="md">
         <Container fluid>
-          <Row>
-            {displayAll?data.map((ele,id)=>{
-              return displayContent(ele,id);
-            }) : data.filter((ele) => {
-              return domain[domainMap[ele.domain]];
-            }).map((ele,idx)=>{
-              console.log("Clicked");
-              return displayContent(ele,idx);
-            })}
+          <Row className='achv-display-cards'>
+          {displayAll
+              ? data.map((ele, id) => {
+                  return displayContent(ele, id);
+                })
+              : data
+                  .filter((e) => {
+                    if(e.domain == 'TRONIX'){
+                      return domain[0];
+                    }
+                    if(e.domain == 'WEBDEV' || e.domain == 'ALGOS' || e.domain == 'APPDEV'){
+                      return domain[1] ;
+                    }
+                  })
+                  .map((ele, id) => {
+                    return displayContent(ele, id);
+                  })}
           </Row>
         </Container>
       </Container>

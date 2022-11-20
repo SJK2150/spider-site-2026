@@ -4,6 +4,7 @@
     /* background-color: #141E31; */
     display: flex;
     justify-content: space-evenly;
+    padding:0 20%;
     align-items: center;
 }
 .domain-box{
@@ -18,6 +19,11 @@
     border-radius: 5px !important;
     flex-direction: column;
     cursor: pointer;
+    padding:20px;
+}
+.domain-box > h6 {
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 .domain-box-clicked{
     background-color: rgba(106, 66, 193, 0.95) !important;
@@ -52,6 +58,9 @@
     }
     .project-title, .achv-title{
         font-size: 2.1rem !important;
+    }
+    .domain-toolbar{
+        padding:0;
     }
 }
 @media screen and (max-width: 540px) {
