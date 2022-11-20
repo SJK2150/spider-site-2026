@@ -19,62 +19,14 @@ export default function Members() {
   useEffect(() => {
     setData(MemData);
   }, []);
+
   return (
     <div>
       <Container id="home-core-container" className="text-center">
         <h1 className="home-core-team-title">Core Members</h1>
         <Row>
           {data.map((members, index) => {
-            return (
-              <Col md={4} key={index} style={{ margin: 'auto' }}>
-                <Card className="member_card" style={{ maxWidth: 500 }}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      alt={members.Role}
-                      className="member_card_img"
-                      // height="360"
-                      image={members.Photo}
-                      title={members.Role}
-                    />
-                    <CardContent className="member_card_content">
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {members.Name}
-                      </Typography>
-                      <Typography variant="p" color="textSecondary">
-                        {members.Role}
-                      </Typography>
-                    </CardContent>
-
-                    <CardActions style={{ justifyContent: 'center' }}>
-                      <IconButton
-                        className="link_btn"
-                        aria-label="personalSite"
-                        href={members.Website}
-                      >
-                        <Language></Language>
-                      </IconButton>
-                      <IconButton
-                        aria-label="linkedIn"
-                        href={members.LinkedIn}
-                        className="link_btn"
-                      >
-                        <LinkedIn></LinkedIn>
-                      </IconButton>
-                      <IconButton
-                        aria-label="gitHubLink"
-                        href={members.Github}
-                        className="link_btn"
-                      >
-                        <GitHub></GitHub>
-                      </IconButton>
-                    </CardActions>
-                  </CardActionArea>
-                </Card>
-
-                <br />
-              </Col>
-            );
+            return <MemberCard members={members} index={index} />;
           })}
         </Row>
       </Container>
@@ -86,3 +38,97 @@ export default function Members() {
     </div>
   );
 }
+
+const MemberCard = ({ members, index }) => {
+  const [isHover, setIsHover] = useState(false);
+  return (
+    <Col
+      md={4}
+      key={index}
+      style={{ margin: 'auto' }}
+      onMouseEnter={() => {
+        setIsHover(true);
+      }}
+      onMouseLeave={() => {
+        setIsHover(false);
+      }}
+    >
+      <Card
+        className="member_card"
+        style={isHover ? { filter: 'blur(5px)', opacity: '50%', scale: '100%' } : {}}
+      >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt={members.Role}
+            className="member_card_img"
+            // height="360"
+            image={members.Photo}
+            title={members.Role}
+          />
+          <CardContent className="member_card_content">
+            <Typography gutterBottom variant="h5" component="h2">
+              {members.Name}
+            </Typography>
+            <Typography variant="p" color="textSecondary">
+              {members.Role}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      {isHover && (
+        <div>
+          <div
+            style={{
+              position: 'absolute',
+              top:0,
+              bottom:'25px',
+              left:'15px',
+              right:'15px'
+            }}
+            className='members-hoverBorder'
+          ></div>
+          <div
+            style={{
+              position: 'absolute',
+              top: '30%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              color: 'white',
+            }}
+          >
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="h2"
+              style={{ fontFamily: 'MontserratBold' }}
+            >
+              {members.Name}
+            </Typography>
+            <Typography variant="p" style={{ color: 'white' }}>
+              {members.Role}
+            </Typography>
+          </div>
+
+          <div
+            style={{ position: 'absolute', top: '60%', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <CardActions>
+              <IconButton className="link_btn" aria-label="personalSite" href={members.Website}>
+                <Language className="member-links"></Language>
+              </IconButton>
+              <IconButton aria-label="linkedIn" href={members.LinkedIn} className="link_btn">
+                <LinkedIn className="member-links"></LinkedIn>
+              </IconButton>
+              <IconButton aria-label="gitHubLink" href={members.Github} className="link_btn">
+                <GitHub className="member-links"></GitHub>
+              </IconButton>
+            </CardActions>
+          </div>
+        </div>
+      )}
+
+      <br />
+    </Col>
+  );
+};
