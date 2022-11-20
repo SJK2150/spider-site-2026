@@ -13,7 +13,7 @@ export default function Projects() {
   const [modalShow, setModalShow] = React.useState(false);
   const [props, setProps] = React.useState({});
   const [data, setData] = React.useState([]);
-  const [domain,setDomain] = React.useState([].fill(false,0,4));
+  const [domain, setDomain] = React.useState([].fill(false, 0, 2));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, data.length));
   const [displayAll,setDisplayAll] = React.useState(true);
   const [domainMap,setDomainMap] = React.useState({
@@ -25,28 +25,28 @@ export default function Projects() {
   useEffect(() => {
     fetchData();
     let arr = [];
-    for(let i=0;i<4;i++){
+    for (let i = 0; i < 2; i++) {
       arr.push(false);
     }
     setDomain([...arr]);
   }, []);
-  useEffect(()=>{
+  useEffect(() => {
     let val = domain[0];
-    for(let i=1;i<domain.length;i++){
+    for (let i = 1; i < domain.length; i++) {
       val = val || domain[i];
     }
-    if(val){
+    if (val) {
       setDisplayAll(false);
-    }else{
+    } else {
       setDisplayAll(true);
     }
-  },[domain])
+  }, [domain]);
 
-  const fetchData = async()=>{
+  const fetchData = async () => {
     const res = await getAllProjectsDetails();
     console.log(res);
     setData(res);
-  }
+  };
 
   const displayContent = (ele,id)=>{
     if (id % 2 == 0) {
@@ -57,24 +57,17 @@ export default function Projects() {
               createModal()
             ) : (
               <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                <Card
-                  style={{ background: '#141C3A' }}
-                  className="text-white project-card"
-                >
-                  <div className='proj-image-bg'>
-                      <Card.Img
-                        className="project-image"
-                        variant="top"
-                        src={ele.project_photo_url}
-                      />
+                <Card className="text-white project-card">
+                  <div className="proj-image-bg">
+                    <Card.Img className="project-image" variant="top" src={ele.project_photo_url} />
                   </div>
                   <Card.Body className="text-center project-body">
                     <motion.div>
                       <Card.Title className="project-title">{ele.name}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                      <Button
-                        variant="outline-light"
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                    <button
+                        className='project-card-button'
                         onClick={() => {
                           modalDisplay(
                             ele.name,
@@ -87,7 +80,7 @@ export default function Projects() {
                         }}
                       >
                         Learn More
-                      </Button>
+                      </button>
                     </motion.div>
                   </Card.Body>
                 </Card>
@@ -95,33 +88,26 @@ export default function Projects() {
             )}
           </AnimateSharedLayout>
         </Col>
-      )
+      );
     } else {
       return (
-        <Col md={7} className="proj-col">
+        <Col md={5} className="proj-col">
           <AnimateSharedLayout>
             {modalShow && modalCondn[id] ? (
               createModal()
             ) : (
               <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                <Card
-                  style={{ background: '#141C3A' }}
-                  className="text-white project-card"
-                >
-                  <div className='proj-image-bg'>
-                    <Card.Img
-                      className="project-image"
-                      variant="top"
-                      src={ele.project_photo_url}
-                    />
+                <Card className="text-white project-card">
+                  <div className="proj-image-bg">
+                    <Card.Img className="project-image" variant="top" src={ele.project_photo_url} />
                   </div>
                   <Card.Body className="text-center project-body">
                     <motion.div>
                       <Card.Title className="project-title">{ele.name}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.1 }}>
-                      <Button
-                        variant="outline-light"
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                      <button
+                        className='project-card-button'
                         onClick={() => {
                           modalDisplay(
                             ele.name,
@@ -134,7 +120,7 @@ export default function Projects() {
                         }}
                       >
                         Learn More
-                      </Button>
+                      </button>
                     </motion.div>
                   </Card.Body>
                 </Card>
@@ -142,15 +128,15 @@ export default function Projects() {
             )}
           </AnimateSharedLayout>
         </Col>
-      )
+      );
     }
-  }
+  };
 
   const modalDisplay = (title, members, info, image, layoutId, key) => {
     let mem = members;
     let newMemberList = [];
-    for(let i=0;i<mem.length;i++){
-      newMemberList.push([ mem[i].name, mem[i].photo_url ]);
+    for (let i = 0; i < mem.length; i++) {
+      newMemberList.push([mem[i].name, mem[i].photo_url]);
     }
     setProps({
       title: title,
@@ -171,20 +157,31 @@ export default function Projects() {
   };
   return (
     <div id="projects-page">
-      <Typography className='project-header' variant='h2' align='center'>PROJECTS</Typography>
+      <Typography className="project-header" variant="h2" align="center">
+        PROJECTS
+      </Typography>
       <div className="domains">
         <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
       </div>
       <Container fluid="md">
         <Container fluid>
-          <Row className="my-3">
-            {displayAll ? data.map((ele, id) => {
-              return displayContent(ele,id);
-            }):data.filter(e=>{
-              return domain[domainMap[e.domain]];
-            }).map((ele,id)=>{
-              return displayContent(ele,id);
-            })}
+          <Row className="my-3 projects-display-cards">
+            {displayAll
+              ? data.map((ele, id) => {
+                  return displayContent(ele, id);
+                })
+              : data
+                  .filter((e) => {
+                    if(e.domain == 'TRONIX'){
+                      return domain[0];
+                    }
+                    if(e.domain == 'WEBDEV' || e.domain == 'ALGOS' || e.domain == 'APPDEV'){
+                      return domain[1] ;
+                    }
+                  })
+                  .map((ele, id) => {
+                    return displayContent(ele, id);
+                  })}
           </Row>
         </Container>
       </Container>
