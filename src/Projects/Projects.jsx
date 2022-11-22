@@ -157,7 +157,7 @@ export default function Projects() {
   };
   return (
     <div id="projects-page">
-      <Typography className="project-header" variant="h2" align="center">
+      <Typography className="project-header-title" variant="h2" align="center">
         PROJECTS
       </Typography>
       <div className="domains">

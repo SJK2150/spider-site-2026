@@ -69,6 +69,7 @@
 @media screen and (max-width: 768px) {
   .achv_banner_title {
     font-size: 50px;
+    font-family: 'MontserratBold' !important;
   }
 }
 
@@ -80,9 +81,12 @@
 
 @media screen and (max-width: 480px) {
   .achv_banner_title {
-    font-size: 35px;
+    font-size: 28px;
+    font-family: 'MontserratBold' !important;
   }
-
+  .achv-image {
+    height:200px
+  }
 }
 .achv-display-cards {
   margin: 0;
