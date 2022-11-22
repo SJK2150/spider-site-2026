@@ -20,29 +20,31 @@ export default function Blog() {
     
     return (
         <div id="blogs-page">
-            <Container>
+            <div>
                 {/* <Typography variant="h1" style={{fontFamily:"Product Sans"}} className="text-center text-white" component="div" gutterBottom>
                     Blogs
                 </Typography> */}
                 <div className="display-3 blogs_header" style={{ fontFamily: "Product Sans" }}>BLOGS</div>
-            </Container>
+            </div>
             <Container fluid="md">
                 <Container style={{maxWidth:"1300px"}}>
-                    <Row className="my-3">
+                    <Row className="my-3 blogs-display-cards">
                         {data.map((ele, id) => {
                             if (id % 2 == 0) {
                                 return (
                                     <Col className="blog-col" md={5}>
-                                        <Card className="text-white blog_card" style={{ background: '#141C3A' }}>
+                                        <Card className="text-white blog_card"  style={{background:'none'}} >
                                             <Card.Img className="blog_card_img" variant="top" src={ele.image_link} />
                                             <Card.Body className="blog_card_body">
-                                                <Card.Title as="h3">{ele.title}</Card.Title>
+                                                <Card.Title as="h3" style={{ fontFamily: 'MontserratBold'}}>{ele.title}</Card.Title>
                                                 <Card.Text as="h6">
                                                     {ele.summary}
                                                 </Card.Text>
-                                                <Button variant="primary" href={ele.article_link} target="_blank">
-                                                    Learn More
-                                                </Button>
+                                                <div className='blog-card-btn-div'>
+                                                    <Button className='blog-card-btn' href={ele.article_link} target="_blank">
+                                                        Learn More
+                                                    </Button>
+                                                </div>
                                             </Card.Body>
                                         </Card>
                                         <br />
@@ -50,17 +52,19 @@ export default function Blog() {
                                 )
                             }else{
                                 return (
-                                    <Col className="blog-col" md={7}>
-                                        <Card className="text-white blog_card" style={{ background: '#141C3A' }}>
+                                    <Col className="blog-col" md={5}>
+                                        <Card className="text-white blog_card" style={{background:'none'}}>
                                             <Card.Img className="blog_card_img" variant="top" src={ele.image_link} />
                                             <Card.Body className="blog_card_body">
-                                                <Card.Title as="h3">{ele.title}</Card.Title>
+                                                <Card.Title as="h3" style={{ fontFamily: 'MontserratBold' }}>{ele.title}</Card.Title>
                                                 <Card.Text as="h6">
                                                     {ele.summary}
                                                 </Card.Text>
-                                                <Button variant="primary" href={ele.article_link} target="_blank">
-                                                    Learn More
-                                                </Button>
+                                                <div className='blog-card-btn-div'>
+                                                    <Button className='blog-card-btn' href={ele.article_link} target="_blank">
+                                                        Learn More
+                                                    </Button>
+                                                </div>
                                             </Card.Body>
                                         </Card>
                                         <br />
