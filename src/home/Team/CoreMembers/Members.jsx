@@ -70,7 +70,7 @@ const MemberCard = ({ members, index }) => {
             <Typography gutterBottom variant="h5" component="h2">
               {members.Name}
             </Typography>
-            <Typography variant="p" color="textSecondary">
+            <Typography variant="h6" color="textSecondary">
               {members.Role}
             </Typography>
           </CardContent>
@@ -105,7 +105,7 @@ const MemberCard = ({ members, index }) => {
             >
               {members.Name}
             </Typography>
-            <Typography variant="p" style={{ color: 'white' }}>
+            <Typography variant="h6" style={{ color: 'white' }}>
               {members.Role}
             </Typography>
           </div>

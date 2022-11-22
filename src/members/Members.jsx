@@ -101,9 +101,9 @@ function Members() {
       return (
         <Nav variant="tabs" defaultActiveKey="All" style={{ justifyContent: 'space-between' }}>
           {year.map((item, idx) => {
-            if (index === 0 && idx === 4) {
+            {/* if (index === 0 && idx === 4) {
               return <></>;
-            }
+            } */}
             return (
               <motion.div
                 initial="exit"
@@ -111,6 +111,7 @@ function Members() {
                 variants={subMenuAnimate}
                 custom={idx}
                 key={idx}
+                style={{margin:'20px auto'}}
               >
                 <Nav.Item className="batch_item" >
                   <Nav.Link onClick={(e) => handleYearClick(e, item[0])} eventKey={item[1]} style={yearName==item[0]?{background:'#6d4dff' , color:'white'}:{}}>
@@ -140,13 +141,6 @@ function Members() {
     <Container className="members-container">
       <Router>
         <h1
-          style={{
-            color: 'white',
-            textAlign: 'center',
-            padding: 15,
-            fontSize: 55,
-            fontWeight: 600,
-          }}
         >
           Members
         </h1>
@@ -245,7 +239,7 @@ const MemberCard = ({ member, id }) => {
               >
                 {member.Name}
               </Typography>
-              <Typography variant="p" style={{ color: 'white' }}>
+              <Typography variant="h6" style={{ color: 'white' }}>
                 {members.Role}
               </Typography>
             </div>
