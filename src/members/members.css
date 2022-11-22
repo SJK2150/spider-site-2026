@@ -120,7 +120,6 @@ div.member_name {
 .navbar{
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: row;
 }
 
@@ -154,4 +153,5 @@ div.member_name {
   padding-top:10px;
   padding-left:16.3px;
   padding-right:16.3px;
+
 }

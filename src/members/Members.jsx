@@ -152,7 +152,7 @@ function Members() {
         </h1>
         <br />
         <>
-          <nav className="navbar">
+          <div className="d-flex justify-content-around">
             <motion.div className="menu-item ">
               <button onClick={handleClickHardware} className="HardwareIcon btn shadow-none mx-5">
                 <img src="images/hardware.png" />
@@ -163,7 +163,7 @@ function Members() {
                 <img src="images/software.png" />
               </button>
             </motion.div>
-          </nav>
+          </div>
           {displayYearNav(domain.findIndex((e) => e === true))}
         </>
         <AnimatePresence initial={true}>
