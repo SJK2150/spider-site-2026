@@ -63,9 +63,9 @@ export default function Modal(props) {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <div className="modal-members">
-                    {members.map((member) => {
+                    {members.map((member,i) => {
                       return (
-                        <div>
+                        <div key={i}>
                           <Image
                             width={64}
                             height={64}
@@ -82,9 +82,9 @@ export default function Modal(props) {
             </Accordion>
             <p className="modal-info">
               {info}
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non rerum quae harum est
+              {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non rerum quae harum est
               quasi ratione! Quam, laudantium suscipit nulla iste distinctio dicta dolores beatae
-              odit eaque nesciunt eveniet, perspiciatis maiores?
+              odit eaque nesciunt eveniet, perspiciatis maiores? */}
             </p>
           </ModalBody>
           <ModalFooter className="custom-modal-footer">

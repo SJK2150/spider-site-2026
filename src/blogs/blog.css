@@ -44,12 +44,13 @@
 }
 .blog_card_img{
    height: 400px;
-   width: 95%;
-   margin: 20px auto;
+   /* width: 95%; */
+   /* margin: 20px auto; */
    border-radius: 0.25rem;
-   object-fit: contain;
+   object-fit: cover;
+   margin: 0;
 }
-.cardblock{
+/* .cardblock{
    border-radius: 10px;
    perspective:2000;
    background-color:rgb(231, 231, 231);
@@ -65,7 +66,7 @@
     top: -15px;
     left:-15px;
     z-index:99;
-}
+} */
 
 #blogs-page {
    width: 100%;
@@ -73,6 +74,81 @@
    padding: 3em;
    padding-top: 4em;
    background-image: url("./../assets/achievementsBG.svg");
-   background-repeat: no-repeat;
-   background-size: cover;
+   background-size: contain;
 }
+
+.blogs-display-cards {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   margin: 0;
+}
+
+.blog-col {
+   text-align: center;
+   position: relative;
+   height: 100%;
+   margin-bottom:40px;
+   transition: all 0.5s ease-in-out;
+   outline:1px solid rgba(207, 207, 207, 0.5) !important;
+   padding: 0;
+   border-radius: 5px;
+ }
+ .blog-col:hover {
+   background-color: rgba(106, 66, 193, 0.05) !important;
+   scale:101%;
+   transition: 1s;
+ }
+
+.blog-card-btn {
+   background:none !important;
+   border:none;
+   outline: 1px solid rgba(207, 207, 207, 0.3);
+   color: white;
+   font-size: small;
+   padding: 10px;
+   border-radius: 5px;
+   
+ }
+ 
+ .blog-card-btn:hover {
+   outline: 1px solid rgba(106, 66, 193, 0.45) ;
+   transition: 1s;
+   scale:105%;
+ }
+
+ .blog-card-btn-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+ }
+
+ @media screen and (max-width: 768px) {
+   .blogs_header {
+     font-size: 60px !important;
+     font-family: 'MontserratBold' !important;
+   }
+ }
+ 
+ @media screen and (min-width: 768px) and (max-width: 1080px) {
+   .blog_card_img {
+     height: 250px;
+   }
+ }
+ 
+ @media screen and (max-width: 480px) {
+   .blogs_header {
+     font-size: 40px !important;
+     letter-spacing: 0!important;
+     font-family: 'MontserratBold' !important;
+   }
+   .blog_card_img {
+     height:200px
+   }
+   .blog-desc {
+      font-size: 10px !important;
+   }
+   #blogs-page {
+      padding:0.5rem;
+   }
+ }
