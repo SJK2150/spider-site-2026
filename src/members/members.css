@@ -111,15 +111,30 @@ div.member_name {
   background: none !important;
   /* border-bottom: 1px solid white; */
 }
+
+.members-container>h1 {
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 55px;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 900px) {
   div.card-columns {
     column-count: 1;
+  }
+}
+@media screen and (max-width: 400px) {
+  .members-container>h1 {
+    font-size: 40px;
   }
 }
 
 .navbar{
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: row;
 }
 
@@ -153,5 +168,4 @@ div.member_name {
   padding-top:10px;
   padding-left:16.3px;
   padding-right:16.3px;
-
 }

@@ -122,3 +122,33 @@
     justify-content: center;
     margin-top: 20px;
  }
+
+ @media screen and (max-width: 768px) {
+   .blogs_header {
+     font-size: 60px !important;
+     font-family: 'MontserratBold' !important;
+   }
+ }
+ 
+ @media screen and (min-width: 768px) and (max-width: 1080px) {
+   .blog_card_img {
+     height: 250px;
+   }
+ }
+ 
+ @media screen and (max-width: 480px) {
+   .blogs_header {
+     font-size: 40px !important;
+     letter-spacing: 0!important;
+     font-family: 'MontserratBold' !important;
+   }
+   .blog_card_img {
+     height:200px
+   }
+   .blog-desc {
+      font-size: 10px !important;
+   }
+   #blogs-page {
+      padding:0.5rem;
+   }
+ }

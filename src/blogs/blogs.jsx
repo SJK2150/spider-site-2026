@@ -17,14 +17,14 @@ export default function Blog() {
     useEffect(() => {
       fetchData()
     }, [])
-    
+
     return (
         <div id="blogs-page">
             <div>
                 {/* <Typography variant="h1" style={{fontFamily:"Product Sans"}} className="text-center text-white" component="div" gutterBottom>
                     Blogs
                 </Typography> */}
-                <div className="display-3 blogs_header" style={{ fontFamily: "Product Sans" }}>BLOGS</div>
+                <div className="display-3 blogs_header">BLOGS</div>
             </div>
             <Container fluid="md">
                 <Container style={{maxWidth:"1300px"}}>
@@ -37,7 +37,7 @@ export default function Blog() {
                                             <Card.Img className="blog_card_img" variant="top" src={ele.image_link} />
                                             <Card.Body className="blog_card_body">
                                                 <Card.Title as="h3" style={{ fontFamily: 'MontserratBold'}}>{ele.title}</Card.Title>
-                                                <Card.Text as="h6">
+                                                <Card.Text as="h6" className='blog-desc'>
                                                     {ele.summary}
                                                 </Card.Text>
                                                 <div className='blog-card-btn-div'>
@@ -57,7 +57,7 @@ export default function Blog() {
                                             <Card.Img className="blog_card_img" variant="top" src={ele.image_link} />
                                             <Card.Body className="blog_card_body">
                                                 <Card.Title as="h3" style={{ fontFamily: 'MontserratBold' }}>{ele.title}</Card.Title>
-                                                <Card.Text as="h6">
+                                                <Card.Text as="h6" className='blog-desc'>
                                                     {ele.summary}
                                                 </Card.Text>
                                                 <div className='blog-card-btn-div'>
