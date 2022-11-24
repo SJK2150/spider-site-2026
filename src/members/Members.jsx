@@ -141,12 +141,19 @@ function Members() {
     <Container className="members-container">
       <Router>
         <h1
+          style={{
+            color: 'white',
+            textAlign: 'center',
+            padding: 15,
+            fontWeight: 600,
+          }}
+
         >
           Members
         </h1>
         <br />
         <>
-          <nav className="navbar">
+        <div className="d-flex justify-content-around">
             <motion.div className="menu-item ">
               <button onClick={handleClickHardware} className="HardwareIcon btn shadow-none mx-5">
                 <img src="images/hardware.png" />
@@ -157,8 +164,10 @@ function Members() {
                 <img src="images/software.png" />
               </button>
             </motion.div>
-          </nav>
+          </div>
+          <div className="my-4">
           {displayYearNav(domain.findIndex((e) => e === true))}
+          </div>
         </>
         <AnimatePresence initial={true}>
           <motion.div

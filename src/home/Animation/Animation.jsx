@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {gsap} from 'gsap';
-import SpiderLogo2 from './spiderlogo2.png'
+import SpiderLogo2 from './spiderlogo.png'
 import './Animation.css'
 import svgFile from './svg.svg';
 export default function Animation() {
