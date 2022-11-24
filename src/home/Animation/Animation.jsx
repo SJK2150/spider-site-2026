@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {gsap} from 'gsap';
-import SpiderLogo2 from './spiderlogo2.png'
+import SpiderLogo2 from './spiderlogo.png'
 import './Animation.css'
 import svgFile from './svg.svg';
 export default function Animation() {
@@ -85,7 +85,7 @@ export default function Animation() {
                             <polyline id="svg_12" fill="#767677" points="765.3912200927734,554.4342041015625 764.5911712646484,560.4342041015625 856.4911956787109,560.4342041015625 855.3912200927734,553.4342041015625 765.8912200927734,553.4342041015625 " />
                             <path id="svg_13" strokeMiterlimit="10" stroke="#050606" fill="#E5E9ED" d="m985.09121,555.13418l-348.6,0c-6.8,0 -12.3,-5.3 -12.3,-11.8l0,-259.5c0,-6.5 5.5,-11.8 12.3,-11.8l348.5,0c6.8,0 12.3,5.3 12.3,11.8l0,259.4c0.1,6.6 -5.4,11.9 -12.2,11.9z" />
                             <path id="svg_14" strokeMiterlimit="10" stroke="#050606" fill="#202021" d="m987.79121,509.03418l-357.8,0c-3.2,0 -5.8,-2.6 -5.8,-5.8l0,-220.3c0,-6.1 4.9,-11 11,-11l350.6,0c6.4,0 11.7,5.2 11.7,11.7l0,215.8c-0.1,5.3 -4.4,9.6 -9.7,9.6z" />
-                            <rect id="svg_15" strokeMiterlimit="10" fill="#010213" stroke="#070808" height="211.3" width="341" y="284.83418" x="640.29121" />
+                            <rect id="svg_15" strokeMiterlimit="10" fill="#04061b" stroke="#070808" height="211.3" width="341" y="284.83418" x="640.29121" />
                             <path id="svg_16" strokeMiterlimit="10" stroke-width="2" stroke="#070808" fill="#C7C6C6" d="m735.89121,595.03418l1,5.6c0.2,1.3 1.3,2.2 2.6,2.2l138.2,0c2.9,0 5.4,-2.1 5.9,-4.9l0,-0.1c0.2,-1 -0.6,-1.8 -1.5,-1.8l-146.2,-1z" />
                             <path id="svg_17" strokeMiterlimit="10" stroke="#070808" fill="#A3A3A2" d="m761.09121,573.83418l-25.4,20.3c-1.3,1.1 -0.6,3.3 1.2,3.3l145.5,-0.4c1.1,0 1.6,-1.3 0.8,-2l-23.8,-21.2l-98.3,0z" />
                             <path id="svg_18" fill="#A3A3A2" d="m762.49121,572.73418l-0.6,1.3c-1,1 -1.4,1.3 -2,1.9l-4.7,3.7l109.2,0.4l-3,-3.1c-0.4,-0.4 -0.9,-0.8 -1.2,-1.2c-0.7,-0.8 -0.7,-0.6 -1.1,-1.7l0,-1.3l-96.6,0z" />
