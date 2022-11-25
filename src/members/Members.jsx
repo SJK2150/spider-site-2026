@@ -328,16 +328,16 @@ const MemberCard = ({ member, id }) => {
           style={
             isHover
               ? { filter: 'blur(5px)', opacity: '50%', scale: '100%', overflow: 'hidden' }
-              : { overflow: 'hidden' }
+              : { overflow: 'hidden',   outline:"1px solid rgba(207,207,207,0.3)"  }
           }
         >
-          <Card.Img src={member.photo_url} alt={member.name} />
+          <Card.Img src={member.photo_url} alt={member.name} style={isHover ?{scale:'110%', transition:'0.3s'}:{}} />
           <Card.Title className="member_name" style={{ textAlign: 'center' }}>
             {member.name}
           </Card.Title>
         </div>
-        {isHover && (
-          <div>
+       
+          <div style={isHover?{opacity:'100%', transition:'all 0.3s ease-in-out'}:{opacity:'0'}}>
             <div
               style={{
                 position: 'absolute',
@@ -415,7 +415,7 @@ const MemberCard = ({ member, id }) => {
               </div>
             </div>
           </div>
-        )}
+        
       </Card>
       <br></br>
     </motion.div>
