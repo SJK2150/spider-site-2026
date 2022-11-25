@@ -52,3 +52,15 @@ footer.footer-bottom::before {
   margin-top: 5px;
   background-color: #2A2D3F;
 }
+
+@media screen and (max-width: 568px) {
+  footer > p {
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
+  }
+  a.fa {
+    font-size: small;
+    padding-top:10px;
+  }
+}

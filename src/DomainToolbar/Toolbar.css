@@ -46,6 +46,12 @@
     height: 2em !important;
     fill: white !important;
 }
+.domain-image {
+    scale:100%;
+}
+.domain-box > h6 {
+    font-size:14px
+}
 
 @media screen and (max-width: 649px) {
     .domain-box{
@@ -83,7 +89,7 @@
 }
 @media screen and (max-width: 415px) {
     .domain-toolbar{
-        flex-direction: column;
+        /* flex-direction: column; */
         height: 100%;
     }
 
@@ -97,4 +103,11 @@
     .project-title, .achv-title{
         font-size: 2rem !important;
     }
+    .domain-image {
+        scale:80%;
+    }
+    .domain-box > h6 {
+        font-size:10px
+    }
 }
+

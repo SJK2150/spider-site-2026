@@ -35,14 +35,14 @@ export default function Toolbar(props) {
                 e.preventDefault();
                 handleOnClick(0)
             }} className={"domain-box"+(domain[0] == true ? ' domain-box-clicked' : '')} variant="outlined" elevation={5}  >
-                <img src={HardwareIcon} />
+                <img src={HardwareIcon} className="domain-image" />
                 <h6>HARDWARE</h6>
             </Paper>
             <Paper onClick={(e)=>{
                 e.preventDefault();
                 handleOnClick(1)
             }} className={"domain-box"+(domain[1] == true  ? ' domain-box-clicked' : '')} variant="outlined" elevation={5} >
-                <img src={SoftwareIcon} />
+                <img src={SoftwareIcon} className="domain-image" />
                 <h6>SOFTWARE</h6>
             </Paper>
         </div>

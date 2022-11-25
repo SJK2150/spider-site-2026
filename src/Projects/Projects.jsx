@@ -7,6 +7,8 @@ import Modal from '../Modal/Modal';
 import Toolbar from '../DomainToolbar/Toolbar';
 import axios from 'axios';
 import FooterBar from '../Footer/footer-bottom';
+import ErrorIcon from '@material-ui/icons/Error';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // import data from './data.json'
 import { getAllProjectsDetails } from '../api/requests';
 export default function Projects() {
@@ -16,6 +18,7 @@ export default function Projects() {
   const [domain, setDomain] = React.useState([].fill(false, 0, 2));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, data.length));
   const [displayAll,setDisplayAll] = React.useState(true);
+  const [error, setError] = React.useState(false)
   const [domainMap,setDomainMap] = React.useState({
     "TRONIX":0,
     "WEBDEV":1,
@@ -42,22 +45,56 @@ export default function Projects() {
     }
   }, [domain]);
 
+  const [loading, setLoading] = React.useState(false)
   const fetchData = async () => {
+    setLoading(true)
     const res = await getAllProjectsDetails();
     console.log(res);
-    setData(res);
+    if(res){
+      if(res.status && res.status == 500){
+        setError(true)
+      }
+      else{
+        setData(res);
+      }
+      setLoading(false)
+    }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setData(data=>{
+        if(data.length == 0){
+          setLoading(false)
+          setError(true)
+        }
+        return data
+      })
+      
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const displayContent = (ele,id)=>{
     if (id % 2 == 0) {
       return (
-        <Col className="proj-col" md={5}>
+        <Col className="proj-col" sm={5} >
           <AnimateSharedLayout>
             {modalShow && modalCondn[id] ? (
               createModal()
             ) : (
               <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                <Card className="text-white project-card">
+                <Card className="text-white project-card"
+                   onClick={() => {
+                          modalDisplay(
+                            ele.name,
+                            ele.Members,
+                            ele.desc,
+                            ele.project_photo_url,
+                            `expandable-card-${id + 1}`,
+                            `${id + 1}`,
+                          );
+                        }}
+                >
                   <div className="proj-image-bg">
                     <Card.Img className="project-image" variant="top" src={ele.project_photo_url} />
                   </div>
@@ -65,7 +102,11 @@ export default function Projects() {
                     <motion.div>
                       <Card.Title className="project-title">{ele.name}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                    <div className='project-card-desc'>
+                      {ele.desc}
+                    </div>
+                    <span className='project-card-learn-more' >{"Learn more =>"}</span>
+                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
                     <button
                         className='project-card-button'
                         onClick={() => {
@@ -81,7 +122,7 @@ export default function Projects() {
                       >
                         Learn More
                       </button>
-                    </motion.div>
+                    </motion.div> */}
                   </Card.Body>
                 </Card>
               </motion.div>
@@ -91,13 +132,24 @@ export default function Projects() {
       );
     } else {
       return (
-        <Col md={5} className="proj-col">
+        <Col sm={5} className="proj-col">
           <AnimateSharedLayout>
             {modalShow && modalCondn[id] ? (
               createModal()
             ) : (
               <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                <Card className="text-white project-card">
+                <Card className="text-white project-card"
+                   onClick={() => {
+                          modalDisplay(
+                            ele.name,
+                            ele.Members,
+                            ele.desc,
+                            ele.project_photo_url,
+                            `expandable-card-${id + 1}`,
+                            `${id + 1}`,
+                          );
+                        }}
+                >
                   <div className="proj-image-bg">
                     <Card.Img className="project-image" variant="top" src={ele.project_photo_url} />
                   </div>
@@ -105,7 +157,11 @@ export default function Projects() {
                     <motion.div>
                       <Card.Title className="project-title">{ele.name}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                    <div className='project-card-desc'>
+                      {ele.desc}
+                    </div>
+                    <span className='project-card-learn-more' >{"Learn more =>"}</span>
+                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
                       <button
                         className='project-card-button'
                         onClick={() => {
@@ -121,7 +177,7 @@ export default function Projects() {
                       >
                         Learn More
                       </button>
-                    </motion.div>
+                    </motion.div> */}
                   </Card.Body>
                 </Card>
               </motion.div>
@@ -160,13 +216,17 @@ export default function Projects() {
       <Typography className="project-header-title" variant="h2" align="center">
         PROJECTS
       </Typography>
+      {data.length>0 &&
       <div className="domains">
         <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
       </div>
+      }
       <Container fluid="md">
         <Container fluid>
           <Row className="my-3 projects-display-cards">
-            {displayAll
+
+          {loading==true? <div className='project-error-div' ><CircularProgress className='project-error-icon'/></div>:<>
+          {error==false ? displayAll 
               ? data.map((ele, id) => {
                   return displayContent(ele, id);
                 })
@@ -181,7 +241,16 @@ export default function Projects() {
                   })
                   .map((ele, id) => {
                     return displayContent(ele, id);
-                  })}
+                  }):
+                  <div className='project-error-div'>
+                      <ErrorIcon className='project-error-icon'/>
+                      <div>
+                        <h3 >Error</h3>
+                        <h5 >Cannot connect to Server!</h5>
+                      </div>
+                    </div>
+                  }
+                  </>}
           </Row>
         </Container>
       </Container>
