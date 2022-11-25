@@ -4,6 +4,8 @@ import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
 import Modal from '../Modal/Modal';
 import FooterBar from '../Footer/footer-bottom';
+import ErrorIcon from '@material-ui/icons/Error';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // import data from './data.json';
 
@@ -16,6 +18,7 @@ export default function Achievements() {
   const [domain, setDomain] = React.useState([].fill(false, 0, 4));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
   const [displayAll, setDisplayAll] = React.useState(true);
+  const [error, setError] = React.useState(false)
   const [domainMap, setDomainMap] = React.useState({
     "TRONIX": 0,
     "WEBDEV": 1,
@@ -43,16 +46,41 @@ export default function Achievements() {
     }
   }, [domain])
 
+  const [loading, setLoading] = React.useState(false)
   const fetchData = async ()=>{
+    setLoading(true)
     const res = await getAllAchievementDetails();
     console.log(res);
-    setData(res);
+    if(res){
+      if(res.status && res.status == 500){
+        setError(true)
+      }
+      else{
+        setData(res);
+      }
+      setLoading(false)
+    }
+    
+    
   }
 
-  const displayContent = (ele,id)=>{
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setData(data=>{
+        if(data.length == 0){
+          setLoading(false)
+          setError(true)
+        }
+        return data
+      })
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const DisplayContent = ({ele,id})=>{
     if (id % 2 == 0) {
       return (
-        <Col className="my-3" md={5}>
+        <Col className="my-3" sm={5} >
           <AnimateSharedLayout>
             {modalShow && modalCondn[id] ? (
               createModal()
@@ -60,6 +88,16 @@ export default function Achievements() {
               <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
                 <Card
                   className="text-white achv-card"
+                  onClick={() => {
+                          modalDisplay(
+                            ele.name_of_event,
+                            ele.Members,
+                            ele.desc,
+                            ele.achievement_photo_url,
+                            `expandable-card-${id + 1}`,
+                            `${id + 1}`,
+                          );
+                        }}
                 >
                   <div className="achv-image-bg">
                     <Card.Img
@@ -73,7 +111,11 @@ export default function Achievements() {
                     <motion.div>
                       <Card.Title className="achv-title">{ele.name_of_event}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                    <div className='achv-card-desc'>
+                      {ele.desc}
+                    </div>
+                    <span className='achv-card-learn-more' >{"Learn more =>"}</span>
+                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
                       <button
                         className='achv-card-button'
                         onClick={() => {
@@ -89,7 +131,7 @@ export default function Achievements() {
                       >
                         Learn More
                       </button>
-                    </motion.div>
+                    </motion.div> */}
                   </Card.Body>
                 </Card>
               </motion.div>
@@ -99,7 +141,7 @@ export default function Achievements() {
       )
     } else {
       return (
-        <Col className="my-3" md={5}>
+        <Col className="my-3" sm={5}>
           <AnimateSharedLayout>
             {modalShow && modalCondn[id] ? (
               createModal()
@@ -108,6 +150,16 @@ export default function Achievements() {
                 <Card
                   style={{ background: '#141C3A' }}
                   className="text-white achv-card"
+                  onClick={() => {
+                          modalDisplay(
+                            ele.name_of_event,
+                            ele.Members,
+                            ele.desc,
+                            ele.achievement_photo_url,
+                            `expandable-card-${id + 1}`,
+                            `${id + 1}`,
+                          );
+                        }}
                 >
                   <div className="achv-image-bg">
                     <Card.Img
@@ -120,7 +172,11 @@ export default function Achievements() {
                     <motion.div>
                       <Card.Title className="achv-title">{ele.name_of_event}</Card.Title>
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
+                    <div className='achv-card-desc'>
+                      {ele.desc}
+                    </div>
+                    <span className='achv-card-learn-more'>{"Learn more =>"}</span>
+                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
                       <button
                         className='achv-card-button'
                         onClick={() => {
@@ -136,7 +192,7 @@ export default function Achievements() {
                       >
                         Learn More
                       </button>
-                    </motion.div>
+                    </motion.div> */}
                   </Card.Body>
                 </Card>
               </motion.div>
@@ -179,15 +235,18 @@ export default function Achievements() {
         ></Image> */}
         <div className="display-3 achv_banner_title">ACHIEVEMENTS</div>
       </div>
+      {data.length>0 &&
       <div className="domains">
       <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
       </div>
+      }
       <Container fluid="md">
         <Container fluid>
           <Row className='achv-display-cards'>
-          {displayAll
+          {loading==true? <div className='achv-error-div' ><CircularProgress className='achv-error-icon'/></div>:<>
+          {error==false ? displayAll 
               ? data.map((ele, id) => {
-                  return displayContent(ele, id);
+                  return <DisplayContent ele={ele} id={id} />
                 })
               : data
                   .filter((e) => {
@@ -199,8 +258,19 @@ export default function Achievements() {
                     }
                   })
                   .map((ele, id) => {
-                    return displayContent(ele, id);
-                  })}
+                    return <DisplayContent ele={ele} id={id} />
+                  }) : (
+                    <> 
+                    <div className='achv-error-div'>
+                      <ErrorIcon className='achv-error-icon'/>
+                      <div>
+                        <h3 >Error</h3>
+                        <h5 >Cannot connect to Server!</h5>
+                      </div>
+                    </div>
+                    </>
+                  )}
+            </>}
           </Row>
         </Container>
       </Container>
