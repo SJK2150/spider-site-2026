@@ -217,12 +217,12 @@ function Members() {
           )}
           {/* <div className="d-flex justify-content-around">
             <motion.div className="menu-item ">
-              <button onClick={handleClickHardware} className="HardwareIcon btn shadow-none mx-5">
+              <button onClick={handleClickHardware} className="HardwareIcon btn shadow-none mx-4">
                 <img src="images/hardware.png" />
               </button>
             </motion.div>
             <motion.div className="menu-item">
-              <button onClick={handleClickSoftware} className="SoftwareIcon btn shadow-none mx-5">
+              <button onClick={handleClickSoftware} className="SoftwareIcon btn shadow-none mx-4">
                 <img src="images/software.png" />
               </button>
             </motion.div>
