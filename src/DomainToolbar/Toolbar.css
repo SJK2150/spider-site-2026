@@ -4,7 +4,7 @@
     /* background-color: #141E31; */
     display: flex;
     justify-content: space-evenly;
-    padding:0 20%;
+    /* padding:0 20%; */
     align-items: center;
 }
 .domain-box{
@@ -20,6 +20,9 @@
     flex-direction: column;
     cursor: pointer;
     padding:20px;
+}
+.domain-all {
+    margin:0 27.5px;
 }
 .domain-box > h6 {
     margin-top: 10px;
@@ -97,13 +100,11 @@
     .domain-image {
         scale:60%;
     }
-    .domain-box{
-        padding:5px
-     }
 
     .domain-box{
         margin-top: 5px;
         margin-bottom: 5px;
+        scale:80%;
     }
     .project-header{
         font-size: 3.5rem !important;
@@ -113,6 +114,9 @@
     } */
     .domain-box > h6 {
         font-size:10px
+    }
+    .domain-all {
+        margin:0 20.5px;
     }
 }
 
