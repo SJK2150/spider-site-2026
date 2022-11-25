@@ -65,13 +65,20 @@
   position: relative;
   height: 100%;
   transition: all 0.5s ease-in-out;
-  background: none !important;
+  background-color: rgba(106, 66, 193, 0.3) !important;
   border:1px solid rgba(207, 207, 207, 0.3);
+  filter: drop-shadow(16px 16px 10px black);
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top:30px
 }
 .project-card:hover {
-  background-color: rgba(106, 66, 193, 0.1) !important;
-  scale:101%;
-  transition: 1s;
+  border-radius: 15px;
+  background-color: rgba(58, 34, 109, 0.45) !important;
+  filter: drop-shadow(32px 32px 10px black);
+  scale:104%;
+  transition: 2s;
 }
 .project-image {
   height: 400px;
@@ -92,18 +99,32 @@
   text-align: center;
   cursor: pointer;
 }
+.project-title::after {
+  content: "";
+  position: relative;
+  display: inherit;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;    
+  width: 80%;
+  height: 2px;
+  /* margin-left: -35px; */
+  margin-top: 5px;
+  background-color: rgba(106, 66, 193, 0.95);
+}
+
 .motion-card {
   height: 100%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 868px) {
   .project-header-title {
     font-size: 60px !important;
     font-family: 'MontserratBold' !important;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1080px) {
+@media screen and (min-width: 580px) and (max-width: 1080px) {
   .project-image {
     height: 250px;
   }
@@ -125,6 +146,7 @@
   justify-content: space-around;
   align-items: center;
   margin: 0;
+  padding-bottom:80px;
 }
 
 .project-card-button {
@@ -141,4 +163,78 @@
   outline: 1px solid rgba(106, 66, 193, 0.95) ;
   transition: 1s;
   scale:105%
+}
+
+.project-error-icon {
+  height:100px !important;
+  width:100px !important;
+  fill:white !important;
+}
+
+.project-error-div {
+  padding:200px;
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+  gap:20px;
+}
+.project-error-div > div >h5, .project-error-div > div >h3 {
+  color:white;
+  text-align: start;
+}
+
+
+.project-card-desc {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 4.5em;
+  margin:30px;
+  font-size: 13px;
+  display: block;
+}
+.project-card-learn-more {
+  margin-top:0px;
+  margin-bottom:200px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+ 
+  .project-error-div{
+    flex-direction: column;
+    padding:100px 20px;
+  }
+  .project-error-div > div >h5{
+    font-size: 10px;
+    text-align: center;
+  }
+  .project-error-div > div >h3{
+    font-size:25px;
+    text-align: center;
+  }
+  .project-error-icon{
+    height:75px !important;
+    width: 75px !important;
+  }
+
+  .project-card-desc {
+    margin:10px;
+  }
+
+  .project-title::after{
+    margin-bottom:25px;
+    width: 200%;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 580px){
+  .project-card-desc {
+    display: none;
+  }
+}
+@media screen and  (max-width: 320px){
+  .project-card-desc {
+    display: none;
+  }
 }
