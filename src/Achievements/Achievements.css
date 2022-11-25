@@ -18,12 +18,7 @@
   padding: 20px;
   /* font-weight: 700; */
 }
-@media screen and (max-width: 680px) {
-  .achv_banner_title {
-    letter-spacing: 0 !important;
-    font-family: 'Montserrat' !important;
-  }
-}
+
 .achv-intro-section {
   width: 100%;
 }
@@ -94,19 +89,48 @@
   }
 }
 
-@media screen and (min-width: 580px) and (max-width: 1080px) {
+@media screen and (max-width: 1080px) {
   .achv-image {
     height: 250px;
+  }
+}
+@media screen and (max-width: 680px) {
+  .achv_banner_title {
+    letter-spacing: 0 !important;
+    font-size: 30px !important;
+    font-family: 'MontserratBold' !important;
+  }
+  .achv-title {
+    font-size: 1.8rem;
+  }
+  .achv-card-learn-more{
+    font-size: 0.6rem;
+  }
+}
+@media screen and (max-width: 960px) {
+  .achv-title::after{
+    top:5px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .achv_banner_title {
-    font-size: 28px;
+    font-size: 22px !important;
     font-family: 'MontserratBold' !important;
   }
   .achv-image {
     height:200px
+  }
+  .achv-title {
+    font-size: 1.5rem;
+  }
+  .achv-title::after{
+    top:10px;
+  }
+}
+@media screen and  (max-width: 360px){
+  .achv-image {
+    height:150px
   }
 }
 .achv-display-cards {
@@ -155,7 +179,7 @@
 .achv-card-desc {
   text-overflow: ellipsis;
   overflow: hidden;
-  max-height: 4.5em;
+  height: 4.5em;
   margin:30px;
   font-size: 13px;
   display: block;
@@ -163,6 +187,17 @@
 .achv-card-learn-more {
   margin-top:0px;
   margin-bottom:200px;
+}
+@media screen and (max-width: 900px) {
+
+  .achv-card-desc {
+    margin:10px;
+    font-size: 8px ;
+  }
+  #achv-page {
+    padding:1.5rem;
+  }
+
 }
 
 
@@ -188,6 +223,7 @@
 
   .achv-card-desc {
     margin:10px;
+    font-size: 7px ;
   }
 
   .achv-title::after{
@@ -195,15 +231,9 @@
     width: 200%;
   }
 }
-
-@media screen and (max-width: 768px) and (min-width: 580px){
-  .achv-card-desc {
-    display: none;
+@media screen and (max-width: 768px) {
+  
+  #projects-page {
+    padding:1.0rem;
   }
 }
-@media screen and  (max-width: 320px){
-  .achv-card-desc {
-    display: none;
-  }
-}
-

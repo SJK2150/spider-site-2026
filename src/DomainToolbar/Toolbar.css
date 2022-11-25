@@ -54,44 +54,52 @@
 }
 
 @media screen and (max-width: 649px) {
+    .domain-image {
+        scale:80%;
+    }
     .domain-box{
-        /* width: 80px;
-        height: 80px; */
+       padding:10px
     }
     .domain-icon{
-        width: 1.5rem !important;
-        height: 1.5rem !important;
+        width: 1.0rem !important;
+        height: 1.0rem !important;
     }
-    .project-title, .achv-title{
+    /* .project-title, .achv-title{
         font-size: 2.1rem !important;
-    }
+    } */
     .domain-toolbar{
         padding:0;
     }
 }
-@media screen and (max-width: 540px) {
+/* @media screen and (max-width: 540px) {
     #projects-page,#achv-page{
         padding: 1.5rem !important;
     }
     .project-header{
         font-size: 5rem !important;
     }
-}
-@media screen and (max-width: 470px) {
-    .domain-box{
-        /* width: 70px;
-        height: 70px; */
+} */
+/* @media screen and (max-width: 470px) {
+    /* .domain-box{
+        width: 70px;
+        height: 70px; 
     }
     .project-header{
         font-size: 2rem !important;
-    }
+    } 
     
-}
+} */
 @media screen and (max-width: 415px) {
     .domain-toolbar{
         /* flex-direction: column; */
         height: 100%;
     }
+    .domain-image {
+        scale:60%;
+    }
+    .domain-box{
+        padding:5px
+     }
 
     .domain-box{
         margin-top: 5px;
@@ -100,12 +108,9 @@
     .project-header{
         font-size: 3.5rem !important;
     }
-    .project-title, .achv-title{
+    /* .project-title, .achv-title{
         font-size: 2rem !important;
-    }
-    .domain-image {
-        scale:80%;
-    }
+    } */
     .domain-box > h6 {
         font-size:10px
     }

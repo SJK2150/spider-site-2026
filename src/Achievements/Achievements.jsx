@@ -1,5 +1,5 @@
 import React , {useEffect} from 'react';
-import { Container, Row, Col, Image, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
 import Modal from '../Modal/Modal';
@@ -19,12 +19,12 @@ export default function Achievements() {
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
   const [displayAll, setDisplayAll] = React.useState(true);
   const [error, setError] = React.useState(false)
-  const [domainMap, setDomainMap] = React.useState({
-    "TRONIX": 0,
-    "WEBDEV": 1,
-    "ALGOS": 2,
-    "APPDEV": 3
-  });
+  // const [domainMap, setDomainMap] = React.useState({
+  //   "TRONIX": 0,
+  //   "WEBDEV": 1,
+  //   "ALGOS": 2,
+  //   "APPDEV": 3
+  // });
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < 4; i++) {
@@ -52,7 +52,7 @@ export default function Achievements() {
     const res = await getAllAchievementDetails();
     console.log(res);
     if(res){
-      if(res.status && res.status == 500){
+      if(res.status && res.status === 500){
         setError(true)
       }
       else{
@@ -67,7 +67,7 @@ export default function Achievements() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setData(data=>{
-        if(data.length == 0){
+        if(data.length === 0){
           setLoading(false)
           setError(true)
         }
@@ -78,7 +78,7 @@ export default function Achievements() {
   }, []);
 
   const DisplayContent = ({ele,id})=>{
-    if (id % 2 == 0) {
+    if (id % 2 === 0) {
       return (
         <Col className="my-3" sm={5} >
           <AnimateSharedLayout>
@@ -243,19 +243,20 @@ export default function Achievements() {
       <Container fluid="md">
         <Container fluid>
           <Row className='achv-display-cards'>
-          {loading==true? <div className='achv-error-div' ><CircularProgress className='achv-error-icon'/></div>:<>
-          {error==false ? displayAll 
+          {loading===true? <div className='achv-error-div' ><CircularProgress className='achv-error-icon'/></div>:<>
+          {error===false ? displayAll 
               ? data.map((ele, id) => {
                   return <DisplayContent ele={ele} id={id} />
                 })
               : data
                   .filter((e) => {
-                    if(e.domain == 'TRONIX'){
+                    if(e.domain === 'TRONIX'){
                       return domain[0];
                     }
-                    if(e.domain == 'WEBDEV' || e.domain == 'ALGOS' || e.domain == 'APPDEV'){
+                    if(e.domain === 'WEBDEV' || e.domain === 'ALGOS' || e.domain === 'APPDEV'){
                       return domain[1] ;
                     }
+                    return false
                   })
                   .map((ele, id) => {
                     return <DisplayContent ele={ele} id={id} />
