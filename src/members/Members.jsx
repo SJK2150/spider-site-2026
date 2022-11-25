@@ -46,10 +46,10 @@ const item = {
 
 const year = [
   ['All', 'All'],
-  ['B Tech 4th year', 4],
-  ['B Tech 3rd Year', 3],
-  ['B Tech 2nd Year', 2],
-  ['MCA 2nd year', 'MCA'],
+  ['2022-23', 4],
+  ['2023-24', 3],
+  ['2024-25', 2],
+  ['MCA', 'MCA'],
 ];
 
 function Members() {
@@ -91,7 +91,7 @@ function Members() {
   const fetchData = async () => {
     setLoading(true);
     const res = await getAllMembersDetails();
-    console.log(res);
+    // console.log(res);
     if (res) {
       if (res.status && res.status === 500) {
         setError(true);
@@ -170,14 +170,16 @@ function Members() {
               custom={idx}
               key={idx}
               style={{ margin: '20px auto' }}
+           
             >
               <Nav.Item className="batch_item">
                 <Nav.Link
                   onClick={(e) => {
                     setYearName(item[1]);
-                    console.log(e, item);
+                    // console.log(e, item);
                   }}
                   eventKey={item[1]}
+                  
                   style={
                     yearName === item[1]
                       ? { background: '#6d4dff', color: 'white' }
@@ -329,7 +331,6 @@ const MemberCard = ({ member, id }) => {
               : { overflow: 'hidden' }
           }
         >
-          {console.log(member)}
           <Card.Img src={member.photo_url} alt={member.name} />
           <Card.Title className="member_name" style={{ textAlign: 'center' }}>
             {member.name}

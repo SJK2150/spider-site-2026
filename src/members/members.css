@@ -250,10 +250,14 @@ div.member_name {
   /* font-weight: 700; */
 }
 
+
 @media screen and (max-width: 868px) {
   .members_banner_title {
     font-size: 50px !important;
     font-family: 'MontserratBold' !important;
+  }
+  .nav-link {
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 680px) {
@@ -262,11 +266,18 @@ div.member_name {
     font-size: 30px !important;
     font-family: 'MontserratBold' !important;
   }
+  .nav-link {
+    font-size: 10px;
+  }
 }
 @media screen and (max-width: 480px) {
   .members_banner_title {
     font-size: 22px !important;
     font-family: 'MontserratBold' !important;
+  }
+  .nav-link {
+    font-size: 8px;
+    padding: 4px 10px;
   }
 }
 @media screen and (max-width: 900px) {
@@ -277,3 +288,10 @@ div.member_name {
 
 }
 
+@media screen and (max-width: 320px) {
+
+  .nav-link {
+    font-size: 6px;
+    padding: 4px 10px;
+  }
+}
