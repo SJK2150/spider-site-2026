@@ -101,6 +101,7 @@
 div.member_card {
   transition: all 0.3s ease-in-out;
   border-radius: 15px;
+  border: 1px solid rgba(207, 207, 207, 0.3);
 }
 div.member_card:hover {
   scale: 1;
