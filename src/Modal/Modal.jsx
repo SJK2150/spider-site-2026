@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './Modal.css';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 import {
@@ -53,7 +53,7 @@ export default function Modal(props) {
           <Image className="modal-image" height="280px" width="80%" src={image}></Image>
           <ModalBody className="modal-details">
             <Accordion className="" defaultActiveKey="0">
-              <Card style={{ background: '#6D4DFF', color: 'white', border:"none" }}>
+              <Card style={{ background: '#6D4DFF', color: 'white', border: 'none' }}>
                 <Accordion.Toggle
                   as={Card.Header}
                   style={{ padding: '0.5rem 1.25rem' }}
@@ -63,15 +63,10 @@ export default function Modal(props) {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                   <div className="modal-members">
-                    {members.map((member,i) => {
+                    {members.map((member, i) => {
                       return (
                         <div key={i}>
-                          <Image
-                            width={64}
-                            height={64}
-                            src={member[1]}
-                            roundedCircle
-                          />
+                          <Image width={64} height={64} src={member[1]} roundedCircle />
                           <p>{member[0]}</p>
                         </div>
                       );

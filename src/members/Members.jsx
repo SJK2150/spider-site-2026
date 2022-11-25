@@ -11,6 +11,13 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import IconButton from '@material-ui/core/IconButton';
 import { members } from './All_members';
 import './members.css';
+import ErrorIcon from '@material-ui/icons/Error';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import Toolbar from '../DomainToolbar/Toolbar';
+import FooterBar from '../Footer/footer-bottom';
+
+import { getAllMembersDetails } from '../api/requests';
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -39,44 +46,100 @@ const item = {
 
 const year = [
   ['All', 'All'],
-  ['B Tech 4th year', '2020-21'],
-  ['B Tech 3rd Year', '2021-22'],
-  ['B Tech 2nd Year', '2022-23'],
+  ['B Tech 4th year', 4],
+  ['B Tech 3rd Year', 3],
+  ['B Tech 2nd Year', 2],
   ['MCA 2nd year', 'MCA'],
 ];
 
 function Members() {
   const [yearName, setYearName] = useState('All');
-  const [ProfileName, setProfileName] = useState('All');
-  const [clickHardware, setClickHardware] = useState(false);
-  const [clickSoftware, setClickSoftware] = useState(false);
-  const [domain, setDomain] = useState([true, false]);
+  // const [ProfileName, setProfileName] = useState('All');
+  // const [clickHardware, setClickHardware] = useState(false);
+  // const [clickSoftware, setClickSoftware] = useState(false);
+  // const [domain, setDomain] = useState([true, false]);
+  const [domain, setDomain] = useState([false, false, false, false]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
 
-  const handleClickHardware = () => {
-    setClickSoftware(false);
-    setClickHardware(!clickHardware);
-    setDomain([true, false]);
-    setProfileName((profileName)=>{
-      if(profileName == 'All'){
-        return 'Hardware'
-      }else{
-        return 'All'
+  const [displayAll, setDisplayAll] = useState(true);
+
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < 4; i++) {
+      arr.push(false);
+    }
+    setDomain([...arr]);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // console.log(domain);
+    let val = domain[0];
+    for (let i = 1; i < domain.length; i++) {
+      val = val || domain[i];
+    }
+    if (val) {
+      setDisplayAll(false);
+    } else {
+      setDisplayAll(true);
+    }
+    setYearName('All');
+  }, [domain]);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const res = await getAllMembersDetails();
+    console.log(res);
+    if (res) {
+      if (res.status && res.status === 500) {
+        setError(true);
+      } else {
+        setData(res);
       }
-    });
+      setLoading(false);
+    }
   };
 
-  const handleClickSoftware = () => {
-    setClickHardware(false);
-    setClickSoftware(!clickSoftware);
-    setDomain([false, true]);
-    setProfileName((profileName)=>{
-      if(profileName == 'All'){
-        return 'Software'
-      }else{
-        return 'All'
-      }
-    });
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setData((data) => {
+        if (data.length === 0) {
+          setLoading(false);
+          setError(true);
+        }
+        return data;
+      });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // const handleClickHardware = () => {
+  //   setClickSoftware(false);
+  //   setClickHardware(!clickHardware);
+  //   setDomain([true, false]);
+  //   setProfileName((profileName)=>{
+  //     if(profileName === 'All'){
+  //       return 'Hardware'
+  //     }else{
+  //       return 'All'
+  //     }
+  //   });
+  // };
+
+  // const handleClickSoftware = () => {
+  //   setClickHardware(false);
+  //   setClickSoftware(!clickSoftware);
+  //   setDomain([false, true]);
+  //   setProfileName((profileName)=>{
+  //     if(profileName === 'All'){
+  //       return 'Software'
+  //     }else{
+  //       return 'All'
+  //     }
+  //   });
+  // };
 
   const subMenuAnimate = {
     enter: (i) => ({
@@ -95,42 +158,45 @@ function Members() {
     },
   };
 
-  const displayYearNav = (index) => {
-    const domainCond = [clickHardware, clickSoftware];
-    if (domainCond[index]) {
-      return (
-        <Nav variant="tabs" defaultActiveKey="All" style={{ justifyContent: 'space-between' }}>
-          {year.map((item, idx) => {
-            {/* if (index === 0 && idx === 4) {
-              return <></>;
-            } */}
-            return (
-              <motion.div
-                initial="exit"
-                animate={domainCond[index] ? 'enter' : 'exit'}
-                variants={subMenuAnimate}
-                custom={idx}
-                key={idx}
-                style={{margin:'20px auto'}}
-              >
-                <Nav.Item className="batch_item" >
-                  <Nav.Link onClick={(e) => handleYearClick(e, item[0])} eventKey={item[1]} style={yearName==item[0]?{background:'#6d4dff' , color:'white'}:{}}>
-                    {item[1]}
-                  </Nav.Link>
-                </Nav.Item>
-              </motion.div>
-            );
-          })}
-        </Nav>
-      );
-    } else {
-      return <></>;
-    }
+  const DisplayYearNav = () => {
+    return (
+      <Nav variant="tabs" defaultActiveKey="All" style={{ justifyContent: 'space-between' }}>
+        {year.map((item, idx) => {
+          return (
+            <motion.div
+              initial="exit"
+              animate={1 ? 'enter' : 'exit'}
+              variants={subMenuAnimate}
+              custom={idx}
+              key={idx}
+              style={{ margin: '20px auto' }}
+            >
+              <Nav.Item className="batch_item">
+                <Nav.Link
+                  onClick={(e) => {
+                    setYearName(item[1]);
+                    console.log(e, item);
+                  }}
+                  eventKey={item[1]}
+                  style={
+                    yearName === item[1]
+                      ? { background: '#6d4dff', color: 'white' }
+                      : { background: 'none', color: 'white' }
+                  }
+                >
+                  {item[0]}
+                </Nav.Link>
+              </Nav.Item>
+            </motion.div>
+          );
+        })}
+      </Nav>
+    );
   };
 
-  const handleYearClick = (e, yr) => {
-    setYearName(yr);
-  };
+  // const handleYearClick = (e, yr) => {
+  //   setYearName(yr);
+  // };
   // console.log(yearName, ProfileName)
 
   useEffect(() => {
@@ -140,20 +206,16 @@ function Members() {
   return (
     <Container className="members-container">
       <Router>
-        <h1
-          style={{
-            color: 'white',
-            textAlign: 'center',
-            padding: 15,
-            fontWeight: 600,
-          }}
-
-        >
-          Members
-        </h1>
+        <h1 className="members_banner_title">MEMBERS</h1>
         <br />
+
         <>
-        <div className="d-flex justify-content-around">
+          {data.length > 0 && (
+            <div className="domains">
+              <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
+            </div>
+          )}
+          {/* <div className="d-flex justify-content-around">
             <motion.div className="menu-item ">
               <button onClick={handleClickHardware} className="HardwareIcon btn shadow-none mx-4">
                 <img src="images/hardware.png" />
@@ -164,31 +226,80 @@ function Members() {
                 <img src="images/software.png" />
               </button>
             </motion.div>
-          </div>
-          <div className="my-4">
-          {displayYearNav(domain.findIndex((e) => e === true))}
-          </div>
+          </div> */}
+          <div className="my-4">{displayAll === false && <DisplayYearNav />}</div>
         </>
-        <AnimatePresence initial={true}>
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            style={{ display: 'flex', justifyContent: 'space-around', padding: 30 }}
-          >
-            <CardColumns>
-              <Container fluid="lg">
-                {members
-                  .filter((member) => ProfileName === 'All'? member:  member.Profile === ProfileName)
-                  .filter((member) => member.Year === yearName)
-                  .map((member, id) => (
-                    <MemberCard member={member} id={id}></MemberCard>
-                  ))}
-              </Container>
-            </CardColumns>
-          </motion.div>
-        </AnimatePresence>
+        {loading === true ? (
+          <div className="member-error-div">
+            <CircularProgress className="member-error-icon" />
+          </div>
+        ) : (
+          <>
+            {error === false ? (
+              <AnimatePresence initial={true}>
+                <motion.div
+                  variants={container}
+                  initial="hidden"
+                  animate="visible"
+                  style={{ display: 'flex', justifyContent: 'space-around', padding: 30 }}
+                >
+                  <CardColumns>
+                    <Container fluid="lg">
+                      {data
+                        .filter((e) => {
+                          if (displayAll === false) {
+                            if (e.domain === 'TRONIX') {
+                              return domain[0];
+                            }
+                            if (
+                              e.domain === 'WEBDEV' ||
+                              e.domain === 'ALGOS' ||
+                              e.domain === 'APPDEV'
+                            ) {
+                              return domain[1];
+                            }
+                          } 
+                          return true;
+                        })
+                        .filter((member) => {
+                          if (yearName === 'All') {
+                            return true;
+                          } else {
+                            if (member.degree !== 'BTECH') {
+                              if (yearName === 'MCA') {
+                                return true;
+                              }
+                            } else {
+                              if (member.year === yearName) {
+                                return true;
+                              }
+                              return false;
+                            }
+                          }
+                          return false;
+                        })
+                        .map((member, id) => (
+                          <MemberCard member={member} id={id}></MemberCard>
+                        ))}
+                    </Container>
+                  </CardColumns>
+                </motion.div>
+              </AnimatePresence>
+            ) : (
+              <>
+                <div className="member-error-div">
+                  <ErrorIcon className="member-error-icon" />
+                  <div>
+                    <h3>Error</h3>
+                    <h5>Cannot connect to Server!</h5>
+                  </div>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </Router>
+      <FooterBar />
     </Container>
   );
 }
@@ -209,15 +320,20 @@ const MemberCard = ({ member, id }) => {
         setIsHover(false);
       }}
     >
-      <Card
-        className="text-white"
-        style={{background:'none'}}
-      >
-      <div className='member_card'  style={isHover ? { filter: 'blur(5px)', opacity: '50%', scale: '100%' } : {}}>
-        <Card.Img src={member.Photo} alt={member.Name} />
-        <Card.Title className="member_name" style={{ textAlign: 'center' }}>
-          {member.Name}
-        </Card.Title>
+      <Card className="text-white" style={{ background: 'none' }}>
+        <div
+          className="member_card"
+          style={
+            isHover
+              ? { filter: 'blur(5px)', opacity: '50%', scale: '100%', overflow: 'hidden' }
+              : { overflow: 'hidden' }
+          }
+        >
+          {console.log(member)}
+          <Card.Img src={member.photo_url} alt={member.name} />
+          <Card.Title className="member_name" style={{ textAlign: 'center' }}>
+            {member.name}
+          </Card.Title>
         </div>
         {isHover && (
           <div>
@@ -246,7 +362,7 @@ const MemberCard = ({ member, id }) => {
                 component="h2"
                 style={{ fontFamily: 'MontserratBold', textAlign: 'center' }}
               >
-                {member.Name}
+                {member.name}
               </Typography>
               <Typography variant="h6" style={{ color: 'white' }}>
                 {members.Role}
@@ -262,8 +378,8 @@ const MemberCard = ({ member, id }) => {
               }}
             >
               <div className="iconLinks">
-                {member.LinkedIn ? (
-                  <a href={member.LinkedIn}>
+                {member.linkedin_url ? (
+                  <a href={member.linkedin_url}>
                     <IconButton>
                       <LinkedInIcon fontSize="large" className="member-card-links" />
                     </IconButton>
@@ -273,8 +389,8 @@ const MemberCard = ({ member, id }) => {
                     <LinkedInIcon fontSize="large" className="member-card-links" />
                   </IconButton>
                 )}
-                {member.Website ? (
-                  <a href={member.Website}>
+                {member.website_url ? (
+                  <a href={member.website_url}>
                     <IconButton>
                       <LanguageIcon className="member-card-links" fontSize="large" />
                     </IconButton>
@@ -284,8 +400,8 @@ const MemberCard = ({ member, id }) => {
                     <LanguageIcon className="member-card-links" fontSize="large" />
                   </IconButton>
                 )}
-                {member.Github ? (
-                  <a href={member.Github}>
+                {member.github_url ? (
+                  <a href={member.github_url}>
                     <IconButton>
                       <GitHubIcon className="member-card-links" fontSize="large" />
                     </IconButton>

@@ -53,10 +53,44 @@
   }
 }
 @media screen and (max-width: 705px) {
+  #desc-container {
+    margin-top: 40px;
+  }
   .dcard-title > h3 {
     font-size: 1.8rem;
   }
   .dcard-desc > p {
-    font-size: 1rem;
+    margin-top: 2.5rem;
+    font-size: 0.8rem;
+    line-height: 25px;
   }
 }
+
+@media screen and (max-width: 455px) {
+  #desc-container {
+    margin-top: 30px;
+  }
+  .dcard-title > h3 {
+    font-size: 1.5rem;
+  }
+  .dcard-desc > p {
+    margin-top: 2.0rem;
+    font-size: 0.6rem;
+    line-height: 20px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  #desc-container {
+    margin-top: 10px;
+  }
+  .dcard-title > h3 {
+    font-size: 1.3rem;
+  }
+  .dcard-desc > p {
+    margin-top: 1.8rem;
+    font-size: 0.4rem;
+    line-height: 16px;
+  }
+}
+
