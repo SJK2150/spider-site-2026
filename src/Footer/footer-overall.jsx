@@ -1,8 +1,8 @@
 import React from 'react';
 import BottomFooter from './footer-bottom';
 import MapComponent from './footer-maps';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+// import Grid from '@material-ui/core/Grid';
+// import Typography from '@material-ui/core/Typography';
 import './footer-overall.css';
 
 function Footer() {
@@ -24,7 +24,9 @@ function Footer() {
           <p>(Opposite to CCD), NIT Tiruchirappalli.</p>
 
           <h6>Email</h6>
-          <p><span>xyz@gmail.com</span> </p>
+          <p>
+            <span>xyz@gmail.com</span>{' '}
+          </p>
         </div>
         <div className="map-component">
           <MapComponent />
@@ -68,9 +70,7 @@ function Footer() {
           <MapComponent />
         </Grid> */}
       </div>
-      <br />
-      <br />
-      <br />
+
       {/* <Grid container spacing={4}> */}
       {/* <Grid item xs={12}>
           <Typography align="center" variant="h6" gutterBottom>
@@ -173,8 +173,7 @@ function Footer() {
           Ph: <span>6546468464</span>
         </div>
       </div> */}
-      <br />
-      <hr />
+
       <BottomFooter />
     </div>
   );
