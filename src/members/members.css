@@ -297,4 +297,7 @@ div.member_name {
     padding: 4px 10px;
   }
 }
-
+.card-img{
+  height: 300px;
+  object-fit: cover;
+}
