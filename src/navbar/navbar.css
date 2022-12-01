@@ -10,3 +10,47 @@
 .custom-nav > strong {
   font-size: small;
 }
+
+.nav-tabs .nav-link {
+  color: #ffffff;
+}
+.nav-tabs .nav-link:hover {
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+
+@media screen and (max-width: 868px) {
+  .nav-link {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 680px) {
+  .nav-link {
+    font-size: 13px;
+  }
+  .navbar-toggler{
+    scale: 80%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .nav-link {
+    font-size: 11.5px;
+    /* padding: 4px 10px; */
+  }
+
+}
+
+
+@media screen and (max-width: 320px) {
+
+  .nav-link {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .navbar {
+    padding: 10px 0 ;
+  }
+  
+  
+}

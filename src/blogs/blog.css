@@ -34,7 +34,7 @@
 .blog-desc{
   padding:10px;
   overflow: hidden;
-  max-height: min(300px,30vh);
+  max-height: min(150px,30vh);
   font-size: 12px !important;
 }
 
@@ -167,7 +167,6 @@
  @media screen and (max-width: 580px) {
    .blogs_header {
      font-size: 40px !important;
-     letter-spacing: 0!important;
      font-family: 'MontserratBold' !important;
    }
    .blog_card_img {
@@ -242,5 +241,19 @@
   .blog-title::after{
     margin-bottom:25px;
     width: 200%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .blogs_header {
+    font-size: 30px !important;
+    letter-spacing: 0!important;  
+  }
+  .blog-desc{
+    padding:0;
+    font-size: 9px !important;
+  }
+  .blog-title {
+    font-size: 20px!important;
   }
 }

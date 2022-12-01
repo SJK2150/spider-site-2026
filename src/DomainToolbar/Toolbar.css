@@ -56,12 +56,14 @@
     font-size:14px
 }
 
-@media screen and (max-width: 649px) {
+@media screen and (max-width: 668px) {
     .domain-image {
         scale:80%;
     }
     .domain-box{
-       padding:10px
+        scale:90%;
+       padding:10px;
+       margin-top:-50px;
     }
     .domain-icon{
         width: 1.0rem !important;
@@ -102,7 +104,7 @@
     }
 
     .domain-box{
-        margin-top: 5px;
+        margin-top: -15px;
         margin-bottom: 5px;
         scale:80%;
     }
@@ -120,3 +122,11 @@
     }
 }
 
+
+@media screen and (max-width: 280px) {
+    .domain-box {
+        scale:60%;
+        margin:auto -10px;
+        margin-top:-30px;
+    }
+}

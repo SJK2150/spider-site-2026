@@ -15,7 +15,7 @@
   z-index: 1;
   opacity: 1;
   text-align: center;
-  padding: 20px;
+  padding: 20px 0;
   /* font-weight: 700; */
 }
 
@@ -237,3 +237,16 @@
     padding:1.0rem;
   }
 }
+
+@media screen and (max-width: 360px) {
+  .col-sm-5 {
+    padding:0;
+  }
+  .achv_banner_title {
+    font-size: 1.2rem !important;
+  }
+  .achv-title{
+    font-size:100%;
+  }
+}
+
