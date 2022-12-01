@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# SPIDER SITE BACKEND
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tech Stack: Node (typescript), Express.js, MySql
+
+## Setup
+- Clone this repo
+- Create .env file from .env.example as sample inside backend/env/ with your credentials
+- run `cd backend`
+- run `npm install`
+- run `npm start`
+
+# SPIDER SITE FRONTEND
+
+## Setup
+- Clone this repo
+- Create .env file from .env.example as sample in root directory
+- run `npm install`
 
 ## Available Scripts
 
