@@ -4,17 +4,17 @@ Tech Stack: Node (typescript), Express.js, MySql
 
 ## Setup
 - Clone this repo
+- Create .env file from .env.example as sample inside backend/env/ with your credentials
 - run `cd backend`
 - run `npm install`
 - run `npm start`
-- Create .env file from .env.example as sample inside backend/env/ with your credentials
 
 # SPIDER SITE FRONTEND
 
 ## Setup
 - Clone this repo
-- run `npm install`
 - Create .env file from .env.example as sample in root directory
+- run `npm install`
 
 ## Available Scripts
 
