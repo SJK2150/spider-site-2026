@@ -16,7 +16,7 @@
   margin-bottom: 15px !important;
   letter-spacing: 0.2em !important;
   font-size: 80px ;
-  padding: 20px;
+  padding: 20px 0;
 }
 .proj-col{
   margin-bottom: 15px;
@@ -276,3 +276,21 @@
     padding:1.0rem;
   }
 }
+
+@media screen and (max-width: 360px) {
+  
+  #projects-page {
+    padding:0rem;
+  }
+  .container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .project-header-title {
+    font-size: 1.2rem !important;
+  }
+  .project-title{
+    font-size:100%;
+  }
+}
+

@@ -45,13 +45,7 @@
   border-top-right-radius: 0.25rem;
   color: #091626;
 }
-.nav-tabs .nav-link {
-  color: #ffffff;
-}
-.nav-tabs .nav-link:hover {
-  cursor: pointer;
-  transition: 0.25s;
-}
+
 .batchLinks:hover {
   cursor: pointer;
   color: rgb(223, 223, 223);
@@ -124,7 +118,7 @@ div.member_name {
 
 @media screen and (max-width: 900px) {
   div.card-columns {
-    column-count: 1;
+    column-count: 2;
   }
 }
 @media screen and (max-width: 400px) {
@@ -252,14 +246,22 @@ div.member_name {
   /* font-weight: 700; */
 }
 
+.members-hoverLinks {
+  scale:100%;
+}
+
+
+
+.card-img{
+  height: 300px;
+  object-fit: cover;
+}
+
 
 @media screen and (max-width: 868px) {
   .members_banner_title {
     font-size: 50px !important;
     font-family: 'MontserratBold' !important;
-  }
-  .nav-link {
-    font-size: 12px;
   }
 }
 @media screen and (max-width: 680px) {
@@ -268,36 +270,44 @@ div.member_name {
     font-size: 30px !important;
     font-family: 'MontserratBold' !important;
   }
-  .nav-link {
-    font-size: 10px;
+  div.card-columns {
+    column-count: 1;
   }
+  
 }
 @media screen and (max-width: 480px) {
   .members_banner_title {
     font-size: 22px !important;
     font-family: 'MontserratBold' !important;
   }
-  .nav-link {
-    font-size: 8px;
-    padding: 4px 10px;
+  .members-hoverLinks {
+    scale:80%;
+    transform: translateX(-60%) !important;
   }
+
+  .MuiTypography-h5 {
+    font-size: 18px !important;
+  }
+
+  .card-img{
+    height: 150px;
+    object-fit: cover;
+  }
+  .member_name {
+    font-size: 14px!important;
+  }
+
 }
 @media screen and (max-width: 900px) {
 
   .members-container {
     padding:1.5rem;
+    background-size: contain;
+
+  }
+  .card-img{
+    height: 200px;
+    object-fit: cover;
   }
 
-}
-
-@media screen and (max-width: 320px) {
-
-  .nav-link {
-    font-size: 6px;
-    padding: 4px 10px;
-  }
-}
-.card-img{
-  height: 300px;
-  object-fit: cover;
 }

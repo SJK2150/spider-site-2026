@@ -243,7 +243,7 @@ function Members() {
                   variants={container}
                   initial="hidden"
                   animate="visible"
-                  style={{ display: 'flex', justifyContent: 'space-around', padding: 30 }}
+                  style={{ display: 'flex', justifyContent: 'space-around' }}
                 >
                   <CardColumns>
                     <Container fluid="lg">
@@ -377,6 +377,7 @@ const MemberCard = ({ member, id }) => {
                 left: '50%',
                 transform: 'translateX(-50%)',
               }}
+              className="members-hoverLinks"
             >
               <div className="iconLinks">
                 {member.linkedin_url ? (
