@@ -7,7 +7,8 @@ Tech Stack: Node (typescript), Express.js, MySql
 - Create .env file from .env.example as sample inside backend/env/ with your credentials
 - run `cd backend`
 - run `npm install`
-- run `npm start`
+- run `npm run build`
+- run `npm run start:prod` 
 
 # SPIDER SITE FRONTEND
 

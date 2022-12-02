@@ -19,12 +19,9 @@ import {
 } from 'sequelize';
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME as string,
-  process.env.DB_USER as string,
-  process.env.DB_PASS as string,
+  process.env.DATABASE_URL as string,
   {
     dialect: 'mysql' /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
-    host: process.env.DB_HOST,
     logging: process.env.ENV === 'DEV' ? console.log : false,
     define: {
       timestamps: false,

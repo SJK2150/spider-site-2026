@@ -6,9 +6,7 @@ import './fonts/Product\ Sans\ Regular.ttf'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App />,
   document.getElementById('root')
 );
 
