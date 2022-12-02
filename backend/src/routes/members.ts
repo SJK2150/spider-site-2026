@@ -5,7 +5,7 @@ import pino from 'pino';
 import multer from 'multer';
 import path from 'path';
 import { jwt_verify } from '../utils/middleware';
-
+/*
 const imageHandler = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -28,7 +28,7 @@ const imageHandler = multer({
     return cb(null, true);
   }
 }).single('member');
-
+*/
 const logger = pino({
   level: 'info',
   prettyPrint: process.env.ENV === 'DEV'
@@ -59,7 +59,7 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server/Database Error!');
   }
 });
-
+/*
 router.use('/', jwt_verify);
 
 router.post('/add', async (req, res) => {
@@ -172,5 +172,5 @@ router.delete('/delete/:id', async (req, res) => {
     }
   }
 });
-
+*/
 export { router };

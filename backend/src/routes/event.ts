@@ -1,3 +1,4 @@
+/*
 import { Router } from 'express';
 import { Event, EventAttributes, table_sync } from '../database/database';
 import pino from 'pino';
@@ -91,3 +92,4 @@ router.delete('/delete/:id', async (req, res) => {
 });
 
 export { router };
+*/

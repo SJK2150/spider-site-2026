@@ -12,14 +12,14 @@ import {
 import pino from 'pino';
 import multer from 'multer';
 import path from 'path';
-import { jwt_verify } from '../utils/middleware';
+//import { jwt_verify } from '../utils/middleware';
 
 const logger = pino({
   level: 'info',
   prettyPrint: process.env.ENV === 'DEV'
 });
 let router = Router();
-
+/*
 const imageHandler = multer({
     storage: multer.diskStorage({
       destination: (req, file, cb) => {
@@ -41,7 +41,7 @@ const imageHandler = multer({
       return cb(null, true);
     }
 }).single('image');
-
+*/
 router.get('/details', async (req, res) => {
   try {
     let blog_details = await Blog.findAll();
@@ -66,7 +66,7 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server/Database Error!');
   }
 });
-
+/*
 router.use('/', jwt_verify);
 
 router.post('/add', async (req, res) => {
@@ -113,7 +113,7 @@ router.post('/add', async (req, res) => {
       }
     });
   });
-  
+  */
   
 
 export { router };

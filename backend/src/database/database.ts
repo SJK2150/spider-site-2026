@@ -217,6 +217,7 @@ Project.init(
 /**
  * Event Structure
  */
+/*
 interface EventAttributes {
   id: number;
   name: string;
@@ -286,6 +287,7 @@ Event.init(
     sequelize
   }
 );
+*/
 /**
  * Member-Project join table
  */
@@ -432,6 +434,7 @@ Blog.init(
  * Userlogin table
  * - for storing credentials of admins
  */
+/*
 interface UserloginAttributes {
   id: number;
   username: string;
@@ -470,6 +473,7 @@ Userlogin.init(
     sequelize
   }
 );
+*/
 
 /**
  * Associations
@@ -495,11 +499,11 @@ Achievement.belongsToMany(Member, {
 async function table_sync() {
   await Member.sync({ alter: true });
   await Project.sync({ alter: true });
-  await Event.sync({ alter: true });
+  //await Event.sync({ alter: true });
   await Member_Projects.sync({ alter: true });
   await Achievement.sync({ alter: true });
   await Member_Achievement.sync({ alter: true });
-  await Userlogin.sync({ alter: true });
+ // await Userlogin.sync({ alter: true });
   await Blog.sync({ alter: true });
   console.log('All tables have been synchronised ');
 }
@@ -511,14 +515,14 @@ export {
   Project,
   ProjectAttributes,
   Member_Projects,
-  Event,
-  EventAttributes,
+  //Event,
+ // EventAttributes,
   Achievement,
   Member_Achievement,
   AchievementAttributes,
   Blog,
   BlogAttributes,
-  UserloginAttributes,
-  Userlogin,
+ // UserloginAttributes,
+ // Userlogin,
   table_sync
 };

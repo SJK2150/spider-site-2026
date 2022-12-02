@@ -20,7 +20,7 @@ import pino from 'pino';
 import fse from 'fs-extra';
 import console from 'console';
 import { jwt_verify } from '../utils/middleware';
-
+/*
 const imageHandler = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -42,7 +42,7 @@ const imageHandler = multer({
     return cb(null, true);
   }
 }).array('project');
-
+*/
 const logger = pino({
   level: 'info',
   prettyPrint: process.env.ENV === 'DEV'
@@ -79,7 +79,7 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server/Database Error!');
   }
 });
-
+/*
 router.use('/', jwt_verify);
 
 router.post('/add', async (req, res) => {
@@ -91,7 +91,7 @@ router.post('/add', async (req, res) => {
   if (proj_check) {
     res.status(403).send("Project Already exists")
   }
-  else*/
+  else
   imageHandler(req, res, async (err) => {
     if (err) {
       logger.error(err);
@@ -137,7 +137,7 @@ router.post('/add', async (req, res) => {
         /*image_files.shift();
         project_details['project_photo_url'] = image_files.map(
           (file: { originalname: any }) => pathname + '/' + file.originalname
-        );*/
+        );
         project_details['project_photo_url'] = pathname + '/' + image_files[1].originalname
         console.log(project_details);
 
@@ -214,7 +214,7 @@ router.put('/update/:id', async (req, res) => {
        * Handles project photo media removal
        * if project_photo_url_removal is not null, then provided file paths will be removed from project_photo_url,
        * and the updated with the update_data
-       */
+       
       if (
         update_data['project_photo_url_removal'] &&
         project_detail &&
@@ -239,7 +239,7 @@ router.put('/update/:id', async (req, res) => {
        * if files have been sent:
        * A) the first file will be considered as dp file if dp_url_change is true
        * B) If more than one file is sent the rest of the files will be considered to be new project photos
-       */
+       
 
       if (req.files) {
         let images: any = req.files;
@@ -281,7 +281,7 @@ router.put('/update/:id', async (req, res) => {
         /**
          * Move all files of temp/projects/{name} to public/projects/{name}
          * And delete temp/projects/{name} - rmdir()
-         */
+         
         const files = readdirSync(temporaryPathname);
         files.forEach((file) => {
           renameSync(temporaryPathname + '/' + file, pathname + '/' + file);
@@ -327,5 +327,5 @@ router.delete('/delete/:id', async (req, res) => {
     }
   }
 });
-
+*/
 export { router };

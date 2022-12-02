@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import {Row, Col, Container, ListGroup, Tab} from 'react-bootstrap';
 import AdminProj from './AdminProj';
 function Admin() {
@@ -47,4 +47,4 @@ function Admin() {
     );
 }
 
-export default Admin;
+export default Admin;*/

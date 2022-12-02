@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { blogs } from './api/requests';
 import { useEffect } from 'react';
 import { test } from './api/test';
-import Admin from './Admin/Admin';
+//import Admin from './Admin/Admin';
 
 function App() {
   // const getBlogs = async () => {

@@ -1,3 +1,4 @@
+/*
 import { Router } from 'express';
 import { Userlogin, UserloginAttributes } from '../database/database';
 import pino from 'pino';
@@ -65,3 +66,4 @@ router.post('/register', async (req, res) => {
 });
 
 export { router };
+*/
