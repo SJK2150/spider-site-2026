@@ -36,7 +36,7 @@ export default function Blog() {
       setData((data) => {
         if (data.length === 0) {
           setLoading(false);
-          setError(true);
+          //setError(true);
         }
         return data;
       });
