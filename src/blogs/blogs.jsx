@@ -11,38 +11,47 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
 export default function Blog() {
   const [data, setData] = useState([]);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async ()=>{
+    setLoading(true)
     const res = await getAllBlogsDetails();
-    console.log(res);
-    if (res) {
-      if (res.status && res.status === 500) {
-        setError(true);
-      } else {
-        setData(res);
+    if(res){
+      if(res.status && res.status === 500){
+        setError('serverError')
       }
+      else{
+        if(res.length === 0){
+          setError('emptyData')
+        }
+        setData(res);
+        
+      }
+      setLoading(false)
+    }
+    else{
+      setError('cantConnect');
       setLoading(false);
     }
-  };
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setData((data) => {
-        if (data.length === 0) {
-          setLoading(false);
-          //setError(true);
-        }
-        return data;
-      });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setData((data) => {
+  //       if (data.length === 0) {
+  //         setLoading(false);
+  //         setError('dataEmpty');
+  //       }
+  //       return data;
+  //     });
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <div id="blogs-page">
@@ -61,11 +70,11 @@ export default function Blog() {
               </div>
             ) : (
               <>
-                {error === false ? (
+                {error === '' ? (
                   data.map((ele, id) => {
                     if (id % 2 === 0) {
                       return (
-                        <Col className="blog-col" md={5}>
+                        <Col className="blog-col" key={id} md={5}>
                           <Card className="text-white blog_card" style={{ background: 'none' }}>
                             <Card.Img
                               className="blog_card_img"
@@ -97,7 +106,7 @@ export default function Blog() {
                       );
                     } else {
                       return (
-                        <Col className="blog-col" md={5}>
+                        <Col className="blog-col" key={id}  md={5}>
                           <Card className="text-white blog_card" style={{ background: 'none' }}>
                             <Card.Img
                               className="blog_card_img"
@@ -135,7 +144,9 @@ export default function Blog() {
                       <ErrorIcon className="blog-error-icon" />
                       <div>
                         <h3>Error</h3>
-                        <h5>Cannot connect to Server!</h5>
+                        {error === 'serverError' && <h5>Cannot connect to Server!</h5>}
+                        {error === 'cantConnect' && <h5>Cannot connect to Server!</h5>}
+                        {error === 'emptyData' && <h5>No data found!</h5>}
                       </div>
                     </div>
                   </>

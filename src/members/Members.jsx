@@ -59,7 +59,7 @@ function Members() {
   // const [clickSoftware, setClickSoftware] = useState(false);
   // const [domain, setDomain] = useState([true, false]);
   const [domain, setDomain] = useState([false, false, false, false]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
@@ -88,32 +88,41 @@ function Members() {
     setYearName('All');
   }, [domain]);
 
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async ()=>{
+    setLoading(true)
     const res = await getAllMembersDetails();
-    // console.log(res);
-    if (res) {
-      if (res.status && res.status === 500) {
-        setError(true);
-      } else {
-        setData(res);
+    if(res){
+      if(res.status && res.status === 500){
+        setError('serverError')
       }
+      else{
+        if(res.length === 0){
+          setError('emptyData')
+        }
+        setData(res);
+        
+      }
+      setLoading(false)
+    }
+    else{
+      setError('cantConnect');
       setLoading(false);
     }
-  };
+  }
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setData((data) => {
-        if (data.length === 0) {
-          setLoading(false);
-          //setError(true);
-        }
-        return data;
-      });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setData((data) => {
+  //       if (data.length === 0) {
+  //         setLoading(false);
+  //         setError('dataEmpty');
+  //       }
+  //       return data;
+  //     });
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   // const handleClickHardware = () => {
   //   setClickSoftware(false);
@@ -237,7 +246,7 @@ function Members() {
           </div>
         ) : (
           <>
-            {error === false ? (
+            {error === '' ? (
               <AnimatePresence initial={true}>
                 <motion.div
                   variants={container}
@@ -281,7 +290,7 @@ function Members() {
                           return false;
                         })
                         .map((member, id) => (
-                          <MemberCard member={member} id={id}></MemberCard>
+                          <MemberCard member={member} id={id} key={id}></MemberCard>
                         ))}
                     </Container>
                   </CardColumns>
@@ -293,7 +302,9 @@ function Members() {
                   <ErrorIcon className="member-error-icon" />
                   <div>
                     <h3>Error</h3>
-                    <h5>Cannot connect to Server!</h5>
+                    {error === 'serverError' && <h5>Cannot connect to Server!</h5>}
+                    {error === 'cantConnect' && <h5>Cannot connect to Server!</h5>}
+                    {error === 'emptyData' && <h5>No data found!</h5>}
                   </div>
                 </div>
               </>
