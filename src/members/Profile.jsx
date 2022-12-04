@@ -83,7 +83,7 @@ function Profiles() {
           <motion.div
             className="sub-menu"
             initial="exit"
-            animate={clickalgos ? 'enter' : 'exit'}
+            // animate={clickalgos ? 'enter' : 'exit'}
             variants={subMenuAnimate}
           >
             {clickSoftware && (

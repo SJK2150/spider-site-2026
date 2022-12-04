@@ -18,7 +18,7 @@ export default function Achievements() {
   const [domain, setDomain] = React.useState([].fill(false, 0, 4));
   const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
   const [displayAll, setDisplayAll] = React.useState(true);
-  const [error, setError] = React.useState(false)
+  const [error, setError] = React.useState('')
   // const [domainMap, setDomainMap] = React.useState({
   //   "TRONIX": 0,
   //   "WEBDEV": 1,
@@ -50,32 +50,37 @@ export default function Achievements() {
   const fetchData = async ()=>{
     setLoading(true)
     const res = await getAllAchievementDetails();
-    console.log(res);
     if(res){
       if(res.status && res.status === 500){
-        setError(true)
+        setError('serverError')
       }
       else{
+        if(res.length === 0){
+          setError('emptyData')
+        }
         setData(res);
+        
       }
       setLoading(false)
     }
-    
-    
+    else{
+      setError('cantConnect');
+      setLoading(false);
+    }
   }
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setData(data=>{
-        if(data.length === 0){
-          setLoading(false)
-          //setError(true)
-        }
-        return data
-      })
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setData((data) => {
+  //       if (data.length === 0) {
+  //         setLoading(false);
+  //         setError('dataEmpty');
+  //       }
+  //       return data;
+  //     });
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const DisplayContent = ({ele,id})=>{
     if (id % 2 === 0) {
@@ -244,9 +249,9 @@ export default function Achievements() {
         <Container fluid>
           <Row className='achv-display-cards'>
           {loading===true? <div className='achv-error-div' ><CircularProgress className='achv-error-icon'/></div>:<>
-          {error===false ? displayAll 
+          {error==='' ? displayAll 
               ? data.map((ele, id) => {
-                  return <DisplayContent ele={ele} id={id} />
+                  return <DisplayContent ele={ele} id={id} key={id} />
                 })
               : data
                   .filter((e) => {
@@ -259,14 +264,17 @@ export default function Achievements() {
                     return false
                   })
                   .map((ele, id) => {
-                    return <DisplayContent ele={ele} id={id} />
+                    return <DisplayContent ele={ele} id={id} key={id}/>
                   }) : (
                     <> 
                     <div className='achv-error-div'>
                       <ErrorIcon className='achv-error-icon'/>
                       <div>
-                        <h3 >Error</h3>
-                        <h5 >Cannot connect to Server!</h5>
+                      <h3>Error</h3>
+                      {error === 'serverError' && <h5>Cannot connect to Server!</h5>}
+                      {error === 'cantConnect' && <h5>Cannot connect to Server!</h5>}
+                      {error === 'emptyData' && <h5>No data found!</h5>}
+                      
                       </div>
                     </div>
                     </>

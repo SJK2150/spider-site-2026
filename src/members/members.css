@@ -282,7 +282,7 @@ div.member_name {
   }
   .members-hoverLinks {
     scale:80%;
-    transform: translateX(-60%) !important;
+    transform: translateX(-62%) !important;
   }
 
   .MuiTypography-h5 {
@@ -298,6 +298,31 @@ div.member_name {
   }
 
 }
+
+@media screen and (max-width: 1000px) and (min-width: 900px) {
+  .members-hoverLinks {
+    scale:80%;
+    transform: translateX(-62%) !important;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 680px) {
+  .members-hoverLinks {
+    scale:80%;
+    transform: translateX(-62%) !important;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .members-hoverLinks {
+    scale:60%;
+    transform: translateX(-82%) !important;
+  }
+}
+
+
+
+
 @media screen and (max-width: 900px) {
 
   .members-container {
