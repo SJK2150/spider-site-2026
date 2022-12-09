@@ -20,6 +20,7 @@ import pino from 'pino';
 import fse from 'fs-extra';
 import console from 'console';
 import { jwt_verify } from '../utils/middleware';
+import { Op, Sequelize } from 'sequelize';
 /*
 const imageHandler = multer({
   storage: multer.diskStorage({
@@ -54,10 +55,19 @@ let router = Router();
 
 router.get('/details', async (req, res) => {
   try {
-    const project_details = await Project.findAll({
+    var hardware : Project [] = []
+    var software : Project [] = []
+    const projects = await Project.findAll({
       include: Member
     });
-    res.status(200).json(project_details);
+    projects.forEach((project)=>{
+      if(project.domain==="TRONIX"){
+        hardware.push(project)
+      } else {
+        software.push(project)
+      }
+    })
+    res.status(200).json({"hardware":hardware,"software":software});
   } catch (err) {
     logger.error(`${err}`);
     res.status(500).send('Internal Server/Database Error!');

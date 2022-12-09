@@ -51,10 +51,19 @@ let router = Router();
 
 router.get('/details', async (req, res) => {
   try {
+    var hardware : Achievement [] = []
+    var software : Achievement [] = []
     let achievements = await Achievement.findAll({
       include: Member
     });
-    res.status(200).json(achievements);
+    achievements.forEach((achievement)=>{
+      if(achievement.domain==="TRONIX"){
+        hardware.push(achievement)
+      } else {
+        software.push(achievement)
+      }
+    })
+    res.status(200).json({"hardware":hardware,"software":software});
   } catch (err) {
     logger.error(`${err}`);
     res.status(500).send('Internal Server error');

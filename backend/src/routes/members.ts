@@ -37,8 +37,17 @@ let router = Router();
 
 router.get('/details', async (req, res) => {
   try {
+    var hardware : {[index: string]:{ [index: number]:Member []}} = {"BTECH":{1:[],2:[],3:[],4:[]},"MTECH":{1:[],2:[],3:[],4:[]}}
+    var software : {[index: string]:{ [index: number]:Member []}} = {"BTECH":{1:[],2:[],3:[],4:[]},"MTECH":{1:[],2:[],3:[],4:[]}}
     const member_details = await Member.findAll();
-    res.status(200).json(member_details);
+    member_details.forEach((member)=>{
+      if(member.domain==="TRONIX"){
+        hardware[member.degree][member.year].push(member)
+      } else {
+        software[member.degree][member.year].push(member)
+      }
+    })
+    res.status(200).json({"hardware":hardware,"software":software});
   } catch (err) {
     logger.error(`${err}`);
     res.status(500).send('Internal Server/Database Error!');
