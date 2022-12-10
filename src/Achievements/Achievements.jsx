@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react';
+import React , {useEffect, useState} from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import './Achievements.css';
@@ -6,45 +6,42 @@ import Modal from '../Modal/Modal';
 import FooterBar from '../Footer/footer-bottom';
 import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-// import data from './data.json';
-
 import Toolbar from '../DomainToolbar/Toolbar';
 import { getAllAchievementDetails } from '../api/requests';
+
+function findData(data, hardware, software){
+
+
+  let tempData = [];
+  
+  if(hardware === true){
+    tempData = tempData.concat(data.hardware);
+  }
+  if(software === true){
+    tempData = tempData.concat(data.software);
+  }
+  console.log(tempData)
+
+  return tempData;
+}
 export default function Achievements() {
-  const [modalShow, setModalShow] = React.useState(false);
-  const [props, setProps] = React.useState({});
-  const [data,setData] = React.useState([]);
-  const [domain, setDomain] = React.useState([].fill(false, 0, 4));
-  const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, 4));
-  const [displayAll, setDisplayAll] = React.useState(true);
-  const [error, setError] = React.useState('')
-  // const [domainMap, setDomainMap] = React.useState({
-  //   "TRONIX": 0,
-  //   "WEBDEV": 1,
-  //   "ALGOS": 2,
-  //   "APPDEV": 3
-  // });
+  const [modalShow, setModalShow] = useState(false);
+  const [props, setProps] = useState({});
+  const [data,setData] = useState([]);
+  const [res, setRes] = useState([]);
+  const [domain, setDomain] = useState([false, false]);
+  const [modalCondn, setModalCondn] = useState([].fill(false, 0, 4));
+  const [error, setError] = useState('')
+
   useEffect(() => {
-    let arr = [];
-    for (let i = 0; i < 4; i++) {
-      arr.push(false);
-    }
-    setDomain([...arr]);
     fetchData();
   }, []);
   useEffect(() => {
-    // console.log(domain);
-    let val = domain[0];
-    for (let i = 1; i < domain.length; i++) {
-      val = val || domain[i];
-    }
-    if (val) {
-      setDisplayAll(false);
-    } else {
-      setDisplayAll(true);
-    }
-  }, [domain])
+
+    setLoading(true);
+    setData(findData(res, domain[0], domain[1]))
+
+  }, [domain]);
 
   const [loading, setLoading] = React.useState(false)
   const fetchData = async ()=>{
@@ -58,8 +55,9 @@ export default function Achievements() {
         if(res.length === 0){
           setError('emptyData')
         }
-        setData(res);
-        
+        setRes(res);
+        setData(findData(res, true, true));
+          
       }
       setLoading(false)
     }
@@ -68,19 +66,9 @@ export default function Achievements() {
       setLoading(false);
     }
   }
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setData((data) => {
-  //       if (data.length === 0) {
-  //         setLoading(false);
-  //         setError('dataEmpty');
-  //       }
-  //       return data;
-  //     });
-  //   }, 3000);
-  //   return () => clearTimeout(timer);
-  // }, []);
+  useEffect(()=>{
+    setLoading(false);
+  },[data])
 
   const DisplayContent = ({ele,id})=>{
     if (id % 2 === 0) {
@@ -249,20 +237,8 @@ export default function Achievements() {
         <Container fluid>
           <Row className='achv-display-cards'>
           {loading===true? <div className='achv-error-div' ><CircularProgress className='achv-error-icon'/></div>:<>
-          {error==='' ? displayAll 
-              ? data.map((ele, id) => {
-                  return <DisplayContent ele={ele} id={id} key={id} />
-                })
-              : data
-                  .filter((e) => {
-                    if(e.domain === 'TRONIX'){
-                      return domain[0];
-                    }
-                    if(e.domain === 'WEBDEV' || e.domain === 'ALGOS' || e.domain === 'APPDEV'){
-                      return domain[1] ;
-                    }
-                    return false
-                  })
+          {error===''  
+              ? data
                   .map((ele, id) => {
                     return <DisplayContent ele={ele} id={id} key={id}/>
                   }) : (

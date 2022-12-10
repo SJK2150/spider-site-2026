@@ -52,41 +52,86 @@ const year = [
   ['MCA', 'MCA'],
 ];
 
+function findData(data, hardware, software){
+
+  let tempData = [];
+  
+  if(hardware === true){
+    for(let i = 1; i <= 4; i++){
+      tempData = tempData.concat(data.hardware.BTECH[i]);
+      tempData = tempData.concat(data.hardware.MTECH[i]);
+    }
+  }
+  if(software === true){
+    for(let i = 1; i <= 4; i++){
+      tempData = tempData.concat(data.software.BTECH[i]);
+      tempData = tempData.concat(data.software.MTECH[i]);
+    }
+  }
+
+  return tempData;
+}
+
+function findYearData(data, hardware, software, year){
+  let tempData = [];
+  if(year === 'All'){
+    tempData = findData(data, hardware, software);
+  }
+  else if(year !== 'MCA'){
+    if(hardware === true)
+      tempData = tempData.concat(data.hardware.BTECH[parseInt(year)]);
+
+    if(software === true)
+      tempData = tempData.concat(data.software.BTECH[parseInt(year)]);
+    
+  }
+  else{
+    if(hardware === true){
+      for(let i = 1; i <= 4; i++){
+        tempData = tempData.concat(data.hardware.MTECH[i]);
+      }
+    }
+    if(software === true){
+      for(let i = 1; i <= 4; i++){
+        tempData = tempData.concat(data.software.MTECH[i]);
+      }
+    }
+  }
+
+  return tempData
+}
+
+
+
+
 function Members() {
   const [yearName, setYearName] = useState('All');
   // const [ProfileName, setProfileName] = useState('All');
   // const [clickHardware, setClickHardware] = useState(false);
   // const [clickSoftware, setClickSoftware] = useState(false);
   // const [domain, setDomain] = useState([true, false]);
-  const [domain, setDomain] = useState([false, false, false, false]);
+  const [domain, setDomain] = useState([false, false]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [res, setRes] = useState([]);
 
-  const [displayAll, setDisplayAll] = useState(true);
 
   useEffect(() => {
-    let arr = [];
-    for (let i = 0; i < 4; i++) {
-      arr.push(false);
-    }
-    setDomain([...arr]);
     fetchData();
   }, []);
 
   useEffect(() => {
-    // console.log(domain);
-    let val = domain[0];
-    for (let i = 1; i < domain.length; i++) {
-      val = val || domain[i];
-    }
-    if (val) {
-      setDisplayAll(false);
-    } else {
-      setDisplayAll(true);
-    }
+    setLoading(true);
+    setData(findData(res, domain[0], domain[1]))
+
     setYearName('All');
   }, [domain]);
+
+  useEffect(()=>{
+    setLoading(true);
+    setData(findYearData(res, domain[0], domain[1], yearName))
+  },[yearName]);
 
   const fetchData = async ()=>{
     setLoading(true)
@@ -99,8 +144,8 @@ function Members() {
         if(res.length === 0){
           setError('emptyData')
         }
-        setData(res);
-        
+        setRes(res);
+        setData(findData(res, true, true));
       }
       setLoading(false)
     }
@@ -109,46 +154,10 @@ function Members() {
       setLoading(false);
     }
   }
+  useEffect(()=>{
+    setLoading(false);
+  },[data])
 
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setData((data) => {
-  //       if (data.length === 0) {
-  //         setLoading(false);
-  //         setError('dataEmpty');
-  //       }
-  //       return data;
-  //     });
-  //   }, 3000);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  // const handleClickHardware = () => {
-  //   setClickSoftware(false);
-  //   setClickHardware(!clickHardware);
-  //   setDomain([true, false]);
-  //   setProfileName((profileName)=>{
-  //     if(profileName === 'All'){
-  //       return 'Hardware'
-  //     }else{
-  //       return 'All'
-  //     }
-  //   });
-  // };
-
-  // const handleClickSoftware = () => {
-  //   setClickHardware(false);
-  //   setClickSoftware(!clickSoftware);
-  //   setDomain([false, true]);
-  //   setProfileName((profileName)=>{
-  //     if(profileName === 'All'){
-  //       return 'Software'
-  //     }else{
-  //       return 'All'
-  //     }
-  //   });
-  // };
 
   const subMenuAnimate = {
     enter: (i) => ({
@@ -220,26 +229,17 @@ function Members() {
         <h1 className="members_banner_title">MEMBERS</h1>
         <br />
 
-        <>
+     
           {data.length > 0 && (
+            <>
             <div className="domains">
               <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
             </div>
+            </>
           )}
-          {/* <div className="d-flex justify-content-around">
-            <motion.div className="menu-item ">
-              <button onClick={handleClickHardware} className="HardwareIcon btn shadow-none mx-4">
-                <img src="images/hardware.png" />
-              </button>
-            </motion.div>
-            <motion.div className="menu-item">
-              <button onClick={handleClickSoftware} className="SoftwareIcon btn shadow-none mx-4">
-                <img src="images/software.png" />
-              </button>
-            </motion.div>
-          </div> */}
-          <div className="my-4">{displayAll === false && <DisplayYearNav />}</div>
-        </>
+          <div className="my-4">{(domain[0]!==false || domain[1]!==false) && <DisplayYearNav />}</div>
+
+  
         {loading === true ? (
           <div className="member-error-div">
             <CircularProgress className="member-error-icon" />
@@ -256,39 +256,7 @@ function Members() {
                 >
                   <CardColumns>
                     <Container fluid="lg">
-                      {data
-                        .filter((e) => {
-                          if (displayAll === false) {
-                            if (e.domain === 'TRONIX') {
-                              return domain[0];
-                            }
-                            if (
-                              e.domain === 'WEBDEV' ||
-                              e.domain === 'ALGOS' ||
-                              e.domain === 'APPDEV'
-                            ) {
-                              return domain[1];
-                            }
-                          } 
-                          return true;
-                        })
-                        .filter((member) => {
-                          if (yearName === 'All') {
-                            return true;
-                          } else {
-                            if (member.degree !== 'BTECH') {
-                              if (yearName === 'MCA') {
-                                return true;
-                              }
-                            } else {
-                              if (member.year === yearName) {
-                                return true;
-                              }
-                              return false;
-                            }
-                          }
-                          return false;
-                        })
+                       {data
                         .map((member, id) => (
                           <MemberCard member={member} id={id} key={id}></MemberCard>
                         ))}
