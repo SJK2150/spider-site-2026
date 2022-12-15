@@ -137,8 +137,15 @@
   margin: 0;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  /* align-items: center; */
+  gap:20px;
   padding-bottom:80px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .achv-card-button {
@@ -184,10 +191,7 @@
   font-size: 13px;
   display: block;
 }
-.achv-card-learn-more {
-  margin-top:0px;
-  margin-bottom:200px;
-}
+
 @media screen and (max-width: 900px) {
 
   .achv-card-desc {

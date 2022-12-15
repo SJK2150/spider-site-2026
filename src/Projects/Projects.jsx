@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Typography } from '@material-ui/core';
 import { motion, AnimateSharedLayout } from 'framer-motion';
@@ -11,20 +11,34 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import data from './data.json'
 import { getAllProjectsDetails } from '../api/requests';
+
+function findData(data, hardware, software){
+
+
+  let tempData = [];
+  
+  if(hardware === true){
+    tempData = tempData.concat(data.hardware);
+  }
+  if(software === true){
+    tempData = tempData.concat(data.software);
+  }
+
+
+  return tempData;
+}
+
 export default function Projects() {
-  const [modalShow, setModalShow] = React.useState(false);
-  const [props, setProps] = React.useState({});
-  const [data, setData] = React.useState([]);
-  const [domain, setDomain] = React.useState([].fill(false, 0, 2));
-  const [modalCondn, setModalCondn] = React.useState([].fill(false, 0, data.length));
-  const [displayAll, setDisplayAll] = React.useState(true);
-  const [error, setError] = React.useState('');
-  // const [domainMap, setDomainMap] = React.useState({
-  //   TRONIX: 0,
-  //   WEBDEV: 1,
-  //   ALGOS: 2,
-  //   APPDEV: 3,
-  // });
+  const [modalShow, setModalShow] = useState(false);
+  const [props, setProps] = useState({});
+  const [data, setData] = useState([]);
+  const [res, setRes] = useState([]);
+  const [displayAll, setDisplayAll] = useState(false);
+  const [domain, setDomain] = useState([false, false]);
+
+  const [modalCondn, setModalCondn] = useState([].fill(false, 0, data.length));
+  const [error, setError] = useState('');
+
   useEffect(() => {
     fetchData();
     let arr = [];
@@ -34,15 +48,8 @@ export default function Projects() {
     setDomain([...arr]);
   }, []);
   useEffect(() => {
-    let val = domain[0];
-    for (let i = 1; i < domain.length; i++) {
-      val = val || domain[i];
-    }
-    if (val) {
-      setDisplayAll(false);
-    } else {
-      setDisplayAll(true);
-    }
+    setLoading(true);
+    setData(findData(res, domain[0], domain[1]))
   }, [domain]);
 
   const [loading, setLoading] = React.useState(false);
@@ -57,7 +64,8 @@ export default function Projects() {
         if(res.length === 0){
           setError('emptyData')
         }
-        setData(res);
+        setData(findData(res, true, true));
+        setRes(res);
         
       }
       setLoading(false)
@@ -67,6 +75,11 @@ export default function Projects() {
       setLoading(false);
     }
   }
+  useEffect(()=>{
+    if(res.length !== 0)
+      setLoading(false);
+  },[data])
+
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -236,25 +249,9 @@ export default function Projects() {
             ) : (
               <>
                 {error === '' ? (
-                  displayAll ? (
                     data.map((ele, id) => (
                          <DisplayContent ele={ele} id={id} key={id}  />
                     ))
-                  ) : (
-                    data
-                      .filter((e) => {
-                        if (e.domain === 'TRONIX') {
-                          return domain[0];
-                        }
-                        if (e.domain === 'WEBDEV' || e.domain === 'ALGOS' || e.domain === 'APPDEV') {
-                          return domain[1];
-                        }
-                        return false
-                      })
-                      .map((ele, id) => (
-                        <DisplayContent ele={ele} id={id} key={id}  />
-                      ))
-                  )
                 ) : (
                   <div className="project-error-div">
                     <ErrorIcon className="project-error-icon" />

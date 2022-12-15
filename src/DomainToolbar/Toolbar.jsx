@@ -11,7 +11,7 @@ export default function Toolbar(props) {
   let domain = props.domain;
   const handleOnClick = (index) => {
     if(index === -1){
-        setDomain([false,false]);
+        setDomain([true,true]);
         return;
     }
     // setDomain([false,false,false,false]);
@@ -35,7 +35,7 @@ export default function Toolbar(props) {
           e.preventDefault();
           handleOnClick(-1);
         }}
-        className={'domain-box' + ((domain[0] === false && domain[1] === false) ? ' domain-box-clicked' : '')}
+        className={'domain-box' + ((domain[0] === true && domain[1] === true) ? ' domain-box-clicked' : '')}
         variant="outlined"
         elevation={5}
       >
@@ -47,7 +47,7 @@ export default function Toolbar(props) {
           e.preventDefault();
           handleOnClick(0);
         }}
-        className={'domain-box' + (domain[0] === true ? ' domain-box-clicked' : '')}
+        className={'domain-box' + ((domain[0] === true && domain[1] === false) ? ' domain-box-clicked' : '')}
         variant="outlined"
         elevation={5}
       >
@@ -59,7 +59,7 @@ export default function Toolbar(props) {
           e.preventDefault();
           handleOnClick(1);
         }}
-        className={'domain-box' + (domain[1] === true ? ' domain-box-clicked' : '')}
+        className={'domain-box' + ((domain[0] === false && domain[1] === true) ? ' domain-box-clicked' : '')}
         variant="outlined"
         elevation={5}
       >
