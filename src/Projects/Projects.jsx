@@ -64,8 +64,8 @@ export default function Projects() {
         if(res.length === 0){
           setError('emptyData')
         }
-        setRes(res);
         setData(findData(res, true, true));
+        setRes(res);
         
       }
       setLoading(false)
@@ -76,7 +76,8 @@ export default function Projects() {
     }
   }
   useEffect(()=>{
-    setLoading(false);
+    if(res.length !== 0)
+      setLoading(false);
   },[data])
 
 

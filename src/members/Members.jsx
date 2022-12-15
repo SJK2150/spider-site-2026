@@ -145,8 +145,8 @@ function Members() {
         if(res.length === 0){
           setError('emptyData')
         }
-        setRes(res);
         setData(findData(res, true, true));
+        setRes(res);
       }
       setLoading(false)
     }
@@ -156,7 +156,8 @@ function Members() {
     }
   }
   useEffect(()=>{
-    setLoading(false);
+    if(res.length !== 0)
+      setLoading(false);
     if(data.length > 18){
       setSizeCheck(true)
     }

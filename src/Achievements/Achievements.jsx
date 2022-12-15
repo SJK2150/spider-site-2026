@@ -55,9 +55,8 @@ export default function Achievements() {
         if(res.length === 0){
           setError('emptyData')
         }
-        setRes(res);
         setData(findData(res, true, true));
-          
+        setRes(res);
       }
       setLoading(false)
     }
@@ -67,7 +66,8 @@ export default function Achievements() {
     }
   }
   useEffect(()=>{
-    setLoading(false);
+    if(res.length !== 0)
+      setLoading(false);
   },[data])
 
   const DisplayContent = ({ele,id})=>{
