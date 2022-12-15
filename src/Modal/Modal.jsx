@@ -52,6 +52,7 @@ export default function Modal(props) {
           </ModalHeader>
           <Image className="modal-image" height="280px" width="80%" src={image}></Image>
           <ModalBody className="modal-details">
+          {members.length > 0 &&
             <Accordion className="" defaultActiveKey="0">
               <Card style={{ background: '#6D4DFF', color: 'white', border: 'none' }}>
                 <Accordion.Toggle
@@ -75,6 +76,7 @@ export default function Modal(props) {
                 </Accordion.Collapse>
               </Card>
             </Accordion>
+          }
             <p className="modal-info">
               {info}
               {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non rerum quae harum est

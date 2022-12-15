@@ -11,7 +11,7 @@
   margin: auto;
   max-width: 50%;
   height: auto;
-  /* max-height: 200px; */
+  max-height: 60vh;
   padding-top: 10px;
 }
 .modal-members {

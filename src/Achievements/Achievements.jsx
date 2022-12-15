@@ -20,7 +20,7 @@ function findData(data, hardware, software){
   if(software === true){
     tempData = tempData.concat(data.software);
   }
-  console.log(tempData)
+  // console.log(tempData)
 
   return tempData;
 }
