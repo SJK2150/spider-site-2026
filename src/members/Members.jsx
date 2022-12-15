@@ -115,6 +115,7 @@ function Members() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [res, setRes] = useState([]);
+  const [sizeCheck, setSizeCheck] = useState(false);
 
 
   useEffect(() => {
@@ -156,6 +157,12 @@ function Members() {
   }
   useEffect(()=>{
     setLoading(false);
+    if(data.length > 18){
+      setSizeCheck(true)
+    }
+    else{
+      setSizeCheck(false)
+    }
   },[data])
 
 
@@ -224,13 +231,13 @@ function Members() {
   }, []);
 
   return (
-    <Container className="members-container">
+    <Container className="members-container" style={sizeCheck ? {backgroundSize:'contain'} : {backgroundSize:'cover'}}>
       <Router>
         <h1 className="members_banner_title">MEMBERS</h1>
         <br />
 
      
-          {data.length > 0 && (
+          {res.length !== 0 && (
             <>
             <div className="domains">
               <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
@@ -252,16 +259,12 @@ function Members() {
                   variants={container}
                   initial="hidden"
                   animate="visible"
-                  style={{ display: 'flex', justifyContent: 'space-around' }}
+                  className='member-cards-col'
                 >
-                  <CardColumns>
-                    <Container fluid="lg">
                        {data
                         .map((member, id) => (
                           <MemberCard member={member} id={id} key={id}></MemberCard>
                         ))}
-                    </Container>
-                  </CardColumns>
                 </motion.div>
               </AnimatePresence>
             ) : (
@@ -291,7 +294,7 @@ const MemberCard = ({ member, id }) => {
   const [isHover, setIsHover] = useState(false);
   return (
     <motion.div
-      className="item"
+      className="member-card-item"
       variants={item}
       key={`member_${id}`}
       onMouseEnter={() => {
@@ -340,7 +343,7 @@ const MemberCard = ({ member, id }) => {
                 gutterBottom
                 variant="h5"
                 component="h2"
-                style={{ fontFamily: 'MontserratBold', textAlign: 'center' }}
+                style={{ fontFamily: 'MontserratBold', textAlign: 'center', whiteSpace:'normal', padding:'2%' }}
               >
                 {member.name}
               </Typography>

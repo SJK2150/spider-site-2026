@@ -9,7 +9,7 @@ const helperFunc = async (routeLoc, reqmethod, data) => {
           return status < 500;
         },
       });
-      console.log(result);
+      //console.log(result);
     }
     if (reqmethod === 'post') {
       result = await Client.post(routeLoc, data, {
@@ -17,7 +17,7 @@ const helperFunc = async (routeLoc, reqmethod, data) => {
           return status < 500;
         },
       });
-      console.log(result);
+      //console.log(result);
     }
     if (reqmethod === 'put') {
       result = await Client.put(routeLoc, data, {
@@ -25,7 +25,7 @@ const helperFunc = async (routeLoc, reqmethod, data) => {
           return status < 500;
         },
       });
-      console.log(result);
+      //console.log(result);
     }
     if (reqmethod === 'delete') {
       result = await Client.delete(routeLoc, {
@@ -33,14 +33,14 @@ const helperFunc = async (routeLoc, reqmethod, data) => {
           return status < 500;
         },
       });
-      console.log(result);
+      //console.log(result);
     }
     if (result.statusText !== 'OK') {
-      console.log(result.status, result.statusText);
+      //console.log(result.status, result.statusText);
     }
     return result.data;
   } catch (error) {
-    console.log('server error');
+    //console.log('server error');
   }
 };
 /*

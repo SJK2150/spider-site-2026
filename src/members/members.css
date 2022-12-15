@@ -3,7 +3,6 @@
   /* align-content: center; */
    background-image: url("../assets/background.svg");
    background-color:#010213;
-   background-size: cover;
    min-height: 100vh;
    padding-top: 4em;
    height: max-content;
@@ -93,12 +92,16 @@
 }
 
 div.member_card {
+  width: 100%;
   transition: all 0.3s ease-in-out;
   border-radius: 15px;
   border: 1px solid rgba(207, 207, 207, 0.3);
+  height:95%;
 }
 div.member_card:hover {
   scale: 1;
+  overflow: hidden;
+  
 }
 div.member_name {
   margin: 0;
@@ -116,11 +119,7 @@ div.member_name {
   font-weight: 600;
 }
 
-@media screen and (max-width: 900px) {
-  div.card-columns {
-    column-count: 2;
-  }
-}
+
 @media screen and (max-width: 400px) {
   .members-container>h1 {
     font-size: 40px;
@@ -152,6 +151,7 @@ div.member_name {
 .members-hoverBorder {
   border: 1px solid rgba(207, 207, 207, 0.5);
   border-radius: 15px;
+  height: 95%;
 }
 
 .members-btnIcon{
@@ -257,22 +257,45 @@ div.member_name {
   object-fit: cover;
 }
 
+.member-cards-col{
+  display:flex;
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
+  align-items: stretch !important;
+  flex:auto
+}
+
+.member-card-item {
+  width:30%;
+  margin:0 !important;
+  display: inline-block;
+}
+
+.card {
+  height: 100%;
+}
+
+
+
 
 @media screen and (max-width: 868px) {
   .members_banner_title {
     font-size: 50px !important;
     font-family: 'MontserratBold' !important;
   }
+  .member-card-item {
+    width:45%;
+  }
+  
 }
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 768px) {
   .members_banner_title {
     letter-spacing: 0 !important;
     font-size: 30px !important;
     font-family: 'MontserratBold' !important;
   }
-  div.card-columns {
-    column-count: 1;
-  }
+
+  
   
 }
 @media screen and (max-width: 480px) {
@@ -295,6 +318,9 @@ div.member_name {
   }
   .member_name {
     font-size: 14px!important;
+  }
+  .member-card-item {
+    width:100%;
   }
 
 }
@@ -320,6 +346,12 @@ div.member_name {
   }
 }
 
+@media screen and (min-width:864px) and (max-width:992px) {
+  .container {
+    max-width: 90%;
+  }
+}
+
 
 
 
@@ -327,7 +359,7 @@ div.member_name {
 
   .members-container {
     padding:1.5rem;
-    background-size: contain;
+    background-size: cover;
 
   }
   .card-img{
