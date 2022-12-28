@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import './Modal.css';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 import {
+  Modal as BootStrapModal,
   ModalBody,
   ModalFooter,
   ModalTitle,
@@ -35,67 +36,65 @@ const modal = {
   },
 };
 export default function Modal(props) {
-  const { show, onHide, title, members, info, image, layoutId } = props;
+  const { show, onHide, title, members, info, image } = props;
   return (
-    <motion.div
-      className="backdrop"
-      variants={backdrop}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      layoutId={layoutId}
+    <BootStrapModal
+      fullscreen="sm-down"
+      show={show}
+      onHide={onHide}
+      animation
+      className='custom-modal'
     >
-      <motion.div className="custom-modal" variants={modal}>
-        <ModalDialog className="custom-modal" scrollable centered size="lg">
-          <ModalHeader className="modal-title">
-            <ModalTitle>{title}</ModalTitle>
-          </ModalHeader>
-          <Image className="modal-image" height="280px" width="80%" src={image}></Image>
-          <ModalBody className="modal-details">
-          {members.length > 0 &&
-            <Accordion className="" defaultActiveKey="0">
-              <Card style={{ background: '#6D4DFF', color: 'white', border: 'none' }}>
-                <Accordion.Toggle
-                  as={Card.Header}
-                  style={{ padding: '0.5rem 1.25rem' }}
-                  eventKey="0"
-                >
-                  Members
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                  <div className="modal-members">
-                    {members.map((member, i) => {
-                      return (
-                        <div key={i}>
-                          <Image width={64} height={64} src={member[1]} roundedCircle />
-                          <p>{member[0]}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-          }
-            <p className="modal-info">
-              {info}
-              {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non rerum quae harum est
+      {/* <ModalDialog className="custom-modal" scrollable centered size="lg">
+        
+      </ModalDialog> */}
+      <ModalHeader className="modal-title">
+        <ModalTitle>{title}</ModalTitle>
+      </ModalHeader>
+      <Image className="modal-image" height="280px" width="80%" src={image}></Image>
+      <ModalBody className="modal-details">
+        {(members && members.length > 0) &&
+          <Accordion className="" defaultActiveKey="0">
+            <Card style={{ background: '#6D4DFF', color: 'white', border: 'none' }}>
+              <Accordion.Toggle
+                as={Card.Header}
+                style={{ padding: '0.5rem 1.25rem' }}
+                eventKey="0"
+              >
+                Members
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <div className="modal-members">
+                  {members?.map((member, i) => {
+                    return (
+                      <div key={i}>
+                        <Image width={64} height={64} src={member[1]} roundedCircle />
+                        <p>{member[0]}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+        }
+        <p className="modal-info">
+          {info}
+          {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non rerum quae harum est
               quasi ratione! Quam, laudantium suscipit nulla iste distinctio dicta dolores beatae
               odit eaque nesciunt eveniet, perspiciatis maiores? */}
-            </p>
-          </ModalBody>
-          <ModalFooter className="custom-modal-footer">
-            <Button
-              variant="primary"
-              onClick={() => {
-                onHide();
-              }}
-            >
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalDialog>
-      </motion.div>
-    </motion.div>
+        </p>
+      </ModalBody>
+      <ModalFooter className="custom-modal-footer">
+        <Button
+          variant="primary"
+          onClick={() => {
+            onHide();
+          }}
+        >
+          Close
+        </Button>
+      </ModalFooter>
+    </BootStrapModal>
   );
 }

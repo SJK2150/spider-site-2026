@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Pagination } from 'react-bootstrap';
 import { Typography } from '@material-ui/core';
-import { motion, AnimateSharedLayout } from 'framer-motion';
+import DisplayContent from './DisplayContent';
 import './Projects.css';
 import Modal from '../Modal/Modal';
 import Toolbar from '../DomainToolbar/Toolbar';
-// import axios from 'axios';
 import FooterBar from '../Footer/footer-bottom';
 import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import data from './data.json'
 import { getAllProjectsDetails } from '../api/requests';
 
-function findData(data, hardware, software){
+function findData(data, hardware, software) {
 
 
   let tempData = [];
-  
-  if(hardware === true){
+
+  if (hardware === true) {
     tempData = tempData.concat(data.hardware);
   }
-  if(software === true){
+  if (software === true) {
     tempData = tempData.concat(data.software);
   }
 
@@ -30,13 +29,14 @@ function findData(data, hardware, software){
 
 export default function Projects() {
   const [modalShow, setModalShow] = useState(false);
-  const [props, setProps] = useState({});
   const [data, setData] = useState([]);
   const [res, setRes] = useState([]);
-  const [displayAll, setDisplayAll] = useState(false);
   const [domain, setDomain] = useState([false, false]);
+  const [numPage, setNumPage] = useState(1);
+  const [activePage, setActivePage] = useState(1);
+  const [index, setIndex] = useState(0);
 
-  const [modalCondn, setModalCondn] = useState([].fill(false, 0, data.length));
+  const [currentData, setCurrentData] = useState({});
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -53,182 +53,73 @@ export default function Projects() {
   }, [domain]);
 
   const [loading, setLoading] = React.useState(false);
-  const fetchData = async ()=>{
+  const fetchData = async () => {
     setLoading(true)
     const res = await getAllProjectsDetails();
-    if(res){
-      if(res.status && res.status === 500){
+    if (res) {
+      if (res.status && res.status === 500) {
         setError('serverError')
       }
-      else{
-        if(res.length === 0){
+      else {
+        if (res.length === 0) {
           setError('emptyData')
         }
+        // setNumPage(res.length/4);
         setData(findData(res, true, true));
         setRes(res);
-        
+
       }
       setLoading(false)
     }
-    else{
+    else {
       setError('cantConnect');
       setLoading(false);
     }
   }
-  useEffect(()=>{
-    if(res.length !== 0)
+  useEffect(() => {
+    if (res.length !== 0)
       setLoading(false);
-  },[data])
 
+    setNumPage(data.length / 4);
+  }, [data])
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setData((data) => {
-  //       if (data.length === 0) {
-  //         setLoading(false);
-  //         setError('dataEmpty');
-  //       }
-  //       return data;
-  //     });
-  //   }, 3000);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  const DisplayContent = ({ele, id}) => {
-    if (id % 2 === 0) {
-      return (
-        <Col className="proj-col" key={id} sm={5}>
-          <AnimateSharedLayout>
-            {modalShow && modalCondn[id] ? (
-              createModal()
-            ) : (
-              <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                <Card
-                  className="text-white project-card"
-                  onClick={() => {
-                    modalDisplay(
-                      ele.name,
-                      ele.Members,
-                      ele.desc,
-                      ele.project_photo_url,
-                      `expandable-card-${id + 1}`,
-                      `${id + 1}`,
-                    );
-                  }}
-                >
-                  <div className="proj-image-bg">
-                    <Card.Img className="project-image" variant="top" src={ele.project_photo_url} />
-                  </div>
-                  <Card.Body className="text-center project-body">
-                    <motion.div>
-                      <Card.Title className="project-title">{ele.name}</Card.Title>
-                    </motion.div>
-                    <div className="project-card-desc">{ele.desc}</div>
-                    <span className="project-card-learn-more">{'Learn more =>'}</span>
-                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
-                    <button
-                        className='project-card-button'
-                        onClick={() => {
-                          modalDisplay(
-                            ele.name,
-                            ele.Members,
-                            ele.desc,
-                            ele.project_photo_url,
-                            `expandable-card-${id + 1}`,
-                            `${id + 1}`,
-                          );
-                        }}
-                      >
-                        Learn More
-                      </button>
-                    </motion.div> */}
-                  </Card.Body>
-                </Card>
-              </motion.div>
-            )}
-          </AnimateSharedLayout>
-        </Col>
-      );
-    } else {
-      return (
-        <Col sm={5} className="proj-col">
-          <AnimateSharedLayout>
-            {modalShow && modalCondn[id] ? (
-              createModal()
-            ) : (
-              <motion.div className="motion-card" layoutId={`expandable-card-${id + 1}`}>
-                <Card
-                  className="text-white project-card"
-                  onClick={() => {
-                    modalDisplay(
-                      ele.name,
-                      ele.Members,
-                      ele.desc,
-                      ele.project_photo_url,
-                      `expandable-card-${id + 1}`,
-                      `${id + 1}`,
-                    );
-                  }}
-                >
-                  <div className="proj-image-bg">
-                    <Card.Img className="project-image" variant="top" src={ele.project_photo_url} />
-                  </div>
-                  <Card.Body className="text-center project-body">
-                    <motion.div>
-                      <Card.Title className="project-title">{ele.name}</Card.Title>
-                    </motion.div>
-                    <div className="project-card-desc">{ele.desc}</div>
-                    <span className="project-card-learn-more">{'Learn more =>'}</span>
-                    {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
-                      <button
-                        className='project-card-button'
-                        onClick={() => {
-                          modalDisplay(
-                            ele.name,
-                            ele.Members,
-                            ele.desc,
-                            ele.project_photo_url,
-                            `expandable-card-${id + 1}`,
-                            `${id + 1}`,
-                          );
-                        }}
-                      >
-                        Learn More
-                      </button>
-                    </motion.div> */}
-                  </Card.Body>
-                </Card>
-              </motion.div>
-            )}
-          </AnimateSharedLayout>
-        </Col>
-      );
+  const handleChangePage = (num) => {
+    setActivePage(num);
+    let st = 0;
+    if(num === 1){
+      st = 0;
+    }else if(num === numPage){
+      st = data.length - 4;
+    }else{
+      st = (num-1)*4;
     }
-  };
+    setIndex(st);
+  }
 
-  const modalDisplay = (title, members, info, image, layoutId, key) => {
-    let mem = members;
-    let newMemberList = [];
-    for (let i = 0; i < mem.length; i++) {
-      newMemberList.push([mem[i].name, mem[i].photo_url]);
+  const handlePrevPage = () =>{
+    if(activePage>1){
+      setActivePage(prev => prev - 1);
+      const oldId = index;
+      if(oldId - 4 >= 0){
+        setIndex(oldId - 4);
+      }else{
+        setIndex(0);
+      }
     }
-    setProps({
-      title: title,
-      members: newMemberList,
-      info: info,
-      image: image,
-      layoutId: layoutId,
-    });
-    setModalShow(true);
-    let newArr = [...modalCondn];
-    // console.log(key);
-    newArr.fill(false, 0, 4);
-    newArr[Number(key) - 1] = true;
-    setModalCondn(newArr);
-  };
-  const createModal = () => {
-    return <Modal {...props} show={modalShow} onHide={() => setModalShow(false)}></Modal>;
-  };
+  }
+
+  const handleNextPage = () => {
+    if(activePage<numPage){
+      setActivePage(prev => prev + 1);
+      const oldId = index;
+      if (oldId + 4 < data.length) {
+        setIndex(oldId + 4);
+      }else{
+        setIndex(data.length-4);
+      }
+    }
+  }
+
   return (
     <div id="projects-page">
       <Typography className="project-header-title" variant="h2" align="center">
@@ -241,6 +132,17 @@ export default function Projects() {
       )}
       <Container fluid="md">
         <Container fluid>
+          <Pagination>
+            <Pagination.Prev onClick={handlePrevPage} />
+            {Array.apply(null, Array(numPage)).map((_, id) => {
+              return (
+                <Pagination.Item active={activePage === id+1} onClick={() => handleChangePage(id + 1)}>
+                  {id + 1}
+                </Pagination.Item>
+              )
+            })}
+            <Pagination.Next onClick={handleNextPage} />
+          </Pagination>
           <Row className="my-3 projects-display-cards">
             {loading === true ? (
               <div className="project-error-div">
@@ -249,9 +151,15 @@ export default function Projects() {
             ) : (
               <>
                 {error === '' ? (
-                    data.map((ele, id) => (
-                         <DisplayContent ele={ele} id={id} key={id}  />
-                    ))
+                  data.slice(index, index+4).map((ele, id) => (
+                    <DisplayContent
+                      setModalShow={setModalShow}
+                      setCurrentData={setCurrentData}
+                      ele={ele}
+                      id={id}
+                      key={id}
+                    />
+                  ))
                 ) : (
                   <div className="project-error-div">
                     <ErrorIcon className="project-error-icon" />
@@ -267,6 +175,14 @@ export default function Projects() {
             )}
           </Row>
         </Container>
+        <Modal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          title={currentData?.name}
+          members={currentData?.Members}
+          info={currentData?.desc}
+          image={currentData?.project_photo_url}
+        />
       </Container>
       <FooterBar />
     </div>
