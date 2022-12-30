@@ -380,11 +380,7 @@ const MemberCard = ({ member, id }) => {
                       <LanguageIcon className="member-card-links" fontSize="large" />
                     </IconButton>
                   </a>
-                ) : (
-                  <IconButton>
-                    <LanguageIcon className="member-card-links" fontSize="large" />
-                  </IconButton>
-                )}
+                ) : null}
                 {member.github_url ? (
                   <a href={member.github_url}>
                     <IconButton>

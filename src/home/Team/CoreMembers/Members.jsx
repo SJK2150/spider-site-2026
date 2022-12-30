@@ -10,31 +10,92 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import MemData from './coreMembersData.json';
+// import MemData from './coreMembersData.json';
 import './Members.css';
 import { Link } from 'react-router-dom';
+import { getAllMembersDetails } from '../../../api/requests';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorIcon from '@material-ui/icons/Error';
+
 export default function Members() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    setData(MemData);
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const MemData = await getAllMembersDetails();
+    console.log(MemData);
+    if (MemData) {
+      if (MemData.status && MemData.status === 500) {
+        setError(true);
+      } else {
+        setData(MemData);
+      }
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setData((data) => {
+        if (data.length === 0) {
+          setLoading(false);
+          setError(true);
+        }
+        return data;
+      });
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <div>
-      <Container id="home-core-container" className="text-center">
-        <h1 className="home-core-team-title">Core Members</h1>
-        <Row>
-          {data.map((members, index) => {
-            return <MemberCard members={members} index={index} />;
-          })}
-        </Row>
-      </Container>
-      <Link to="/members">
-        <button className="members-buttons" onClick={() => {}}>
-          View All members
-        </button>
-      </Link>
+      {loading == true ? (
+        <div className="member-error-div">
+          <CircularProgress className="member-error-icon" />
+        </div>
+      ) : (
+        <>
+          {error == false ? (
+            <>
+              <Container id="home-core-container" className="text-center">
+                <h1 className="home-core-team-title">Core Members</h1>
+                <Row>
+                  {data
+                    .filter((members) => {
+                      if (members.isCore == true) {
+                        return true;
+                      }
+                    })
+                    .map((members, index) => {
+                      return <MemberCard members={members} index={index} />;
+                    })}
+                </Row>
+              </Container>
+              <Link to="/members">
+                <button className="members-buttons" onClick={() => {}}>
+                  View All members
+                </button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <div className="member-error-div">
+                <ErrorIcon className="member-error-icon" />
+                <div>
+                  <h3>Error</h3>
+                  <h5>Cannot connect to Server!</h5>
+                </div>
+              </div>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }
@@ -60,18 +121,18 @@ const MemberCard = ({ members, index }) => {
         <CardActionArea>
           <CardMedia
             component="img"
-            alt={members.Role}
+            alt={members.role}
             className="member_card_img"
             // height="360"
-            image={members.Photo}
-            title={members.Role}
+            image={members.photo_url}
+            title={members.role}
           />
           <CardContent className="member_card_content">
             <Typography gutterBottom variant="h5" component="h2">
-              {members.Name}
+              {members.name}
             </Typography>
             <Typography variant="h6" color="textSecondary">
-              {members.Role}
+              {members.role}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -81,12 +142,12 @@ const MemberCard = ({ members, index }) => {
           <div
             style={{
               position: 'absolute',
-              top:0,
-              bottom:'25px',
-              left:'15px',
-              right:'15px'
+              top: 0,
+              bottom: '25px',
+              left: '15px',
+              right: '15px',
             }}
-            className='members-hoverBorder'
+            className="members-hoverBorder"
           ></div>
           <div
             style={{
@@ -103,10 +164,10 @@ const MemberCard = ({ members, index }) => {
               component="h2"
               style={{ fontFamily: 'MontserratBold' }}
             >
-              {members.Name}
+              {members.name}
             </Typography>
             <Typography variant="h6" style={{ color: 'white' }}>
-              {members.Role}
+              {members.role}
             </Typography>
           </div>
 
@@ -114,13 +175,13 @@ const MemberCard = ({ members, index }) => {
             style={{ position: 'absolute', top: '60%', left: '50%', transform: 'translateX(-50%)' }}
           >
             <CardActions>
-              <IconButton className="link_btn" aria-label="personalSite" href={members.Website}>
+              <IconButton className="link_btn" aria-label="personalSite" href={members.website_url}>
                 <Language className="member-links"></Language>
               </IconButton>
-              <IconButton aria-label="linkedIn" href={members.LinkedIn} className="link_btn">
+              <IconButton aria-label="linkedIn" href={members.linkedin_url} className="link_btn">
                 <LinkedIn className="member-links"></LinkedIn>
               </IconButton>
-              <IconButton aria-label="gitHubLink" href={members.Github} className="link_btn">
+              <IconButton aria-label="gitHubLink" href={members.github_url} className="link_btn">
                 <GitHub className="member-links"></GitHub>
               </IconButton>
             </CardActions>
