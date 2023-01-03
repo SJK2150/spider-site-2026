@@ -71,11 +71,14 @@ const MEMBER = '/api/member';
 export const getAllMembersDetails = () => helperFunc(`${MEMBER}/details`, 'get');
 
 export const getMemberDetailsById = (id) => helperFunc(`${MEMBER}/details/${id}`, 'get');
+
+export const getCoreMembersDetails = () => helperFunc(`${MEMBER}/coreMem`, 'get');
 /*
 export const addMember = (data) => helperFunc(`${MEMBER}/add`, 'post', data);
 
 export const deleteMember = (id) => helperFunc(`${MEMBER}/delete/${id}`, 'delete');
 */
+
 const PROJECT = '/api/project';
 
 export const getAllProjectsDetails = () => helperFunc(`${PROJECT}/details`, 'get');

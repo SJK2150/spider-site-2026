@@ -13,7 +13,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 // import MemData from './coreMembersData.json';
 import './Members.css';
 import { Link } from 'react-router-dom';
-import { getAllMembersDetails } from '../../../api/requests';
+import { getCoreMembersDetails } from '../../../api/requests';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorIcon from '@material-ui/icons/Error';
 
@@ -28,7 +28,7 @@ export default function Members() {
 
   const fetchData = async () => {
     setLoading(true);
-    const MemData = await getAllMembersDetails();
+    const MemData = await getCoreMembersDetails();
     console.log(MemData);
     if (MemData) {
       if (MemData.status && MemData.status === 500) {
@@ -66,15 +66,10 @@ export default function Members() {
               <Container id="home-core-container" className="text-center">
                 <h1 className="home-core-team-title">Core Members</h1>
                 <Row>
-                  {data
-                    .filter((members) => {
-                      if (members.isCore == true) {
-                        return true;
-                      }
-                    })
-                    .map((members, index) => {
+                  {data.map((members, index) => {
                       return <MemberCard members={members} index={index} />;
                     })}
+                    
                 </Row>
               </Container>
               <Link to="/members">
