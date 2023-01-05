@@ -86,7 +86,7 @@
   margin-top:30px
 }
 .project-card:hover {
-  border-radius: 15px;
+  border-radius: 23px;
   background-color: rgba(58, 34, 109, 0.45) !important;
   filter: drop-shadow(32px 32px 10px black);
   transform: scale(1.01);
