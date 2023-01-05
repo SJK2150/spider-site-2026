@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Pagination, Col, Card, Button } from 'react-bootstrap';
 // import Typography from '@material-ui/core/Typography';
 import './blog.css';
 // import data from './blogInfo.json'
@@ -13,45 +13,74 @@ export default function Blog() {
   const [data, setData] = useState([]);
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [numPage, setNumPage] = useState(1);
+  const [activePage, setActivePage] = useState(1);
+  const [index, setIndex] = useState(0);
 
-  const fetchData = async ()=>{
-    setLoading(true)
+  const fetchData = async () => {
+    setLoading(true);
     const res = await getAllBlogsDetails();
-    if(res){
-      if(res.status && res.status === 500){
-        setError('serverError')
-      }
-      else{
-        if(res.length === 0){
-          setError('emptyData')
+    if (res) {
+      if (res.status && res.status === 500) {
+        setError('serverError');
+      } else {
+        if (res.length === 0) {
+          setError('emptyData');
         }
         setData(res);
-        
       }
-      setLoading(false)
-    }
-    else{
+      setLoading(false);
+    } else {
       setError('cantConnect');
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setData((data) => {
-  //       if (data.length === 0) {
-  //         setLoading(false);
-  //         setError('dataEmpty');
-  //       }
-  //       return data;
-  //     });
-  //   }, 3000);
-  //   return () => clearTimeout(timer);
-  // }, []);
+  useEffect(() => {
+    setNumPage(data.length / 4);
+    handleChangePage(1);
+  }, [data]);
+
+  const handleChangePage = (num) => {
+    setActivePage(num);
+    let st = 0;
+    if (num === 1) {
+      st = 0;
+    } else if (num === numPage) {
+      st = data.length - 4;
+    } else {
+      st = (num - 1) * 4;
+    }
+    setIndex(st);
+  };
+
+  const handlePrevPage = () => {
+    if (activePage > 1) {
+      setActivePage((prev) => prev - 1);
+      const oldId = index;
+      if (oldId - 4 >= 0) {
+        setIndex(oldId - 4);
+      } else {
+        setIndex(0);
+      }
+    }
+  };
+
+  const handleNextPage = () => {
+    if (activePage < numPage) {
+      setActivePage((prev) => prev + 1);
+      const oldId = index;
+      if (oldId + 4 < data.length) {
+        setIndex(oldId + 4);
+      } else {
+        setIndex(data.length - 4);
+      }
+    }
+  };
 
   return (
     <div id="blogs-page">
@@ -62,7 +91,23 @@ export default function Blog() {
         <div className="display-3 blogs_header">BLOGS</div>
       </div>
       <Container fluid="md">
-        <Container style={{ maxWidth: '1300px' }}>
+        <Container fluid>
+          <Pagination>
+            <Pagination.Prev onClick={handlePrevPage} />
+            {Array.apply(null, Array(Math.ceil(numPage))).map((_, id) => {
+              return (
+                <Pagination.Item
+                  key={id}
+                  active={activePage === id + 1}
+                  onClick={() => handleChangePage(id + 1)}
+                >
+                  {id + 1}
+                </Pagination.Item>
+              );
+            })}
+            <Pagination.Next onClick={handleNextPage} />
+          </Pagination>
+
           <Row className="my-3 blogs-display-cards">
             {loading === true ? (
               <div className="blog-error-div">
@@ -71,72 +116,34 @@ export default function Blog() {
             ) : (
               <>
                 {error === '' ? (
-                  data.map((ele, id) => {
-                    if (id % 2 === 0) {
-                      return (
-                        <Col className="blog-col" key={id} md={5}>
-                          <Card className="text-white blog_card" style={{ background: 'none' }}>
-                            <Card.Img
-                              className="blog_card_img"
-                              variant="top"
-                              src={ele.image_link}
-                            />
-                            <Card.Body className="blog_card_body">
-                              <Card.Title
-                                as="h3"
-                                style={{ fontFamily: 'MontserratBold' }}
-                                className="blog-title"
+                  data.slice(index, index + 4).map((ele, id) => {
+                    return (
+                      <Col className="blog-col" key={id} md={5}>
+                        <Card className="text-white blog_card" style={{ background: 'none' }}>
+                          <Card.Img className="blog_card_img" variant="top" src={ele.image_link} />
+                          <Card.Body className="blog_card_body">
+                            <Card.Title
+                              as="h3"
+                              style={{ fontFamily: 'MontserratBold' }}
+                              className="blog-title"
+                            >
+                              {ele.title}
+                            </Card.Title>
+                            <p className="blog-desc">{ele.summary}</p>
+                            <div className="blog-card-btn-div">
+                              <Button
+                                className="blog-card-btn"
+                                href={ele.article_link}
+                                target="_blank"
                               >
-                                {ele.title}
-                              </Card.Title>
-                              <p className="blog-desc">{ele.summary}</p>
-                              <div className="blog-card-btn-div">
-                                <Button
-                                  className="blog-card-btn"
-                                  href={ele.article_link}
-                                  target="_blank"
-                                >
-                                  Learn More
-                                </Button>
-                              </div>
-                            </Card.Body>
-                          </Card>
-                          <br />
-                        </Col>
-                      );
-                    } else {
-                      return (
-                        <Col className="blog-col" key={id}  md={5}>
-                          <Card className="text-white blog_card" style={{ background: 'none' }}>
-                            <Card.Img
-                              className="blog_card_img"
-                              variant="top"
-                              src={ele.image_link}
-                            />
-                            <Card.Body className="blog_card_body">
-                              <Card.Title
-                                as="h3"
-                                style={{ fontFamily: 'MontserratBold' }}
-                                className="blog-title"
-                              >
-                                {ele.title}
-                              </Card.Title>
-                              <p className="blog-desc">{ele.summary}</p>
-                              <div className="blog-card-btn-div">
-                                <Button
-                                  className="blog-card-btn"
-                                  href={ele.article_link}
-                                  target="_blank"
-                                >
-                                  Learn More
-                                </Button>
-                              </div>
-                            </Card.Body>
-                          </Card>
-                          <br />
-                        </Col>
-                      );
-                    }
+                                Learn More
+                              </Button>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                        <br />
+                      </Col>
+                    );
                   })
                 ) : (
                   <>
