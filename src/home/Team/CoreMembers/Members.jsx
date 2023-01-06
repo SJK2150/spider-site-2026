@@ -49,7 +49,7 @@ export default function Members() {
         }
         return data;
       });
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -68,8 +68,7 @@ export default function Members() {
                 <Row>
                   {data.map((members, index) => {
                       return <MemberCard members={members} index={index} />;
-                    })}
-                    
+                    })} 
                 </Row>
               </Container>
               <Link to="/members">
@@ -80,13 +79,13 @@ export default function Members() {
             </>
           ) : (
             <>
-              <div className="member-error-div">
+              {/* <div className="member-error-div">
                 <ErrorIcon className="member-error-icon" />
                 <div>
                   <h3>Error</h3>
                   <h5>Cannot connect to Server!</h5>
                 </div>
-              </div>
+              </div> */}
             </>
           )}
         </>
