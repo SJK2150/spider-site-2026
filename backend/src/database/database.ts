@@ -42,6 +42,8 @@ interface MemberAttributes {
   linkedin_url: string | null;
   github_url: string | null;
   website_url: string | null;
+  isCore: boolean;
+  role: string | null;
 }
 
 interface MemberCreationAttributes extends Optional<MemberAttributes, 'id'> {}
@@ -59,6 +61,8 @@ class Member
   public linkedin_url!: string | null;
   public github_url!: string | null;
   public website_url!: string | null;
+  public isCore!: boolean;
+  public role!: string | null;
 
   public getProject!: BelongsToManyGetAssociationsMixin<Project>;
   public addProject!: BelongsToManyAddAssociationMixin<Project, number>;
@@ -106,6 +110,14 @@ Member.init(
       allowNull: true
     },
     website_url: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    isCore: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    role: {
       type: DataTypes.STRING(256),
       allowNull: true
     }

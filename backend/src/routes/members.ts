@@ -68,6 +68,23 @@ router.get('/details/:id', async (req, res) => {
     res.status(500).send('Internal Server/Database Error!');
   }
 });
+
+router.get('/coreMem', async(req, res)=>{
+  try {
+    const member_detail = await Member.findAll({
+      where: {
+        isCore:true 
+      }
+    });
+    res.status(200).json(member_detail);
+    }
+   catch (err) {
+    logger.error(`${err}`);
+    res.status(500).send('Internal Server/Database Error!');
+  }
+ 
+});
+
 /*
 router.use('/', jwt_verify);
 
