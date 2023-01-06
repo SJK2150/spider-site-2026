@@ -12,8 +12,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getAllProjectsDetails } from '../api/requests';
 
 function findData(data, hardware, software) {
-
-
   let tempData = [];
 
   if (hardware === true) {
@@ -22,7 +20,6 @@ function findData(data, hardware, software) {
   if (software === true) {
     tempData = tempData.concat(data.software);
   }
-
 
   return tempData;
 }
@@ -49,76 +46,73 @@ export default function Projects() {
   }, []);
   useEffect(() => {
     setLoading(true);
-    setData(findData(res, domain[0], domain[1]))
+    setData(findData(res, domain[0], domain[1]));
   }, [domain]);
 
   const [loading, setLoading] = React.useState(false);
   const fetchData = async () => {
-    setLoading(true)
+    setLoading(true);
     const res = await getAllProjectsDetails();
     if (res) {
       if (res.status && res.status === 500) {
-        setError('serverError')
-      }
-      else {
+        setError('serverError');
+      } else {
         if (res.length === 0) {
-          setError('emptyData')
+          setError('emptyData');
         }
         // setNumPage(res.length/4);
         setData(findData(res, true, true));
         setRes(res);
-
       }
-      setLoading(false)
-    }
-    else {
+      setLoading(false);
+    } else {
       setError('cantConnect');
       setLoading(false);
     }
-  }
+  };
   useEffect(() => {
-    if (res.length !== 0)
-      setLoading(false);
+    if (res.length !== 0) setLoading(false);
 
+    handleChangePage(1);
     setNumPage(data.length / 4);
-  }, [data])
+  }, [data]);
 
   const handleChangePage = (num) => {
     setActivePage(num);
     let st = 0;
-    if(num === 1){
+    if (num === 1) {
       st = 0;
-    }else if(num === numPage){
+    } else if (num === numPage) {
       st = data.length - 4;
-    }else{
-      st = (num-1)*4;
+    } else {
+      st = (num - 1) * 4;
     }
     setIndex(st);
-  }
+  };
 
-  const handlePrevPage = () =>{
-    if(activePage>1){
-      setActivePage(prev => prev - 1);
+  const handlePrevPage = () => {
+    if (activePage > 1) {
+      setActivePage((prev) => prev - 1);
       const oldId = index;
-      if(oldId - 4 >= 0){
+      if (oldId - 4 >= 0) {
         setIndex(oldId - 4);
-      }else{
+      } else {
         setIndex(0);
       }
     }
-  }
+  };
 
   const handleNextPage = () => {
-    if(activePage<numPage){
-      setActivePage(prev => prev + 1);
+    if (activePage < numPage) {
+      setActivePage((prev) => prev + 1);
       const oldId = index;
       if (oldId + 4 < data.length) {
         setIndex(oldId + 4);
-      }else{
-        setIndex(data.length-4);
+      } else {
+        setIndex(data.length - 4);
       }
     }
-  }
+  };
 
   return (
     <div id="projects-page">
@@ -134,12 +128,16 @@ export default function Projects() {
         <Container fluid>
           <Pagination>
             <Pagination.Prev onClick={handlePrevPage} />
-            {Array.apply(null, Array(numPage)).map((_, id) => {
+            {Array.apply(null, Array(Math.ceil(numPage))).map((_, id) => {
               return (
-                <Pagination.Item active={activePage === id+1} onClick={() => handleChangePage(id + 1)}>
+                <Pagination.Item
+                  key={id}
+                  active={activePage === id + 1}
+                  onClick={() => handleChangePage(id + 1)}
+                >
                   {id + 1}
                 </Pagination.Item>
-              )
+              );
             })}
             <Pagination.Next onClick={handleNextPage} />
           </Pagination>
@@ -151,15 +149,17 @@ export default function Projects() {
             ) : (
               <>
                 {error === '' ? (
-                  data.slice(index, index+4).map((ele, id) => (
-                    <DisplayContent
-                      setModalShow={setModalShow}
-                      setCurrentData={setCurrentData}
-                      ele={ele}
-                      id={id}
-                      key={id}
-                    />
-                  ))
+                  data
+                    .slice(index, index + 4)
+                    .map((ele, id) => (
+                      <DisplayContent
+                        setModalShow={setModalShow}
+                        setCurrentData={setCurrentData}
+                        ele={ele}
+                        id={id}
+                        key={id}
+                      />
+                    ))
                 ) : (
                   <div className="project-error-div">
                     <ErrorIcon className="project-error-icon" />
