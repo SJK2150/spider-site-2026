@@ -39,11 +39,11 @@
   margin-top:30px
 }
 .achv-card:hover {
-  border-radius: 15px;
+  border-radius: 23px;
   background-color: rgba(58, 34, 109, 0.45) !important;
   filter: drop-shadow(32px 32px 10px black);
-  scale:104%;
-  transition: 2s;
+  transform: scale(1.01);
+  transition: transform 0.5s ease-in;
 }
 .achv-image {
   height: 400px;

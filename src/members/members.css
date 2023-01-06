@@ -294,9 +294,6 @@ div.member_name {
     font-size: 30px !important;
     font-family: 'MontserratBold' !important;
   }
-
-  
-  
 }
 @media screen and (max-width: 480px) {
   .members_banner_title {
@@ -367,4 +364,24 @@ div.member_name {
     object-fit: cover;
   }
 
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+  .pagination {
+    transform: scale(0.8);
+  }
+}
+@media screen and (max-width: 480px) {
+  .pagination {
+    transform: scale(0.6);
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .pagination {
+    transform: scale(0.4);
+  }
 }

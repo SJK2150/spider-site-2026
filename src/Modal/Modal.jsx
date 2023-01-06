@@ -68,8 +68,8 @@ export default function Modal(props) {
                   {members?.map((member, i) => {
                     return (
                       <div key={i}>
-                        <Image width={64} height={64} src={member[1]} roundedCircle />
-                        <p>{member[0]}</p>
+                        <Image width={64} height={64} src={member.photo_url} roundedCircle />
+                        <p>{member.name}</p>
                       </div>
                     );
                   })}
