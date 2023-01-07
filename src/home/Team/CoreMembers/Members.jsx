@@ -29,7 +29,6 @@ export default function Members() {
   const fetchData = async () => {
     setLoading(true);
     const MemData = await getCoreMembersDetails();
-    console.log(MemData);
     if (MemData) {
       if (MemData.status && MemData.status === 500) {
         setError(true);
