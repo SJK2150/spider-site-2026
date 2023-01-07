@@ -146,9 +146,9 @@ function Members() {
     }
   };
   useEffect(() => {
-    if (res.length !== 0) setLoading(false);
     setNumPage(data.length / 9);
     handleChangePage(1);
+    if (res.length !== 0) setLoading(false);
   }, [data]);
 
   const DisplayYearNav = () => {
@@ -196,6 +196,7 @@ function Members() {
   }, []);
 
   const handleChangePage = (num) => {
+    setLoading(true);
     setActivePage(num);
     let st = 0;
     if (num === 1) {
@@ -206,10 +207,12 @@ function Members() {
       st = (num - 1) * 9;
     }
     setIndex(st);
+    // setLoading(false);
   };
 
   const handlePrevPage = () => {
     if (activePage > 1) {
+      setLoading(true);
       setActivePage((prev) => prev - 1);
       const oldId = index;
       if (oldId - 9 >= 0) {
@@ -217,11 +220,13 @@ function Members() {
       } else {
         setIndex(0);
       }
+      // setLoading(false);
     }
   };
 
   const handleNextPage = () => {
     if (activePage < numPage) {
+      setLoading(true);
       setActivePage((prev) => prev + 1);
       const oldId = index;
       if (oldId + 9 < data.length) {
@@ -229,8 +234,13 @@ function Members() {
       } else {
         setIndex(data.length - 9);
       }
+      // setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, [index]);
 
   return (
     <Container className="members-container" style={{ backgroundSize: 'cover' }}>

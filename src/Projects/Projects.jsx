@@ -71,13 +71,13 @@ export default function Projects() {
     }
   };
   useEffect(() => {
-    if (res.length !== 0) setLoading(false);
-
     handleChangePage(1);
     setNumPage(data.length / 4);
+    if (res.length !== 0) setLoading(false);
   }, [data]);
 
   const handleChangePage = (num) => {
+    setLoading(true);
     setActivePage(num);
     let st = 0;
     if (num === 1) {
@@ -92,6 +92,7 @@ export default function Projects() {
 
   const handlePrevPage = () => {
     if (activePage > 1) {
+      setLoading(true);
       setActivePage((prev) => prev - 1);
       const oldId = index;
       if (oldId - 4 >= 0) {
@@ -104,6 +105,7 @@ export default function Projects() {
 
   const handleNextPage = () => {
     if (activePage < numPage) {
+      setLoading(true);
       setActivePage((prev) => prev + 1);
       const oldId = index;
       if (oldId + 4 < data.length) {
@@ -113,6 +115,10 @@ export default function Projects() {
       }
     }
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, [index]);
 
   return (
     <div id="projects-page">
