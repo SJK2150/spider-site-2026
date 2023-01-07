@@ -43,9 +43,11 @@ export default function Blog() {
   useEffect(() => {
     setNumPage(data.length / 4);
     handleChangePage(1);
+    if (data.length !== 0) setLoading(false);
   }, [data]);
 
   const handleChangePage = (num) => {
+    setLoading(true);
     setActivePage(num);
     let st = 0;
     if (num === 1) {
@@ -59,6 +61,7 @@ export default function Blog() {
   };
 
   const handlePrevPage = () => {
+    setLoading(true);
     if (activePage > 1) {
       setActivePage((prev) => prev - 1);
       const oldId = index;
@@ -71,6 +74,7 @@ export default function Blog() {
   };
 
   const handleNextPage = () => {
+    setLoading(true);
     if (activePage < numPage) {
       setActivePage((prev) => prev + 1);
       const oldId = index;
@@ -81,6 +85,10 @@ export default function Blog() {
       }
     }
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, [index]);
 
   return (
     <div id="blogs-page">
