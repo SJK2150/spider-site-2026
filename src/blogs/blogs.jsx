@@ -11,14 +11,13 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
 export default function Blog() {
   const [data, setData] = useState([]);
-  const [error, setError] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [numPage, setNumPage] = useState(1);
   const [activePage, setActivePage] = useState(1);
   const [index, setIndex] = useState(0);
 
   const fetchData = async () => {
-    setLoading(true);
     const res = await getAllBlogsDetails();
     if (res) {
       if (res.status && res.status === 500) {
@@ -37,6 +36,7 @@ export default function Blog() {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchData();
   }, []);
 
@@ -47,22 +47,25 @@ export default function Blog() {
   }, [data]);
 
   const handleChangePage = (num) => {
-    setLoading(true);
-    setActivePage(num);
-    let st = 0;
-    if (num === 1) {
-      st = 0;
-    } else if (num === numPage) {
-      st = data.length - 4;
-    } else {
-      st = (num - 1) * 4;
+    if(num!==activePage){
+      setLoading(true);
+      setActivePage(num);
+      let st = 0;
+      if (num === 1) {
+        st = 0;
+      } else if (num === numPage) {
+        st = data.length - 4;
+      } else {
+        st = (num - 1) * 4;
+      }
+      setIndex(st);
     }
-    setIndex(st);
   };
 
   const handlePrevPage = () => {
-    setLoading(true);
+   
     if (activePage > 1) {
+      setLoading(true);
       setActivePage((prev) => prev - 1);
       const oldId = index;
       if (oldId - 4 >= 0) {
@@ -74,8 +77,9 @@ export default function Blog() {
   };
 
   const handleNextPage = () => {
-    setLoading(true);
+    
     if (activePage < numPage) {
+      setLoading(true);
       setActivePage((prev) => prev + 1);
       const oldId = index;
       if (oldId + 4 < data.length) {
@@ -87,7 +91,7 @@ export default function Blog() {
   };
 
   useEffect(() => {
-    setLoading(false);
+    if (data.length !== 0) setLoading(false);
   }, [index]);
 
   return (
