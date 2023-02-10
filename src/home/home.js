@@ -4,6 +4,7 @@ import './home.css';
 import Animation from './Animation/Animation';
 // import Team from './Team/Team';
 import Members from './Team/CoreMembers/Members';
+import FacultyAdv from './Team/facultyAdvisor/Faculty'
 import Footer from '../Footer/footer-overall';
 // import SpiderLogo from '../assets/SpiderLogo.svg';
 function Home() {
@@ -14,6 +15,7 @@ function Home() {
       <Desc />
       {/* <Team></Team> */}
       <Members></Members>
+      <FacultyAdv></FacultyAdv>
       <Footer></Footer>
     </div>
   );
