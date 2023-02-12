@@ -62,10 +62,10 @@ const MemberCard = ({ members, index }) => {
             image={members.photo_url}
           />
           <CardContent className="member_card_content">
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: 'Montserrat' }}>
               {members.name}
             </Typography>
-            <Typography variant="h6" color="textSecondary">
+            <Typography variant="h6" color="textSecondary" style={{ fontFamily: 'Montserrat' }}>
               {members.role}
             </Typography>
           </CardContent>

@@ -121,10 +121,10 @@ const MemberCard = ({ members, index }) => {
             title={members.role}
           />
           <CardContent className="member_card_content">
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: 'Montserrat' }}>
               {members.name}
             </Typography>
-            <Typography variant="h6" color="textSecondary">
+            <Typography variant="h6" color="textSecondary" style={{ fontFamily: 'Montserrat' }}>
               {members.role}
             </Typography>
           </CardContent>
@@ -159,7 +159,7 @@ const MemberCard = ({ members, index }) => {
             >
               {members.name}
             </Typography>
-            <Typography variant="h6" style={{ color: 'white' }}>
+            <Typography variant="h6" style={{ color: 'white' , fontFamily: 'Montserrat' }}>
               {members.role}
             </Typography>
           </div>
