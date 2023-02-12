@@ -77,17 +77,19 @@ export default function Projects() {
   }, [data]);
 
   const handleChangePage = (num) => {
-    setLoading(true);
-    setActivePage(num);
-    let st = 0;
-    if (num === 1) {
-      st = 0;
-    } else if (num === numPage) {
-      st = data.length - 4;
-    } else {
-      st = (num - 1) * 4;
+    if(num!==activePage){
+      setLoading(true);
+      setActivePage(num);
+      let st = 0;
+      if (num === 1) {
+        st = 0;
+      } else if (num === numPage) {
+        st = data.length - 4;
+      } else {
+        st = (num - 1) * 4;
+      }
+      setIndex(st);
     }
-    setIndex(st);
   };
 
   const handlePrevPage = () => {

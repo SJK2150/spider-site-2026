@@ -196,18 +196,20 @@ function Members() {
   }, []);
 
   const handleChangePage = (num) => {
-    setLoading(true);
-    setActivePage(num);
-    let st = 0;
-    if (num === 1) {
-      st = 0;
-    } else if (num === numPage) {
-      st = data.length - 9;
-    } else {
-      st = (num - 1) * 9;
+    if(num!==activePage){
+      setLoading(true);
+      setActivePage(num);
+      let st = 0;
+      if (num === 1) {
+        st = 0;
+      } else if (num === numPage) {
+        st = data.length - 9;
+      } else {
+        st = (num - 1) * 9;
+      }
+      setIndex(st);
+      // setLoading(false);
     }
-    setIndex(st);
-    // setLoading(false);
   };
 
   const handlePrevPage = () => {
