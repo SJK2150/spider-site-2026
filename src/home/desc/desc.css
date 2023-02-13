@@ -1,16 +1,96 @@
+#desc-container {
+  /* max-width: 1300px; */
+  margin: auto;
+  margin-top: 50px;
+  background: none;
+}
 .dcard {
   position: relative;
   top: 1em;
-  background-color: rgb(9, 112, 196);
-  border-radius: 1.2em;
+ /* background-image: url('./SHAPE.svg'); */
+  /* background :radial-gradient(42.31% 28.5% at 64.33% 41.87%, rgba(125, 251, 187, 0.3) 0%, rgba(125, 251, 187, 0.099) 100%); */
+  /* border-radius: 3px; */
+  /* box-shadow: 0px 2px 1px -1px rgba(55, 62, 92, 0.692), 0px 1px 1px 0px rgba(55, 62, 92, 0.425), 0px 1px 3px 0px rgba(55, 62, 92, 0.767); */
   padding: 4%;
   color: aliceblue;
 }
-
-.dcard-title > h3 {
-  font-size: 2.2em;
+.dcard-title {
+  margin-top: 50px;
 }
-
+.dcard-title > h3 {
+  font-size: 2.7em;
+  text-align: center;
+}
+/* .dcard-title > h3::after {
+  content: '';
+  position: relative;
+  display: inherit;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 5px;
+  margin-left: -35px;
+  margin-top: 5px;
+  background-color: #d7d9d9;
+} */
 .dcard-desc > p {
+  margin-top: 5rem;
+  box-sizing: border-box;
+  border: 0.5px solid rgba(207, 207, 207, 0.5);
+  border-radius: 15px;
+  box-shadow: 0px 2px 1px -1px rgba(55, 62, 92, 0.692), 0px 1px 1px 0px rgba(55, 62, 92, 0.425),
+    0px 1px 3px 0px rgba(55, 62, 92, 0.767);
+  padding: 4%;
+  line-height: 32px;
   font-size: 1.3em;
 }
+.dcard-desc > p > span{
+  color:rgba(125, 251, 187, 1)
+}
+@media screen and (min-width: 1350px) {
+  #desc-container {
+    max-width: 1200px;
+  }
+}
+@media screen and (max-width: 705px) {
+  #desc-container {
+    margin-top: 40px;
+  }
+  .dcard-title > h3 {
+    font-size: 1.8rem;
+  }
+  .dcard-desc > p {
+    margin-top: 2.5rem;
+    font-size: 0.8rem;
+    line-height: 25px;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  #desc-container {
+    margin-top: 30px;
+  }
+  .dcard-title > h3 {
+    font-size: 1.5rem;
+  }
+  .dcard-desc > p {
+    margin-top: 2.0rem;
+    font-size: 0.6rem;
+    line-height: 20px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  #desc-container {
+    margin-top: 10px;
+  }
+  .dcard-title > h3 {
+    font-size: 1.3rem;
+  }
+  .dcard-desc > p {
+    margin-top: 1.8rem;
+    font-size: 0.4rem;
+    line-height: 16px;
+  }
+}
+

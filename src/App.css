@@ -1,7 +1,16 @@
+/* Color Scheme */
+/* Background:  #091626*/
+/* Darker Blue: #141E31 */
+/* Navy Blue Shade: #141C3A */
+/* Purple Blue shade:  #6D4DFF*/
+/* Alternate Dark Blue Shade: #091626 */
 .App {
   /* text-align: center;/ */
-  background-color: rgb(20, 20, 20);
-  width: 100vw;
-  height: 100vh;
+  background-color:#010213;
+  /* width: 100vw;
+  height: 100vh; */
+  min-height: 100vh;
+  height: max-content;
+  scroll-behavior: smooth;
   overflow-x: hidden;
 }

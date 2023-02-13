@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Product Sans';
+    src: local('Product Sans') url(./Product\ Sans\ Regular.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Product Sans Bold';
+    src: local('Product Sans Bold') url(./Product\ Sans\ Bold.ttf) format('ttf');
+}

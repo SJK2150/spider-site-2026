@@ -1,0 +1,187 @@
+div#home-core-container{
+    /* max-width: 1300px; */
+    margin: auto;
+    margin-top: 25px;
+    background: none;
+}
+h1.home-core-team-title{
+    color: white;
+    font-weight: 700;
+    margin-top:30px;
+    margin-bottom:120px;
+}
+h1.home-core-team-title::after{
+    content: "";
+    position: relative;
+    display: inherit;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;    
+    width: 80%;
+    height: 2px;
+    /* margin-left: -35px; */
+    margin-top: 5px;
+    background-color: #2A2D3F;
+}
+
+@media screen and (max-width: 455px) {
+    .home-core-team-title  {
+      font-size: 1.5rem;
+    }
+  
+  }
+  @media screen and (max-width: 705px) {
+  
+    .home-core-team-title {
+      font-size: 1.8rem;
+    }
+ 
+  }
+  @media screen and (max-width: 325px) {
+  
+    .home-core-team-title {
+      font-size: 1.3rem;
+    }
+ 
+  }
+  
+
+
+div.member_card{
+    margin: auto;
+    /* background-color: #141C3A; */
+    background: none;
+    color: white;
+    border:1px solid rgba(207, 207, 207, 0.3);
+    border-radius: 15px;
+    max-width: 500px;
+}
+div.member_card:hover {
+    filter:blur(10px);
+    scale:100%
+}
+
+
+.member_card_content>*{
+    color: white !important;
+}
+.member_card_img {
+    height: 250px;
+}
+/* .link_btn{
+    color: white !important;
+}
+.link_btn:hover{
+    color: rgba(255, 255, 255, 0.54) !important;
+} */
+/* .core-member-card{
+    margin: 10px;
+} */
+/* .core-member-image{
+    display: block;
+    object-fit: cover;
+    height: 270px;
+} */
+#home-core-container{
+    max-width: 1200px;
+    margin: auto;
+    width:80%;
+}
+.icon-btn{
+    flex: 0 0 auto;
+    color: #fff;
+    padding: 12px;
+    overflow: visible;
+    font-size: 1rem;
+    text-align: center;
+    /* background-color: white; */
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 50%;
+}
+/* .icon-btn>svg{
+    color: rgba(255, 255, 255, 0.54);
+}
+.icon-btn:hover{
+    background-color: #0D0D0D;
+} */
+
+@media screen and (min-width:1350px) {
+    div#home-core-container{
+        max-width: 1300px;
+    }
+}
+@media screen and (max-width:1000px) {
+    .member_card_img {
+        height: 180px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .member_card_img {
+        height: 50vw;
+    }
+}
+
+.members-buttons {
+    background:none;
+    border: 1px solid rgba(207, 207, 207, 0.829);
+    color: white;
+    font-size: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.members-buttons:hover {
+    scale:105%;
+    border: 1px solid rgba(106, 66, 193, 0.95) ;
+    transition: 0.5s;
+}
+.link_btn{
+    margin-left: auto;
+    justify-content: center;
+}
+.member-links {
+    width:40px !important;
+    height: 40px !important;
+    fill:white !important;
+}
+
+.member-links:hover {
+    scale:115%;
+    transition: 1s;
+    fill: rgba(149, 117, 216, 0.95) !important;
+    
+}
+
+@media screen and (max-width: 1080px) and (min-width:768px) {
+    .member-links {
+        width:30px !important;
+        height: 30px !important;
+    }
+  }
+
+.members-hoverBorder {
+    border: 1px solid rgba(207, 207, 207, 0.5);
+    border-radius: 15px;
+}
+
+
+.member-error-icon {
+    height:100px !important;
+    width:100px !important;
+    fill:white !important;
+  }
+  
+.member-error-div {
+    padding:200px;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+    gap:20px;
+  }
+.member-error-div > div >h5, .member-error-div > div >h3 {
+    color:white;
+    text-align: start;
+  }
