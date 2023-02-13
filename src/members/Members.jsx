@@ -117,7 +117,6 @@ function Members() {
   useEffect(() => {
     setLoading(true);
     setData(findData(res, domain[0], domain[1]));
-
     setYearName('All');
   }, [domain]);
 
@@ -146,6 +145,7 @@ function Members() {
     }
   };
   useEffect(() => {
+    setLoading(true);
     setNumPage(data.length / 9);
     handleChangePage(1);
     if (res.length !== 0) setLoading(false);
