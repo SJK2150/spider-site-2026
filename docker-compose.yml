@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:latest
+    env_file:
+      - ./backend/env/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+    network_mode: "host"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    env_file:
+      - ./backend/env/.env
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - database
+    restart: unless-stopped
+    network_mode: "host"
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile.frontend
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    restart: unless-stopped
+    network_mode: "host"
+    
+
+
+

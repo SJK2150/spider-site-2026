@@ -7,31 +7,8 @@
 
 ## Setup
 
-1. Create .env file inside backend/env/ and reference the parameters from backend/env/.env.example
+- Create .env file inside backend/env/ and reference the parameters from backend/env/.env.example
 
-2. Install the packages
-
-```bash
-cd backend
-```
-```bash
-npm install
-```
-
-3. For development
-
-```bash
-npm run dev
-```
-
-4. For deployment
-
-```bash
-npm run build
-```
-```bash
-npm run start:prod
-```
 
 # SPIDER SITE FRONTEND
 
@@ -42,20 +19,38 @@ npm run start:prod
 
 ## Setup
 
-1. Create an .env file in root directory and reference the parameters from .env.example file
+- Create an .env file in root directory and reference the parameters from .env.example file
 
-2. Install the packages
 
-```bash
-npm install
-```
+## Requirements
 
-## Run Locally:
+- Docker
+- Docker compose
 
-1. Run the dev server
 
-```bash
-npm start
-```
+# Docker Compose
 
-2. Open localhost:3000 in browser.
+To deploy the application using Docker Compose, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Create a `.env` file in the project's root directory with the necessary environment variables (as explained above).
+3. Build the Docker containers:
+
+   ```bash
+   docker-compose build
+   ```
+
+4. To start the application containers, run: 
+
+   ```bash
+   docker-compose up -d
+   ```
+
+5. To stop the containers, run:
+
+   ```bash
+   docker-compose down
+   ```
+
+Open localhost:3000 in browser to access the application.
+
