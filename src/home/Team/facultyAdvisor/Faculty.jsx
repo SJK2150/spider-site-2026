@@ -12,8 +12,8 @@ import '../CoreMembers/Members.css';
 export default function FacultyAdv() {
   const data = [
     {
-      name:'Dr. S. Jaya Nirmala',
-      photo_url:'/images/JAYA_NIRMALA.jpg',
+      name:'Dr. Sai Krishna Mothku',
+      photo_url:'/images/sai1.jpg',
 
 
     }
