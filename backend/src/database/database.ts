@@ -538,3 +538,17 @@ export {
  // Userlogin,
   table_sync
 };
+
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('✅ Connected to PostgreSQL successfully!');
+    await table_sync();
+    console.log('✅ All tables synced!');
+  } catch (err) {
+    console.error('❌ Error connecting or syncing:', err);
+  } finally {
+    await sequelize.close();
+  }
+})();
+
