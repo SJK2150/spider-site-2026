@@ -26,19 +26,31 @@ export default function Members() {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
+const fetchData = async () => {
+  try {
     setLoading(true);
     const MemData = await getCoreMembersDetails();
-    if (MemData) {
-      if (MemData.status && MemData.status === 500) {
-        setError(true);
-      } else {
-        setData(MemData);
-      }
-      setLoading(false);
-    }
-  };
+    
+    console.log("Fetched Members:", MemData); // <-- debug
 
+    if (MemData?.status === 500) {
+      setError(true);
+    } else if (Array.isArray(MemData)) {
+      setData(MemData);
+    } else if (Array.isArray(MemData.members)) {
+      setData(MemData.members); 
+    } else {
+      setData([]); 
+      setError(true);
+    }
+  } catch (err) {
+    console.error(err);
+    setError(true);
+    setData([]);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     const timer = setTimeout(() => {
       setData((data) => {
@@ -64,11 +76,11 @@ export default function Members() {
             <>
               <Container id="home-core-container" className="text-center">
                 <h1 className="home-core-team-title">Core Members</h1>
-                <Row>
-                  {data.map((members, index) => {
-                      return <MemberCard members={members} index={index} />;
-                    })} 
-                </Row>
+               <Row>
+                  {Array.isArray(data) && data.map((members, index) => (
+                    <MemberCard members={members} index={index} key={index} />
+                   ))}
+                  </Row>
               </Container>
               <Link to="/members">
                 <button className="members-buttons" onClick={() => {}}>

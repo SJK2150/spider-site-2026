@@ -61,6 +61,7 @@ router.get('/details', async (req, res) => {
       include: Member
     });
     projects.forEach((project)=>{
+      if(!project) return ;
       if(project.domain==="TRONIX"){
         hardware.push(project)
       } else {
@@ -88,6 +89,18 @@ router.get('/details/:id', async (req, res) => {
     logger.error(`${err}`);
     res.status(500).send('Internal Server/Database Error!');
   }
+});
+
+// domain specific project 
+router.get('/domain/:domain', async(req,res)=>{
+  try{const domainParam=req.params.domain.toUpperCase() as 'ALGOS'|'APPDEV'|'WEBDEV'|'TRONIX';
+  const project_detail= await Project.findAll({where:{domain:domainParam}, include: Member})
+  res.status(200).json(project_detail);}
+  catch(err){
+    logger.error(`${err}`);
+    res.status(500).send('Internal Server/Database Error!');
+  }
+
 });
 /*
 router.use('/', jwt_verify);

@@ -18,7 +18,6 @@ const app = express();
 const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(helmet());
-app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const logger = pino({
@@ -34,12 +33,12 @@ app.use('/api/project', projectRouter);
 // app.use('/', jwt_verify);
 //app.use('/api/event', eventRouter);
 // app.use('/api/blog', blogRouter);  
-
+app.use(express.static('public'));
 app.get('/', (req: any, res: any) => {
   res.send('Spider Site Backend is up');
 });
 
 app.listen(port, () => {
-  table_sync();   //comment this line when tables are created
+  // table_sync(); // <--- keep this uncommented for the first run
   logger.info(`Connected successfully at port ${port}`);
 });

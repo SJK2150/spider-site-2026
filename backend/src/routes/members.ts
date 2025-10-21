@@ -37,17 +37,18 @@ let router = Router();
 
 router.get('/details', async (req, res) => {
   try {
-    var hardware : {[index: string]:{ [index: number]:Member []}} = {"BTECH":{1:[],2:[],3:[],4:[]},"MTECH":{1:[],2:[],3:[],4:[]}}
-    var software : {[index: string]:{ [index: number]:Member []}} = {"BTECH":{1:[],2:[],3:[],4:[]},"MTECH":{1:[],2:[],3:[],4:[]}}
+    let hardware: { [degree: string]: { [year: number]: Member[] } } = { "BTECH": {}, "MTECH": {} };
+    let software: { [degree: string]: { [year: number]: Member[] } } = { "BTECH": {}, "MTECH": {} };
+
     const member_details = await Member.findAll();
-    member_details.forEach((member)=>{
-      if(member.domain==="TRONIX"){
-        hardware[member.degree][member.year].push(member)
-      } else {
-        software[member.degree][member.year].push(member)
-      }
-    })
-    res.status(200).json({"hardware":hardware,"software":software});
+
+    member_details.forEach((member) => {
+      const target = member.domain === "TRONIX" ? hardware : software;
+      if (!target[member.degree][member.year]) target[member.degree][member.year] = [];
+      target[member.degree][member.year].push(member);
+    });
+
+    res.status(200).json({ hardware, software });
   } catch (err) {
     logger.error(`${err}`);
     res.status(500).send('Internal Server/Database Error!');

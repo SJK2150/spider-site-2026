@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Container, Row, Pagination } from 'react-bootstrap';
 import { Typography } from '@material-ui/core';
 import DisplayContent from './DisplayContent';
@@ -9,8 +10,7 @@ import FooterBar from '../Footer/footer-bottom';
 import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import data from './data.json'
-import { getAllProjectsDetails } from '../api/requests';
-
+import { getAllProjectsDetails,getDomainProjects } from '../api/requests';
 function findData(data, hardware, software) {
   let tempData = [];
 
@@ -25,14 +25,17 @@ function findData(data, hardware, software) {
 }
 
 export default function Projects() {
-  const [modalShow, setModalShow] = useState(false);
+  const location=useLocation();
+  // domain name put to get specific domain things
+ const domainExplore = location.state?.domain || '';
+  console.log("Domain received:",domainExplore);
+  const[modalShow, setModalShow]=useState(false);
   const [data, setData] = useState([]);
   const [res, setRes] = useState([]);
   const [domain, setDomain] = useState([false, false]);
   const [numPage, setNumPage] = useState(1);
   const [activePage, setActivePage] = useState(1);
   const [index, setIndex] = useState(0);
-
   const [currentData, setCurrentData] = useState({});
   const [error, setError] = useState('');
 
@@ -51,31 +54,42 @@ export default function Projects() {
 
   const [loading, setLoading] = React.useState(false);
   const fetchData = async () => {
-    setLoading(true);
-    const res = await getAllProjectsDetails();
-    if (res) {
-      if (res.status && res.status === 500) {
-        setError('serverError');
-      } else {
-        if (res.length === 0) {
-          setError('emptyData');
-        }
-        // setNumPage(res.length/4);
-        setData(findData(res, true, true));
-        setRes(res);
-      }
-      setLoading(false);
+  setLoading(true);
+ // domain specific project data
+  if (domainExplore) {
+    const response = await getDomainProjects(domainExplore);
+    if (response && response.length > 0) {
+      setData(response);
+      setError('');
     } else {
-      setError('cantConnect');
-      setLoading(false);
+      setError('emptyData');
     }
-  };
+    setLoading(false);
+    return;
+  }
+  // otherwise fetch all projects
+  const res=await getAllProjectsDetails();
+  if (res) {
+    if (res.status && res.status === 500) {
+      setError('serverError');
+    } else {
+      if (res.length === 0) {
+        setError('emptyData');
+      }
+      setData(findData(res, true, true));
+      setRes(res);
+    }
+    setLoading(false);
+  } else {
+    setError('cantConnect');
+    setLoading(false);
+  }
+};
   useEffect(() => {
     handleChangePage(1);
     setNumPage(data.length / 4);
     if (res.length !== 0) setLoading(false);
   }, [data]);
-
   const handleChangePage = (num) => {
     if(num!==activePage){
       setLoading(true);
@@ -91,7 +105,6 @@ export default function Projects() {
       setIndex(st);
     }
   };
-
   const handlePrevPage = () => {
     if (activePage > 1) {
       setLoading(true);
@@ -104,7 +117,6 @@ export default function Projects() {
       }
     }
   };
-
   const handleNextPage = () => {
     if (activePage < numPage) {
       setLoading(true);
@@ -125,9 +137,9 @@ export default function Projects() {
   return (
     <div id="projects-page">
       <Typography className="project-header-title" variant="h2" align="center">
-        PROJECTS
+        {domainExplore ?`${domainExplore} PROJECTS` : 'PROJECTS'}
       </Typography>
-      {data.length > 0 && (
+      {!domainExplore && data.length > 0 && (
         <div className="domains">
           <Toolbar setDomain={setDomain} domain={domain}></Toolbar>
         </div>

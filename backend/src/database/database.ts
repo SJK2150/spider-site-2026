@@ -509,15 +509,12 @@ Achievement.belongsToMany(Member, {
 });
 
 async function table_sync() {
-  await Member.sync({ alter: true });
-  await Project.sync({ alter: true });
-  //await Event.sync({ alter: true });
-  await Member_Projects.sync({ alter: true });
-  await Achievement.sync({ alter: true });
-  await Member_Achievement.sync({ alter: true });
- // await Userlogin.sync({ alter: true });
-  await Blog.sync({ alter: true });
-  console.log('All tables have been synchronised ');
+ try {
+    await sequelize.sync();
+    console.log('✅ Tables synced successfully');
+  } catch (err) {
+    console.error('❌ Error syncing tables:', err);
+  }
 }
 
 export {
@@ -543,12 +540,10 @@ export {
   try {
     await sequelize.authenticate();
     console.log('✅ Connected to PostgreSQL successfully!');
-    await table_sync();
+    // await table_sync();
     console.log('✅ All tables synced!');
   } catch (err) {
     console.error('❌ Error connecting or syncing:', err);
-  } finally {
-    await sequelize.close();
   }
 })();
 

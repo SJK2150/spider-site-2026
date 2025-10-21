@@ -2,7 +2,7 @@ import React from 'react';
 import Desc from './desc/desc';
 import './home.css';
 import Animation from './Animation/Animation';
-// import Team from './Team/Team';
+import Team from './Team/Team';
 import Members from './Team/CoreMembers/Members';
 import FacultyAdv from './Team/facultyAdvisor/Faculty'
 import Footer from '../Footer/footer-overall';
@@ -13,7 +13,7 @@ function Home() {
       {/* <img src={SpiderLogo} className="home-spiderLogo-img" /> */}
       <Animation />
       <Desc />
-      {/* <Team></Team> */}
+      <Team></Team>
       <Members></Members>
       <FacultyAdv></FacultyAdv>
       <Footer></Footer>

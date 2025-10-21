@@ -83,6 +83,11 @@ const PROJECT = '/api/project';
 
 export const getAllProjectsDetails = () => helperFunc(`${PROJECT}/details`, 'get');
 
+// domain specific project
+export const getDomainProjects = (domain) => {
+  return helperFunc(`${PROJECT}/domain/${domain}`, 'get');
+};
+
 export const getProjectDetailsById = (id) => helperFunc(`${PROJECT}/details/${id}`, 'get');
 /*
 export const addProject = (data) => helperFunc(`${PROJECT}/add`, 'post', data);

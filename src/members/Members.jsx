@@ -51,19 +51,20 @@ const year = [
   ['MCA', 'MCA'],
 ];
 
-function findData(data, hardware, software) {
+function findData(data, hardware = false, software = false) {
   let tempData = [];
-
-  if (hardware === true) {
+  if (!data) return tempData;
+  if (hardware && data.hardware) {
     for (let i = 1; i <= 4; i++) {
-      tempData = tempData.concat(data.hardware.BTECH[i]);
-      tempData = tempData.concat(data.hardware.MTECH[i]);
+      tempData = tempData.concat(data.hardware?.BTECH?.[i] || []);
+      tempData = tempData.concat(data.hardware?.MTECH?.[i] || []);
     }
   }
-  if (software === true) {
+
+  if (software && data.software) {
     for (let i = 1; i <= 4; i++) {
-      tempData = tempData.concat(data.software.BTECH[i]);
-      tempData = tempData.concat(data.software.MTECH[i]);
+      tempData = tempData.concat(data.software?.BTECH?.[i] || []);
+      tempData = tempData.concat(data.software?.MTECH?.[i] || []);
     }
   }
 
