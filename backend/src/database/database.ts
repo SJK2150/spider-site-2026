@@ -21,7 +21,7 @@ import {
 const sequelize = new Sequelize(
   process.env.DATABASE_URL as string,
   {
-    dialect: 'mysql' /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
+    dialect: 'postgres' /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
     logging: process.env.ENV === 'DEV' ? console.log : false,
     define: {
       timestamps: false,
