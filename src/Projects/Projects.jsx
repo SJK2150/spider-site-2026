@@ -28,7 +28,7 @@ function findData(data, hardware, software) {
 export default function Projects() {
   const location=useLocation();
   // domain name put to get specific domain
-  const domainExplore= location.state?.domain || "ALGOS"; 
+  const domainExplore= location.state?.domain || ""; 
   const[modalShow, setModalShow]=useState(false);
   const [data, setData] = useState([]);
   const [res, setRes] = useState([]);
