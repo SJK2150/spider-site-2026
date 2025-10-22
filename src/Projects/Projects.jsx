@@ -11,6 +11,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import data from './data.json'
 import { getAllProjectsDetails,getDomainProjects } from '../api/requests';
+
 function findData(data, hardware, software) {
   let tempData = [];
 
@@ -26,9 +27,8 @@ function findData(data, hardware, software) {
 
 export default function Projects() {
   const location=useLocation();
-  // domain name put to get specific domain things
- const domainExplore = location.state?.domain || '';
-  console.log("Domain received:",domainExplore);
+  // domain name put to get specific domain
+  const domainExplore= location.state?.domain || "ALGOS"; 
   const[modalShow, setModalShow]=useState(false);
   const [data, setData] = useState([]);
   const [res, setRes] = useState([]);
@@ -36,6 +36,7 @@ export default function Projects() {
   const [numPage, setNumPage] = useState(1);
   const [activePage, setActivePage] = useState(1);
   const [index, setIndex] = useState(0);
+
   const [currentData, setCurrentData] = useState({});
   const [error, setError] = useState('');
 
@@ -105,6 +106,7 @@ export default function Projects() {
       setIndex(st);
     }
   };
+
   const handlePrevPage = () => {
     if (activePage > 1) {
       setLoading(true);
@@ -117,6 +119,7 @@ export default function Projects() {
       }
     }
   };
+
   const handleNextPage = () => {
     if (activePage < numPage) {
       setLoading(true);
@@ -208,3 +211,4 @@ export default function Projects() {
     </div>
   );
 }
+
